@@ -1,0 +1,16 @@
+{
+  "QUEENMOD2-QUEEN_MOD2.aromaPrinciple": "Lore",
+  "QUEENMOD2-QUEEN_MOD2.banter.alive.endTurnPing": "Co-op hurry up end turn ping message",
+  "QUEENMOD2-QUEEN_MOD2.banter.dead.endTurnPing": "...",
+  "QUEENMOD2-QUEEN_MOD2.cardsModifierDescription": "__ cards will now appear in rewards and shops.",
+  "QUEENMOD2-QUEEN_MOD2.cardsModifierTitle": "__ Cards",
+  "QUEENMOD2-QUEEN_MOD2.description": "Character Selection\nScreen Description",
+  "QUEENMOD2-QUEEN_MOD2.eventDeathPrevention": "Co-op survival line",
+  "QUEENMOD2-QUEEN_MOD2.goldMonologue": "Line spoken when obtaining a large amount of gold",
+  "QUEENMOD2-QUEEN_MOD2.possessiveAdjective": "his/her/its",
+  "QUEENMOD2-QUEEN_MOD2.pronounObject": "him/her/it",
+  "QUEENMOD2-QUEEN_MOD2.pronounPossessive": "his/hers/its",
+  "QUEENMOD2-QUEEN_MOD2.pronounSubject": "he/she/it",
+  "QUEENMOD2-QUEEN_MOD2.title": "The QueenMod2",
+  "QUEENMOD2-QUEEN_MOD2.titleObject": "The QueenMod2"
+}

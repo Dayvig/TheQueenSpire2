@@ -1,0 +1,19 @@
+{
+  "QUEENMOD2-SWARM.description": "When on enemies, deal damage at the end of the turn. When on allies, gain Block at the end of the turn. Moves to enemies and allies you target, and returns to you when you gain Block. Reduced by 1 each turn.",
+  "QUEENMOD2-SWARM.title": "Swarm",
+  "QUEENMOD2-HIVE.description": "When drawn, draw 1 card.",
+  "QUEENMOD2-HIVE.title": "Hive",
+  "QUEENMOD2-HONEYCOMB.description": "0-cost skill which grants {energyPrefix:energyIcons(1)} with [gold]Retain[/gold] and [gold]Exhaust.[/gold]",
+  "QUEENMOD2-HONEYCOMB.title": "Honeycomb",
+  "QUEENMOD2-MULTIPLY.description": "At the start of combat, add 2 additional copies of this card to your Draw Pile.",
+  "QUEENMOD2-MULTIPLY.title": "Multiply",
+  "QUEENMOD2-HIVETIP.description": "Hive cards draw 1 card when drawn, and include Hornets, Bumblebees, Honeybees and Drones. (Strong damage, block, energy and draw cards.)",
+  "QUEENMOD2-HIVETIP.title": "Hive Cards",
+  "QUEENMOD2-HIVEBOUND.description": "Triggers at the start of every turn while this is in your Draw Pile.",
+  "QUEENMOD2-HIVEBOUND.title": "Hivebound",
+  "QUEENMOD2-DANCE.description": "Triggered when a specific sequence of card types are played while in hand.",
+  "QUEENMOD2-DANCE.title": "Dance",
+  "QUEENMOD2-STRATEGIZE.description": "Draws a specific type of card. Shifts after you play a card. \n (Attack -> Block Skill -> Utility Skill -> Power)",
+  "QUEENMOD2-STRATEGIZE.title": "Strategize"
+
+}
