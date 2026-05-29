@@ -1,12 +1,9 @@
-using BaseLib.Abstracts;
-using BaseLib.Extensions;
+﻿using BaseLib.Extensions;
 using QueenMod2.QueenMod2Code.Extensions;
 using Godot;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -16,7 +13,7 @@ using QueenMod2.QueenMod2Code.Cards.Generated;
 
 namespace QueenMod2.QueenMod2Code.Powers;
 
-public class WaxJavelinPower : QueenMod2Power
+public class TalkToHandPower : QueenMod2Power
 {
     //Loads from QueenMod2/images/powers/your_power.png
     public override string CustomPackedIconPath
@@ -37,24 +34,21 @@ public class WaxJavelinPower : QueenMod2Power
         }
     }
     
-    public override PowerType Type => PowerType.Buff;
+    public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override Color AmountLabelColor => _normalAmountLabelColor;
 
-    public override Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal)
+    public override async Task AfterDamageReceived(
+        PlayerChoiceContext choiceContext,
+        Creature target,
+        DamageResult _,
+        ValueProp props,
+        Creature? dealer,
+        CardModel? cardSource)
     {
-        if (card.Id.Equals(ModelDb.Card<Honeycomb>().Id))
+        if (dealer != null && dealer.Equals(Applier) && target.Equals(Owner))
         {
-            addJavelin();
+            await CreatureCmd.GainBlock(dealer, new BlockVar(Amount, ValueProp.Unpowered), null, true);
         }
-        return Task.CompletedTask;
-    }
-
-    protected async Task addJavelin()
-    {
-        WaxJavelinPower wax = this;
-        Javelin newJavelin = (Javelin)wax.CombatState.CreateCard<Javelin>(wax.Owner.Player);
-        newJavelin.SetDamageValue(wax.Amount);
-        await CardPileCmd.AddGeneratedCardToCombat(newJavelin, PileType.Hand, Applier.Player);
     }
 }

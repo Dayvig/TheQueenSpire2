@@ -32,6 +32,7 @@ public class Garrison() : QueenMod2Card(2,
     {
         Garrison gar = this;
         await CreatureCmd.GainBlock(gar.Owner.Creature, DynamicVars.Block, play);
+        CardPileAddResult cardPileAddResult = await CardPileCmd.Add(gar, PileType.Draw, CardPilePosition.Random);
     }
     
     

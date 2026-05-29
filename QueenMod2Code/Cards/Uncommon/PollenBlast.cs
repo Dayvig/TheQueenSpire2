@@ -19,7 +19,7 @@ public class PollenBlast() : QueenMod2Card(1,
     TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(5M, ValueProp.Move),
+        new DamageVar(6M, ValueProp.Move),
         new PowerVar<Pollinated>(1M)
     ];
     
@@ -35,11 +35,11 @@ public class PollenBlast() : QueenMod2Card(1,
     {
         PollenBlast blast = this;
         AttackCommand attackCommand = await DamageCmd.Attack(blast.DynamicVars.Damage.BaseValue).FromCard((CardModel) blast).TargetingAllOpponents(blast.CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
-        IReadOnlyList<Pollinated> vulnerablePowerList = await PowerCmd.Apply<Pollinated>(choiceContext, (IEnumerable<Creature>) blast.CombatState.HittableEnemies, blast.DynamicVars["Pollen"].BaseValue, blast.Owner.Creature, (CardModel) blast);
+        IReadOnlyList<Pollinated> vulnerablePowerList = await PowerCmd.Apply<Pollinated>(choiceContext, (IEnumerable<Creature>) blast.CombatState.HittableEnemies, blast.DynamicVars["Pollinated"].BaseValue, blast.Owner.Creature, (CardModel) blast);
     }
     
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3M);
+        DynamicVars.Damage.UpgradeValueBy(4M);
     }
 }

@@ -19,7 +19,6 @@ public class Swarm : QueenMod2Power
 {
     public override void setConditionalType(Creature target)
     {
-        MainFile.Logger.Info("Setting conditional type" + target.IsEnemy + target.Name);
         base.setConditionalType(target);
         conditionalType = target.IsEnemy ? PowerType.Debuff : PowerType.Buff;
     }
@@ -50,15 +49,11 @@ public class Swarm : QueenMod2Power
     public Decimal getTotalAmount(Creature owner)
     {
         Decimal modifiedAmount = this.Amount;
-        if (owner.HasPower(ModelDb.Power<AttackPheremone>().Id))
+        if (owner.HasPower(ModelDb.Power<Pheremone>().Id))
         {
-            modifiedAmount += owner.GetPower<AttackPheremone>().Amount;
+            modifiedAmount += owner.GetPower<Pheremone>().Amount;
         }
-        if (owner.HasPower(ModelDb.Power<DefensePheremone>().Id))
-        {
-            modifiedAmount += owner.GetPower<DefensePheremone>().Amount;
-        }
-
+        
         return modifiedAmount;
     }
 

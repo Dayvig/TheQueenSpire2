@@ -12,8 +12,14 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace QueenMod2.QueenMod2Code.Powers;
 
-public class DefensePheremone : QueenMod2Power
+public class Pheremone : QueenMod2Power
 {
+    public override void setConditionalType(Creature target)
+    {
+        base.setConditionalType(target);
+        conditionalType = target.IsEnemy ? PowerType.Debuff : PowerType.Buff;
+    }
+    
     //Loads from QueenMod2/images/powers/your_power.png
     public override string CustomPackedIconPath
     {
@@ -32,25 +38,25 @@ public class DefensePheremone : QueenMod2Power
             return ResourceLoader.Exists(path) ? path : "power.png".BigPowerImagePath();
         }
     }
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new("Decrement", 2)
     ];
     
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        DefensePheremone power = this;
-        if (side != power.Owner.Side)
+        if (side == Owner.Side)
             return;
-        if (side == CombatSide.Player)
-        {
-            await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)power, -power.DynamicVars["Decrement"].BaseValue,
-                (Creature)null, (CardModel)null);
-        }
+        Pheremone power = this;
+            if (power.Owner.IsAlive)
+                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)power, -power.DynamicVars["Decrement"].BaseValue,
+                    (Creature)null, (CardModel)null);
+            else
+                await Cmd.CustomScaledWait(0.1f, 0.25f);
     }
-    public override PowerType Type => PowerType.Buff;
+    
+    public override PowerType Type => conditionalTypeSet ? conditionalType : PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override Color AmountLabelColor => _normalAmountLabelColor;
-
-    
     
 }

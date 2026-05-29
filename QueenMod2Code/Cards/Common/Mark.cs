@@ -23,7 +23,7 @@ public class Mark() : QueenMod2Card(0,
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower(ModelDb.Power<VulnerablePower>()),
-        HoverTipFactory.FromPower(ModelDb.Power<AttackPheremone>())
+        HoverTipFactory.FromPower(ModelDb.Power<Pheremone>())
     ];
     
     protected override async Task OnPlay(
@@ -35,7 +35,7 @@ public class Mark() : QueenMod2Card(0,
             DynamicVars["Vulnerable"].BaseValue,
             order.Owner.Creature, (CardModel)this);
         
-        await PowerCmd.Apply<AttackPheremone>(choiceContext, play.Target,
+        await PowerCmd.Apply<Pheremone>(choiceContext, play.Target,
             DynamicVars["Vulnerable"].BaseValue,
             order.Owner.Creature, (CardModel)this);
     }

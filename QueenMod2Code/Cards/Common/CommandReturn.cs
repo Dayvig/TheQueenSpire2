@@ -27,7 +27,7 @@ public class CommandReturn() : QueenMod2Card(1,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<DefensePheremone>()
+        HoverTipFactory.FromPower<Pheremone>()
     ];
     
     protected override async Task OnPlay(
@@ -36,7 +36,7 @@ public class CommandReturn() : QueenMod2Card(1,
     {
         CommandReturn order = this;
         await CreatureCmd.GainBlock(order.Owner.Creature, DynamicVars.Block, play);
-        await PowerCmd.Apply<DefensePheremone>(choiceContext, order.Owner.Creature,
+        await PowerCmd.Apply<Pheremone>(choiceContext, order.Owner.Creature,
             DynamicVars["Pheremones"].IntValue,
             order.Owner.Creature, (CardModel)this);
     }

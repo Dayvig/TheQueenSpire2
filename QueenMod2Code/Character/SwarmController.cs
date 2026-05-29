@@ -15,8 +15,7 @@ public static class SwarmController
 {
     public static int TotalSwarmAmount = 0;
     public static SwarmControllerMethods Instance = new SwarmControllerMethods();
-    
-    
+    public static List<Creature> lastTargets = new List<Creature>();
 }
 
 public class SwarmControllerMethods
@@ -50,7 +49,7 @@ public class SwarmControllerMethods
             }
         }
     }
-    public async Task DistributeSwarm(PlayerChoiceContext choiceContext, CardModel source)
+    public async Task DistributeSwarm(PlayerChoiceContext choiceContext, CardModel source, bool differentSwarmAmount)
     {
         MainFile.Logger.Info("Distributing Swarm");
         if (SwarmController.TotalSwarmAmount <= 0)
@@ -58,16 +57,9 @@ public class SwarmControllerMethods
             return;
         }
         List<Creature> totalTargets = new List<Creature>();
-        foreach (Creature c in source.CombatState.PlayerCreatures)
+        foreach (Creature c in source.CombatState.HittableEnemies.Concat(source.CombatState.PlayerCreatures))
         {
-            if (c.HasPower(ModelDb.Power<DefensePheremone>().Id))
-            {
-                totalTargets.Add(c);
-            }
-        }
-        foreach (Creature c in source.CombatState.HittableEnemies)
-        {
-            if (c.HasPower(ModelDb.Power<AttackPheremone>().Id))
+            if (c.HasPower(ModelDb.Power<Pheremone>().Id))
             {
                 totalTargets.Add(c);
             }
@@ -109,8 +101,8 @@ public class SwarmControllerMethods
             }
         }
             
-
-        if (totalTargets.Count < 1)
+        MainFile.Logger.Info("Targets same" + totalTargets.SequenceEqual(SwarmController.lastTargets).ToString());
+        if (totalTargets.Count < 1 || (totalTargets.SequenceEqual(SwarmController.lastTargets) && !differentSwarmAmount))
         {
             return;
         }
@@ -137,6 +129,8 @@ public class SwarmControllerMethods
                 Swarm swarmPower = await PowerCmd.Apply<Swarm>(choiceContext, newSwarmTarget, (toDistribute / totalTargets.Count()) + extraAmount , source.Owner.Creature, source, true);
                 remainder -= extraAmount;
             }
+            
+            SwarmController.lastTargets = totalTargets;
         }
     }
 }

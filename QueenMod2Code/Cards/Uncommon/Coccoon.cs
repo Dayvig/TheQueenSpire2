@@ -14,13 +14,13 @@ public class Coccoon() : QueenMod2Card(3,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<Swarm>(10M),
-        new PowerVar<DefensePheremone>(5M)
+        new PowerVar<Pheremone>(5M)
     ];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [        
         HoverTipFactory.FromPower(ModelDb.Power<Swarm>()),
-        HoverTipFactory.FromPower(ModelDb.Power<DefensePheremone>())
+        HoverTipFactory.FromPower(ModelDb.Power<Pheremone>())
     ];
     
     protected override async Task OnPlay(
@@ -29,12 +29,12 @@ public class Coccoon() : QueenMod2Card(3,
     {
         Coccoon coccoon = this;
         await PowerCmd.Apply<Swarm>(choiceContext, coccoon.Owner.Creature, DynamicVars["Swarm"].BaseValue, coccoon.Owner.Creature, this, false);
-        await PowerCmd.Apply<DefensePheremone>(choiceContext, coccoon.Owner.Creature, DynamicVars["DefensePheremone"].BaseValue, coccoon.Owner.Creature, this, false);
+        await PowerCmd.Apply<Pheremone>(choiceContext, coccoon.Owner.Creature, DynamicVars["Pheremone"].BaseValue, coccoon.Owner.Creature, this, false);
     }
     
     protected override void OnUpgrade()
     {
         DynamicVars["Swarm"].UpgradeValueBy(4M);
-        DynamicVars["DefensePheremone"].UpgradeValueBy(1M);
+        DynamicVars["Pheremone"].UpgradeValueBy(1M);
     }
 }

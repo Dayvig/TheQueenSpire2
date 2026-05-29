@@ -27,9 +27,9 @@ public class PheremoneBlade() : QueenMod2Card(1,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<AttackPheremone>()
+        HoverTipFactory.FromPower<Pheremone>()
     ];
-    
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
@@ -37,9 +37,9 @@ public class PheremoneBlade() : QueenMod2Card(1,
         PheremoneBlade blade = this;
         AttackCommand attackCommand = await DamageCmd.Attack(blade.DynamicVars.Damage.IntValue).FromCard(blade).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
-        if (play.Target.HasPower(ModelDb.Power<AttackPheremone>().Id))
+        if (play.Target.HasPower(ModelDb.Power<Pheremone>().Id))
         {
-            await PowerCmd.Apply<AttackPheremone>(choiceContext, play.Target, play.Target.Powers.OfType<AttackPheremone>().First().Amount, blade.Owner.Creature, (CardModel) blade);
+            await PowerCmd.Apply<Pheremone>(choiceContext, play.Target, play.Target.Powers.OfType<Pheremone>().First().Amount, blade.Owner.Creature, (CardModel) blade);
         }
     }
 

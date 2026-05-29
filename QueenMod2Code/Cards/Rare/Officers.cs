@@ -10,7 +10,7 @@ using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Cards.Rare;
 
-public class Officers() : QueenMod2Card(2,
+public class Officers() : QueenMod2Card(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {

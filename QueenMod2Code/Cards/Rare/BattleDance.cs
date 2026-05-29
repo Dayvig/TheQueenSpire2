@@ -16,7 +16,12 @@ public class BattleDance() : QueenMod2Card(-2,
     TargetType.AllEnemies)
 {
     
-    public List<MainFile.DanceStep> steps = new List<MainFile.DanceStep>();
+    public List<MainFile.DanceStep> steps = new List<MainFile.DanceStep>
+    {
+        MainFile.DanceStep.SKILL,
+        MainFile.DanceStep.POWER,
+        MainFile.DanceStep.ATTACK,
+    };
     public int currentStepCount = 0;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
@@ -99,6 +104,14 @@ public class BattleDance() : QueenMod2Card(-2,
         int containedSkills = 0;
         int containedAttacks = 0;
 
+        if (RunState == null)
+        {
+            newSteps.Add(MainFile.DanceStep.ATTACK);
+            newSteps.Add(MainFile.DanceStep.SKILL);
+            newSteps.Add(MainFile.DanceStep.POWER);
+            return newSteps;
+        }
+        
         float nextRng = RunState.Rng.Niche.NextFloat(0, 1F);
         float miscRng;
         //First step: 40% Skill, 40% attack, 20% Power

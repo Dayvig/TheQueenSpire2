@@ -19,7 +19,7 @@ public class WarBuzz() : QueenMod2Card(1,
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromCard<Bumblebee>(this.IsUpgraded)
+        HoverTipFactory.FromCard<Hornet>()
     ];
 
     protected override async Task OnPlay(

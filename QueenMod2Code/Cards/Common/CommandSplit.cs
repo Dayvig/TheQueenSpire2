@@ -26,8 +26,7 @@ public class CommandSplit() : QueenMod2Card(1,
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<AttackPheremone>(),
-        HoverTipFactory.FromPower<DefensePheremone>()
+        HoverTipFactory.FromPower<Pheremone>(),
     ];
     
     protected override async Task OnPlay(
@@ -36,13 +35,13 @@ public class CommandSplit() : QueenMod2Card(1,
     {
         CommandSplit order = this;
         ArgumentNullException.ThrowIfNull((object) play.Target, "play.Target");
-            AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order).TargetingAllOpponents(order.CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+            AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
             
-        await PowerCmd.Apply<AttackPheremone>(choiceContext, play.Target,
+        await PowerCmd.Apply<Pheremone>(choiceContext, play.Target,
             DynamicVars["Pheremones"].IntValue,
             order.Owner.Creature, (CardModel)this);
         
-        await PowerCmd.Apply<DefensePheremone>(choiceContext, order.Owner.Creature,
+        await PowerCmd.Apply<Pheremone>(choiceContext, order.Owner.Creature,
             DynamicVars["Pheremones"].IntValue,
             order.Owner.Creature, (CardModel)this);
 

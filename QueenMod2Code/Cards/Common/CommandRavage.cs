@@ -26,7 +26,7 @@ public class CommandRavage() : QueenMod2Card(2,
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<AttackPheremone>()
+        HoverTipFactory.FromPower<Pheremone>()
     ];
     
     protected override async Task OnPlay(
@@ -35,7 +35,7 @@ public class CommandRavage() : QueenMod2Card(2,
     {
         CommandRavage order = this;
         AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order).TargetingAllOpponents(order.CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
-        await PowerCmd.Apply<AttackPheremone>(choiceContext, order.CombatState.HittableEnemies,
+        await PowerCmd.Apply<Pheremone>(choiceContext, order.CombatState.HittableEnemies,
             DynamicVars["Pheremones"].IntValue,
             order.Owner.Creature, (CardModel)this);
     }

@@ -11,7 +11,7 @@
   "QUEENMOD2-HIVETIP.title": "Hive Cards",
   "QUEENMOD2-HIVEBOUND.description": "Triggers at the start of every turn while this is in your Draw Pile.",
   "QUEENMOD2-HIVEBOUND.title": "Hivebound",
-  "QUEENMOD2-DANCE.description": "Triggered when a specific sequence of card types are played while in hand.",
+  "QUEENMOD2-DANCE.description": "Triggered when a specific random sequence of card types are played while in hand.",
   "QUEENMOD2-DANCE.title": "Dance",
   "QUEENMOD2-STRATEGIZE.description": "Draws a specific type of card. Shifts after you play a card. \n (Attack -> Block Skill -> Utility Skill -> Power)",
   "QUEENMOD2-STRATEGIZE.title": "Strategize"

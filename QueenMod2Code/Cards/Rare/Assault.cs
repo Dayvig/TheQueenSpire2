@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 using QueenMod2.QueenMod2Code.Cards.Generated;
 
@@ -13,14 +14,24 @@ namespace QueenMod2.QueenMod2Code.Cards.Uncommon;
 public class Assault() : QueenMod2Card(2,
     CardType.Attack, CardRarity.Rare,
     TargetType.AllEnemies)
-{
+{ 
+    static Decimal hitsThisTurn = 0;
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(2M, ValueProp.Move),
         (DynamicVar) new CalculationBaseVar(0M),
         (DynamicVar) new CalculationExtraVar(1M),
         (DynamicVar) new CalculatedVar("CalculatedHits").WithMultiplier(((Func<CardModel, Creature, Decimal>) ((card, _) =>
         {
-            return CardPile.GetCards(card.Owner, PileType.Hand).Count();
+            hitsThisTurn = 0;
+            foreach (CardModel model in PileType.Hand.GetPile(card.Owner).Cards)
+            {
+                if (!model.Equals(card))
+                {
+                    hitsThisTurn++;
+                }
+            }
+            return (Decimal)(1 + hitsThisTurn);
         }))!)
     ];
     

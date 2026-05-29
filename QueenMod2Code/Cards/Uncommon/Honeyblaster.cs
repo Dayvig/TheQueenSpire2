@@ -16,7 +16,7 @@ public class Honeyblaster() : QueenMod2Card(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(5M, ValueProp.Move),
-        (DynamicVar) new CalculationBaseVar(1M),
+        (DynamicVar) new CalculationBaseVar(2M),
         (DynamicVar) new CalculationExtraVar(1M),
         (DynamicVar) new CalculatedVar("CalculatedHits").WithMultiplier(((Func<CardModel, Creature, Decimal>) ((card, _) =>
         {
@@ -29,7 +29,7 @@ public class Honeyblaster() : QueenMod2Card(1,
                 }
             }
 
-            return (Decimal)(1M + combs.Count);
+            return (Decimal)(combs.Count);
         }))!)
     ];
     

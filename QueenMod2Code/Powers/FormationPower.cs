@@ -1,18 +1,15 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Extensions;
+﻿using BaseLib.Extensions;
 using QueenMod2.QueenMod2Code.Extensions;
 using Godot;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
 namespace QueenMod2.QueenMod2Code.Powers;
 
-public class AttackPheremone : QueenMod2Power
+public class FormationPower : QueenMod2Power
 {
     //Loads from QueenMod2/images/powers/your_power.png
     public override string CustomPackedIconPath
@@ -32,24 +29,31 @@ public class AttackPheremone : QueenMod2Power
             return ResourceLoader.Exists(path) ? path : "power.png".BigPowerImagePath();
         }
     }
-    
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new("Decrement", 2)
-    ];
-    
-    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+
+    public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(
+        CardModel card,
+        bool isAutoPlay,
+        ResourceInfo resources,
+        PileType pileType,
+        CardPilePosition position)
     {
-        if (side == Owner.Side)
-            return;
-        AttackPheremone power = this;
-            if (power.Owner.IsAlive)
-                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)power, -power.DynamicVars["Decrement"].BaseValue,
-                    (Creature)null, (CardModel)null);
-            else
-                await Cmd.CustomScaledWait(0.1f, 0.25f);
+        if (card.Owner.Creature != this.Owner)
+            return (pileType, position);
+        return pileType != PileType.Discard ? (pileType, position) : (PileType.Draw, CardPilePosition.Random);
     }
-    
-    public override PowerType Type => PowerType.Debuff;
+
+    public override async Task AfterModifyingCardPlayResultPileOrPosition(
+        CardModel card,
+        PileType pileType,
+        CardPilePosition position)
+    {
+        if (card.Owner.Creature != Owner)
+            return;
+        Flash();
+        await PowerCmd.Decrement((PowerModel) this);
+    }
+
+    public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override Color AmountLabelColor => _normalAmountLabelColor;
     

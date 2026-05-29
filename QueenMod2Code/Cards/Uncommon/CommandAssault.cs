@@ -14,10 +14,10 @@ using QueenMod2.QueenMod2Code.Cards;
 using QueenMod2.QueenMod2Code.Cards.Generated;
 using QueenMod2.QueenMod2Code.Powers;
 
-namespace QueenMod2.QueenMod2Code.Cards.Common;
+namespace QueenMod2.QueenMod2Code.Cards.Uncommon;
 
 public class CommandAssault() : QueenMod2Card(2,
-    CardType.Attack, CardRarity.Common,
+    CardType.Attack, CardRarity.Uncommon,
     TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
@@ -27,7 +27,7 @@ public class CommandAssault() : QueenMod2Card(2,
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<AttackPheremone>()
+        HoverTipFactory.FromPower<Pheremone>()
     ];
     
     protected override async Task OnPlay(
@@ -40,7 +40,7 @@ public class CommandAssault() : QueenMod2Card(2,
         {
             AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         }
-        await PowerCmd.Apply<AttackPheremone>(choiceContext, play.Target,
+        await PowerCmd.Apply<Pheremone>(choiceContext, play.Target,
             DynamicVars["Pheremones"].IntValue,
             order.Owner.Creature, (CardModel)this);
     }

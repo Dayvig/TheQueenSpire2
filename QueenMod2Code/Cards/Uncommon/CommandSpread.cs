@@ -30,7 +30,7 @@ public class CommandSpread() : QueenMod2Card(2,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<AttackPheremone>()
+        HoverTipFactory.FromPower<Pheremone>()
     ];
     
     protected override async Task OnPlay(
