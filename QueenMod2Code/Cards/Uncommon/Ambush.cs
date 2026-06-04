@@ -17,7 +17,9 @@ public class Ambush() : QueenMod2Card(1,
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         (DynamicVar) new StringVar("Enchantment", ModelDb.Enchantment<FlankingEnchantment>().Title.GetFormattedText())
     ];
-
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [
+        CardKeyword.Exhaust
+    ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
         get => HoverTipFactory.FromEnchantment<FlankingEnchantment>(4);

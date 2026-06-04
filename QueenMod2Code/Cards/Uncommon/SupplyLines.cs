@@ -2,9 +2,12 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.ValueProps;
+using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Cards.Uncommon;
 
@@ -13,12 +16,16 @@ public class SupplyLines() : QueenMod2Card(1,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(4M, ValueProp.Move),
+        new PowerVar<Swarm>(3M),
         new CardsVar(1)
     ];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
         QueenMod2Keywords.Hivebound
+    ];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<Swarm>()
     ];
     
     protected override async Task OnPlay(
@@ -26,7 +33,7 @@ public class SupplyLines() : QueenMod2Card(1,
         CardPlay play)
     {
         SupplyLines lines = this;
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
+        await PowerCmd.Apply<Swarm>(choiceContext, Owner.Creature, DynamicVars["Swarm"].BaseValue, Owner.Creature, this, false);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, lines.Owner);
     }
     
@@ -44,7 +51,7 @@ public class SupplyLines() : QueenMod2Card(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3M);
+        DynamicVars["Swarm"].UpgradeValueBy(2M);
     }
 
     public async Task triggerHiveBoundEffect(PlayerChoiceContext choiceContext)
