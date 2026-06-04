@@ -29,6 +29,7 @@ public class DanceFormatter : IFormatter
     
     private string parseDanceSteps(List<MainFile.DanceStep> steps, int place)
     {
+        if (steps.Count == 0) { MainFile.Logger.Info("Steps Blank"); }
         string returnString = " \n ";
         for (int i = 0; i < steps.Count; i++)
         {
@@ -41,7 +42,7 @@ public class DanceFormatter : IFormatter
                 case MainFile.DanceStep.SKILL:
                     if (place == i) { returnString += "[green]Skill[/green]"; }
                     else { returnString += "Skill"; }
-                    break;                
+                    break;
                 case MainFile.DanceStep.POWER:
                     if (place == i) { returnString += "[blue]Power[/blue]"; }
                     else { returnString += "Power"; }

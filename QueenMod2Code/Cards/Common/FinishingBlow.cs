@@ -37,7 +37,6 @@ public class FinishingBlow() : QueenMod2Card(1,
         Creature target,
         CardModel? cardSource)
     {
-        MainFile.Logger.Info("Log: "+ dealer?.LogName + target.LogName + target.CombatState.CurrentSide);
         if (dealer != null && dealer.Equals(Owner.Creature) && !props.Equals(ValueProp.Unblockable) && target.CombatState.CurrentSide == CombatSide.Player)
         {
             hitsThisTurn++;

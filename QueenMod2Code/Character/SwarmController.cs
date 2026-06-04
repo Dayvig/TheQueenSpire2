@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -6,16 +7,29 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Models.Powers;
 using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Character;
 
-public static class SwarmController
+public class SwarmController() : CustomSingletonModel(true, true)
 {
     public static int TotalSwarmAmount = 0;
     public static SwarmControllerMethods Instance = new SwarmControllerMethods();
     public static List<Creature> lastTargets = new List<Creature>();
+    
+    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay play)
+    {
+        int prevAmount = TotalSwarmAmount;
+        Instance.CalculateSwarm(play.Card);
+        if (prevAmount != TotalSwarmAmount)
+        {
+            lastTargets.Clear();
+        }
+        return Task.CompletedTask;
+    }
+
 }
 
 public class SwarmControllerMethods

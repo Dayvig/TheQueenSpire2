@@ -41,7 +41,7 @@ public class DroneDance() : QueenMod2Card(-2,
     
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        if (!play.Card.Owner.Equals(Owner))
+        if (!play.Card.Owner.Equals(Owner) || !CardPile.GetCards(Owner, PileType.Hand).Contains(this))
             return Task.CompletedTask;
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
         switch (dance.danceSteps[dance.place])
@@ -248,6 +248,7 @@ public class DroneDance() : QueenMod2Card(-2,
             DanceVar dance =  (DanceVar)DynamicVars["Dance"];
             dance.danceSteps = createNewSteps();
             dance.place = 0;
+            MainFile.Logger.Info("Setting Dance after Drawn " + nameof(DroneDance));
         }
         return base.AfterCardDrawn(choiceContext, card, fromHandDraw);
     }
@@ -258,10 +259,18 @@ public class DroneDance() : QueenMod2Card(-2,
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
         dance.danceSteps = createNewSteps();
         dance.place = 0;
+        MainFile.Logger.Info("Setting Dance after Created " + nameof(DroneDance));
     }
     
     protected override void AddExtraArgsToDescription(LocString description)
     {
+        DanceVar dance =  (DanceVar)DynamicVars["Dance"];
+        if (dance.danceSteps.Count != DynamicVars["Steps"].BaseValue)
+        {
+            dance.danceSteps = createNewSteps();
+            dance.place = 0;
+            MainFile.Logger.Info("Resetting After improper blank dance "+ nameof(DroneDance));
+        }
         description.Add((DanceVar)DynamicVars["Dance"]);
     }
     

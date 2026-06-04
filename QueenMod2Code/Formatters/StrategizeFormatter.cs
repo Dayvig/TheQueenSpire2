@@ -45,8 +45,8 @@ public class StrategizeFormatter : IFormatter
                 returnString += plural ? "s[/blue]" : "[/blue]";
                 break;
             case MainFile.StrategizeType.POWER:
-                returnString += "[cyan]Power";
-                returnString += plural ? "s[/cyan]" : "[/cyan]";
+                returnString += "[lightblue]Power";
+                returnString += plural ? "s[/lightblue]" : "[/lightblue]";
                 break;
         }
         return returnString;

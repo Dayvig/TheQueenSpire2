@@ -8,7 +8,7 @@ using QueenMod2.QueenMod2Code.Cards;
 
 namespace QueenMod2.QueenMod2Code.Cards.Generated;
 
-public class Workerbee() : QueenMod2Card(1,
+public class Workerbee() : QueenMod2Card(0,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {

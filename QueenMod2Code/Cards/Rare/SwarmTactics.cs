@@ -10,7 +10,7 @@ using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Cards.Rare;
 
-public class SwarmTactics() : QueenMod2Card(1,
+public class SwarmTactics() : QueenMod2Card(2,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
@@ -36,6 +36,6 @@ public class SwarmTactics() : QueenMod2Card(1,
     
     protected override void OnUpgrade()
     {
-        CanonicalKeywords.AddItem(CardKeyword.Innate);
+        EnergyCost.UpgradeBy(-1);
     }
 }

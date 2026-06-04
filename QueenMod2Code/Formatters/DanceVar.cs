@@ -13,6 +13,7 @@ public class DanceVar : DynamicVar
     {
         danceSteps = steps;
         this.place = place;
+        MainFile.Logger.Info("Setting Dance default Constructor");
     }
     
     public DanceVar(string name, Decimal amount)

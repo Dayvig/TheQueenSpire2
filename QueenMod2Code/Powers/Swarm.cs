@@ -1,5 +1,6 @@
 ﻿using BaseLib.Abstracts;
 using BaseLib.Extensions;
+using BaseLib.Hooks;
 using QueenMod2.QueenMod2Code.Extensions;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -108,6 +109,21 @@ public class Swarm : QueenMod2Power
                 (Creature)null, (CardModel)null);
         }
     }
+    
+    public override IEnumerable<HealthBarForecastSegment> GetHealthBarForecastSegments(
+        HealthBarForecastContext context)
+    {
+        if (Type.Equals(PowerType.Debuff))
+        {
+            return
+            [
+                new HealthBarForecastSegment(Amount, new Color(0.9f, 0.85f, 0f), HealthBarForecastDirection.FromRight, 10,
+                    null, null)
+            ];
+        }
+        return (IEnumerable<HealthBarForecastSegment>) Array.Empty<HealthBarForecastSegment>();
+    }
+
     
     public override async Task AfterDeath(
         PlayerChoiceContext choiceContext,

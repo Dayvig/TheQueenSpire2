@@ -40,7 +40,7 @@ public class BattleDance() : QueenMod2Card(-2,
     
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        if (!play.Card.Owner.Equals(Owner))
+        if (!play.Card.Owner.Equals(Owner) || !CardPile.GetCards(Owner, PileType.Hand).Contains(this))
             return Task.CompletedTask;
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
         switch (dance.danceSteps[dance.place])

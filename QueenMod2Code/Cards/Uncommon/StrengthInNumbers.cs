@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Cards.Uncommon;
 
@@ -34,7 +35,7 @@ public class StrengthInNumbers() : QueenMod2Card(1,
         for (int i = 0; i < repeat; ++i)
         {
             Decimal num = await CreatureCmd.GainBlock(str.Owner.Creature, str.DynamicVars.Block, play);
-            SetupStrikePower setupStrikePower = await PowerCmd.Apply<SetupStrikePower>(choiceContext, str.Owner.Creature, str.DynamicVars["TemporaryStrength"].BaseValue, str.Owner.Creature, (CardModel) str);
+            NumbersPower setupStrikePower = await PowerCmd.Apply<NumbersPower>(choiceContext, str.Owner.Creature, str.DynamicVars["TemporaryStrength"].BaseValue, str.Owner.Creature, (CardModel) str);
         }
     }
     

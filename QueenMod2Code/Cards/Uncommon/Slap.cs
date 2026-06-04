@@ -35,7 +35,7 @@ public class Slap() : QueenMod2Card(0,
         Slap slap = this;
         AttackCommand attackCommand = await DamageCmd.Attack(slap.DynamicVars.Damage.IntValue).FromCard(slap).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
-        SetupStrikePower setupStrikePower = await PowerCmd.Apply<SetupStrikePower>(choiceContext, slap.Owner.Creature, slap.DynamicVars["TemporaryStrength"].BaseValue, slap.Owner.Creature, (CardModel) slap);
+        SlapPower setupStrikePower = await PowerCmd.Apply<SlapPower>(choiceContext, slap.Owner.Creature, slap.DynamicVars["TemporaryStrength"].BaseValue, slap.Owner.Creature, (CardModel) slap);
     }
 
     protected override void OnUpgrade()

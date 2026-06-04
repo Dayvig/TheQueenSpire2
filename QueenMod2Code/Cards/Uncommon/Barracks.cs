@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using QueenMod2.QueenMod2Code.Cards.Generated;
+using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Cards.Uncommon;
 
@@ -61,6 +62,6 @@ public class Barracks() : QueenMod2Card(1,
     {
         CardModel model = (CardModel)this;
         //CardCmd.Preview(model, 0.4f, CardPreviewStyle.GridLayout);
-        await PowerCmd.Apply<SetupStrikePower>(choiceContext, Owner.Creature, 1M, Owner.Creature, model, false);
+        await PowerCmd.Apply<BarracksPower>(choiceContext, Owner.Creature, 1M, Owner.Creature, model, false);
     }
 }

@@ -39,19 +39,18 @@ public class StrategicGeniusPower : QueenMod2Power
     {
         if (card.Owner.Equals(this.Owner.Player))
         {
-            return PowerCmd.Apply<SetupStrikePower>(choiceContext, this.Owner, Amount, Owner, (CardModel) null);
+            return PowerCmd.Apply<TacticalPower>(choiceContext, this.Owner, Amount, Owner, (CardModel) null);
         }
         return Task.CompletedTask;
     }
     
-    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext,
+        CombatSide side,
+        IEnumerable<Creature> participants)
     {
-        if (side != Owner.Side)
+        if (!participants.Contains<Creature>(Owner))
             return;
-        StrategicGeniusPower power = this;
-        if (side != power.Owner.Side)
-            return;
-        await PowerCmd.Remove((PowerModel) power);
+        await PowerCmd.Remove(this);
     }
     
     public override PowerType Type => PowerType.Buff;

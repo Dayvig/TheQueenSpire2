@@ -105,7 +105,7 @@
   "QUEENMOD2-RETINUE.title": "Royal Retinue",
   "QUEENMOD2-HONOR_GUARDS.description": "Add 2 {IfUpgraded:show:Upgraded|} [gold]Bumblebees[/gold] to your Hand.",
   "QUEENMOD2-HONOR_GUARDS.title": "Honor Guards",
-  "QUEENMOD2-COMMAND_SPREAD.description": "Deal {Damage:diff()} to all enemies. \n Gain {Block:diff()} Block. \n Apply {Swarm:diff()} [gold]Swarm[/gold] to yourself and all enemies.",
+  "QUEENMOD2-COMMAND_SPREAD.description": "Apply {Swarm:diff()} [gold]Swarm[/gold] and {Pheremones:diff()} [gold]Pheromones[/gold] to yourself and all enemies.",
   "QUEENMOD2-COMMAND_SPREAD.title": "Command: Spread",
   "QUEENMOD2-INSPIRING_STRIKE.description": "Deal {Damage:diff()} damage. \n Upgrade {Cards:diff()} cards in your draw pile.",
   "QUEENMOD2-INSPIRING_STRIKE.title": "Inspiring Strike",
@@ -159,8 +159,6 @@
   "QUEENMOD2-DEFEND.title": "Defend",
   "QUEENMOD2-STRIKE.description": "Deal {Damage:diff()} Damage.",
   "QUEENMOD2-STRIKE.title": "Strike",
-  "QUEENMOD2-COMMAND_STRIKE.description": "Deal {Damage:diff()} Damage. \n Apply {Pheremones:diff()} [gold]Pheromones[/gold].",
-  "QUEENMOD2-COMMAND_STRIKE.title": "Command: Strike",
   "QUEENMOD2-WHITE_PHEREMONE.description": "Remove all [gold]Pheremones[/gold] from everyone and Gain 2 Block for each. \n ({CalculatedBlock:diff()} Block.)",
   "QUEENMOD2-WHITE_PHEREMONE.title": "White Pheremone",
   "QUEENMOD2-ABSOLUTE_POWER.description": "Gain {StrengthPower:diff()} [gold]Strength.[/gold]",
@@ -180,6 +178,9 @@
   "QUEENMOD2-MASS_PRODUCTION.description": "Add X{IfUpgraded:show:+1} [gold]Honeybees[/gold] to your Draw Pile.",
   "QUEENMOD2-MASS_PRODUCTION.title": "Mass Production",
   "QUEENMOD2-DRONE_DANCE.description": "[gold]Dance[/gold]: Add a [gold]Drone[/gold] to your Draw Pile. {Dance:steps:}",
-  "QUEENMOD2-DRONE_DANCE.title": "Mating Dance"
-
+  "QUEENMOD2-DRONE_DANCE.title": "Mating Dance",
+  "QUEENMOD2-SWARM_STRIKE.description": "Deal {Damage:diff()} damage. \n Apply [gold]Swarm[/gold] equal to damage dealt.",
+  "QUEENMOD2-SWARM_STRIKE.title": "Swarming Strike",
+  "QUEENMOD2-COMMAND_FEAST.description": "Deal damage equal to your total [gold]Swarm[/gold]{IfUpgraded:show: to ALL enemies}. \n ( {CalculatedDamage:diff()} damage. )",
+  "QUEENMOD2-COMMAND_FEAST.title": "Command: Feast"
 }
