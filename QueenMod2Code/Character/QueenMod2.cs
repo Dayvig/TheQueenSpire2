@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Relics;
 using QueenMod2.QueenMod2Code.Cards;
 using QueenMod2.QueenMod2Code.Cards.Generated;
+using QueenMod2.QueenMod2Code.Relics;
 
 namespace QueenMod2.QueenMod2Code.Character;
 
@@ -38,7 +39,7 @@ public class QueenMod2 : PlaceholderCharacterModel
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
     [
-        ModelDb.Relic<Circlet>()
+        ModelDb.Relic<QueensBanner>()
     ];
 
     public override CardPoolModel CardPool => ModelDb.CardPool<QueenMod2CardPool>();
