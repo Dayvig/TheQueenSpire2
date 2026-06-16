@@ -48,8 +48,21 @@ public class Pollinated : QueenMod2Power
         if (dealer != null && dealer.Equals(Applier) && target.Equals(Owner))
         {
             await PowerCmd.ModifyAmount(choiceContext, this, 1M, this.Owner, null, true);
-            await GenerateHoneycombs(this);
         }
+    }
+
+    public override Task AfterPowerAmountChanged(
+        PlayerChoiceContext choiceContext,
+        PowerModel power,
+        Decimal amount,
+        Creature? applier,
+        CardModel? cardSource)
+    {
+        if (!power.Equals(this))
+        {
+            return Task.CompletedTask;
+        }
+        return GenerateHoneycombs(this);
     }
 
     public async Task GenerateHoneycombs(Pollinated toCheck)

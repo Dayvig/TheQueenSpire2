@@ -24,7 +24,7 @@ public class CommandSpread() : QueenMod2Card(2,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new ("Swarm", 4M),
-        new ("Pheremones", 3M),
+        new ("Pheremones", 4M),
     ];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -37,8 +37,8 @@ public class CommandSpread() : QueenMod2Card(2,
         CardPlay play)
     {
         CommandSpread spread = this;
-        IEnumerable<Creature> targets = spread.CombatState.HittableEnemies;
-        targets.AddItem<Creature>(spread.Owner.Creature);
+        List<Creature> targets = spread.CombatState.HittableEnemies.ToList();
+        targets.Add(spread.Owner.Creature);
         IReadOnlyList<Pheremone> pheremones = await PowerCmd.Apply<Pheremone>(choiceContext, targets, spread.DynamicVars["Pheremones"].BaseValue, spread.Owner.Creature, (CardModel) spread);
         IReadOnlyList<Swarm> swarms = await PowerCmd.Apply<Swarm>(choiceContext, targets, spread.DynamicVars["Swarm"].BaseValue, spread.Owner.Creature, (CardModel) spread);
     }

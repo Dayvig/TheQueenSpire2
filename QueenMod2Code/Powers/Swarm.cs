@@ -113,11 +113,12 @@ public class Swarm : QueenMod2Power
     public override IEnumerable<HealthBarForecastSegment> GetHealthBarForecastSegments(
         HealthBarForecastContext context)
     {
+        int pheromoneAmnt = Owner.HasPower<Pheremone>() ? Owner.GetPowerAmount<Pheremone>() : 0;
         if (Type.Equals(PowerType.Debuff))
         {
             return
             [
-                new HealthBarForecastSegment(Amount, new Color(0.9f, 0.85f, 0f), HealthBarForecastDirection.FromRight, 10,
+                new HealthBarForecastSegment(Amount + pheromoneAmnt, new Color(0.9f, 0.85f, 0f), HealthBarForecastDirection.FromRight, 10,
                     null, null)
             ];
         }
