@@ -39,7 +39,7 @@ public class AttackOrder() : QueenMod2Card(1,
                 PileType.Draw, play.Card.Owner), 0.4f);
         }
         ArgumentNullException.ThrowIfNull((object) play.Target, "play.Target");
-        AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
     protected override void OnUpgrade()
     {

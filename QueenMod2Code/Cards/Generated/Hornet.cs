@@ -28,7 +28,7 @@ public class Hornet() : QueenMod2Card(1,
     {
         Hornet hornet = this;
         ArgumentNullException.ThrowIfNull((object) play.Target, "play.Target");
-        AttackCommand attackCommand = await DamageCmd.Attack(hornet.DynamicVars.Damage.BaseValue).FromCard((CardModel) hornet).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        AttackCommand attackCommand = await DamageCmd.Attack(hornet.DynamicVars.Damage.BaseValue).FromCard((CardModel) hornet, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

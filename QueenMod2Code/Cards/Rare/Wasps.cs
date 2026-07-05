@@ -25,7 +25,7 @@ public class Wasps() : QueenMod2Card(0,
         CardPlay play)
     {
         Wasps order = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard(order).Targeting(play.Target)
+        AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard(order, play).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         await CardPileCmd.Draw(choiceContext, order.DynamicVars.Cards.BaseValue, play.Card.Owner);
     }

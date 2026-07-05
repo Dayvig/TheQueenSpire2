@@ -26,7 +26,7 @@ public class Sting() : QueenMod2Card(0,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.IntValue).FromCard(this).WithHitCount((int)(DynamicVars["Hits"].BaseValue))
+        AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.IntValue).FromCard(this, play).WithHitCount((int)(DynamicVars["Hits"].BaseValue))
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         await PowerCmd.Apply<VulnerablePower>(choiceContext, play.Target, DynamicVars["VulnerablePower"].BaseValue,

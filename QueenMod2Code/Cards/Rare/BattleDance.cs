@@ -87,7 +87,7 @@ public class BattleDance() : QueenMod2Card(-2,
     public async Task triggerEffect(PlayerChoiceContext choiceContext)
     {
         BattleDance dance = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(dance.DynamicVars.Damage.IntValue).FromCard(dance).TargetingAllOpponents(dance.CombatState)
+        AttackCommand attackCommand = await DamageCmd.Attack(dance.DynamicVars.Damage.IntValue).FromCard(dance, null).TargetingAllOpponents(dance.CombatState)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
     

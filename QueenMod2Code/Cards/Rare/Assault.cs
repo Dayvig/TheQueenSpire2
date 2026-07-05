@@ -40,7 +40,7 @@ public class Assault() : QueenMod2Card(2,
         CardPlay play)
     {
         Assault assault = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(assault.DynamicVars.Damage.IntValue).FromCard(assault).WithHitCount((int)((CalculatedVar) assault.DynamicVars["CalculatedHits"]).Calculate(null)).TargetingRandomOpponents(assault.CombatState)
+        AttackCommand attackCommand = await DamageCmd.Attack(assault.DynamicVars.Damage.IntValue).FromCard(assault, play).WithHitCount((int)((CalculatedVar) assault.DynamicVars["CalculatedHits"]).Calculate(null)).TargetingRandomOpponents(assault.CombatState)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 

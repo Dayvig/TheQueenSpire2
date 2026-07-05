@@ -34,7 +34,7 @@ public class CommandRavage() : QueenMod2Card(2,
         CardPlay play)
     {
         CommandRavage order = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order).TargetingAllOpponents(order.CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order, play).TargetingAllOpponents(order.CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         await PowerCmd.Apply<Pheremone>(choiceContext, order.CombatState.HittableEnemies,
             DynamicVars["Pheremones"].IntValue,
             order.Owner.Creature, (CardModel)this);

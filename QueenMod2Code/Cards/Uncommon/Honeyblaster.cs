@@ -38,7 +38,7 @@ public class Honeyblaster() : QueenMod2Card(1,
         CardPlay play)
     {
         Honeyblaster blaster = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(blaster.DynamicVars.Damage.IntValue).FromCard(blaster).WithHitCount((int)((CalculatedVar) blaster.DynamicVars["CalculatedHits"]).Calculate(play.Target)).Targeting(play.Target)
+        AttackCommand attackCommand = await DamageCmd.Attack(blaster.DynamicVars.Damage.IntValue).FromCard(blaster, play).WithHitCount((int)((CalculatedVar) blaster.DynamicVars["CalculatedHits"]).Calculate(play.Target)).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 

@@ -34,7 +34,7 @@ public class PollenBlast() : QueenMod2Card(1,
         CardPlay play)
     {
         PollenBlast blast = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(blast.DynamicVars.Damage.BaseValue).FromCard((CardModel) blast).TargetingAllOpponents(blast.CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        AttackCommand attackCommand = await DamageCmd.Attack(blast.DynamicVars.Damage.BaseValue).FromCard((CardModel) blast, play).TargetingAllOpponents(blast.CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         IReadOnlyList<Pollinated> vulnerablePowerList = await PowerCmd.Apply<Pollinated>(choiceContext, (IEnumerable<Creature>) blast.CombatState.HittableEnemies, blast.DynamicVars["Pollinated"].BaseValue, blast.Owner.Creature, (CardModel) blast);
     }
     

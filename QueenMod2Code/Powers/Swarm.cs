@@ -95,8 +95,8 @@ public class Swarm : QueenMod2Power
         if (side == CombatSide.Enemy && participants.Contains<Creature>(power.Owner))
         {
             await CreatureCmd.Damage((PlayerChoiceContext)new ThrowingPlayerChoiceContext(), power.Owner,
-                (Decimal)power.getTotalAmount(power.Owner), ValueProp.Unblockable | ValueProp.Unpowered, (Creature)null,
-                (CardModel)null);
+                (Decimal)power.getTotalAmount(power.Owner), ValueProp.Unblockable | ValueProp.Unpowered, null,
+                null);
             if (power.Owner.IsAlive)
                 await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)power, -power.DynamicVars["Decrement"].BaseValue,
                     (Creature)null, (CardModel)null);

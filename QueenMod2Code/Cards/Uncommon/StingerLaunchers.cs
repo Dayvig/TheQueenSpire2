@@ -31,7 +31,7 @@ public class StingerLaunchers() : QueenMod2Card(2,
         CardPlay play)
     {
         StingerLaunchers stingers = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(stingers.DynamicVars.Damage.IntValue).FromCard(stingers).WithHitCount(stingers.DynamicVars.Repeat.IntValue).Targeting(play.Target)
+        AttackCommand attackCommand = await DamageCmd.Attack(stingers.DynamicVars.Damage.IntValue).FromCard(stingers, play).WithHitCount(stingers.DynamicVars.Repeat.IntValue).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
     
@@ -55,7 +55,7 @@ public class StingerLaunchers() : QueenMod2Card(2,
     {
         StingerLaunchers stingers = this;
         //CardCmd.Preview(stingers, 0.4f, CardPreviewStyle.GridLayout);
-        AttackCommand attackCommand = await DamageCmd.Attack(stingers.DynamicVars.Damage.IntValue).FromCard(stingers).TargetingRandomOpponents(stingers.CombatState)
+        AttackCommand attackCommand = await DamageCmd.Attack(stingers.DynamicVars.Damage.IntValue).FromCard(stingers, null).TargetingRandomOpponents(stingers.CombatState)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 }

@@ -182,5 +182,10 @@
   "QUEENMOD2-SWARM_STRIKE.description": "Deal {Damage:diff()} damage. \n Apply [gold]Swarm[/gold] equal to damage dealt.",
   "QUEENMOD2-SWARM_STRIKE.title": "Swarming Strike",
   "QUEENMOD2-COMMAND_FEAST.description": "Deal damage equal to your total [gold]Swarm[/gold]{IfUpgraded:show: to ALL enemies}. \n ( {CalculatedDamage:diff()} damage. )",
-  "QUEENMOD2-COMMAND_FEAST.title": "Command: Feast"
+  "QUEENMOD2-COMMAND_FEAST.title": "Command: Feast",
+  "QUEENMOD2-CROSS_POLLINATION.description": "Deal {Damage:diff()} damage. \n Apply {Pollinated:diff()} [gold]Pollinated[/gold]. \n When [gold]Pollinated[/gold] is removed, put this into your hand.",
+  "QUEENMOD2-CROSS_POLLINATION.title": "Cross Pollination",
+  "QUEENMOD2-ROYAL_JELLY.description": "Apply {Pollinated:diff()} [gold]Pollinated[/gold]. \n When [gold]Pollinated[/gold] is removed, gain {RoyalJellyPower:diff()} [gold]Strength[/gold].",
+  "QUEENMOD2-ROYAL_JELLY.title": "Royal Jelly"
+
 }

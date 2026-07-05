@@ -44,7 +44,7 @@ public class Flyby() : QueenMod2Card(0,
         if (instance1 != null)
             instance1.CombatVfxContainer.AddChildSafely((Godot.Node) NHorizontalLinesVfx.Create(color, 0.8 + (double)(2 * num2)));
         SfxCmd.Play("event:/sfx/characters/ironclad/ironclad_whirlwind");
-        AttackCommand attackCommand = await DamageCmd.Attack(fly.DynamicVars.Damage.IntValue).FromCard(fly).TargetingAllOpponents(fly.CombatState)
+        AttackCommand attackCommand = await DamageCmd.Attack(fly.DynamicVars.Damage.IntValue).FromCard(fly, play).TargetingAllOpponents(fly.CombatState)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         CardPileAddResult cardPileAddResult = await CardPileCmd.Add(fly, PileType.Draw, CardPilePosition.Random);
     }

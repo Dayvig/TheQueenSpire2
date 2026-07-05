@@ -35,7 +35,7 @@ public class InspiringStrike() : QueenMod2Card(1,
         CardPlay play)
     {
         InspiringStrike slap = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(slap.DynamicVars.Damage.IntValue).FromCard(slap).Targeting(play.Target)
+        AttackCommand attackCommand = await DamageCmd.Attack(slap.DynamicVars.Damage.IntValue).FromCard(slap, play).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         foreach (CardModel card2 in PileType.Draw.GetPile(slap.Owner).Cards.Where<CardModel>((Func<CardModel, bool>) (c => c.IsUpgradable)).TakeRandom<CardModel>(slap.DynamicVars.Cards.IntValue, slap.Owner.RunState.Rng.CombatCardSelection))
         {

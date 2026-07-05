@@ -3,8 +3,8 @@
   "QUEENMOD2-SWARM.description": "Deals damage to enemies and grants Block to allies. Moves to enemies you target and returns to you when you block. Reduced by 1 at the end of the turn.",
   "QUEENMOD2-SWARM.smartDescription": "{OnPlayer:At the end of the turn, gain [blue]{Amount}[/blue] Block. Moves to enemies you target and returns to you when you Block.|At the end of the turn, take [blue]{Amount}[/blue] damage. Moves to enemies you target and returns to you when you Block.} Reduced by 1 at end of turn.",
   "QUEENMOD2-POLLINATED.title": "Pollinated",
-  "QUEENMOD2-POLLINATED.description": "When target is hit, increase by 1. When target has 5 Pollinated, remove this and add 2 Honeycombs to your Hand which gain Energy.",
-  "QUEENMOD2-POLLINATED.smartDescription": "When target is hit, increase by 1. When target has 5 Pollinated, remove this and add 2 [gold]Honeycombs[/gold] to your hand which gain {energyPrefix:energyIcons(1)}",
+  "QUEENMOD2-POLLINATED.description": "When target is hit, increase by 1. When target has 5 Pollinated, add 2 Honeycombs to your Hand which gain {energyPrefix:energyIcons(1)} and remove this.",
+  "QUEENMOD2-POLLINATED.smartDescription": "When target is hit, increase by 1. When target has 5 Pollinated, and add 2 [gold]Honeycombs[/gold] to your hand which gain {energyPrefix:energyIcons(1)} and remove this.",
   "QUEENMOD2-WAX_JAVELIN_POWER.title": "Wax Armorers",
   "QUEENMOD2-WAX_JAVELIN_POWER.description": "When you Exhaust a Honeycomb, add a Javelin to your hand which deals damage.",
   "QUEENMOD2-WAX_JAVELIN_POWER.smartDescription": "When you [gold]Exhaust[/gold] a [gold]Honeycomb[/gold], add a [gold]Wax Javelin[/gold] to your hand which deals [blue]{Amount}[/blue] damage.",
@@ -46,5 +46,8 @@
   "QUEENMOD2-EXTRA_CHAMBER_POWER.smartDescription": "[gold]Honeycombs[/gold] provide an additional {energyPrefix:energyIcons({Amount}})} when played.",
   "QUEENMOD2-TALK_TO_HAND_POWER.title": "Talk To The Hand",
   "QUEENMOD2-TALK_TO_HAND_POWER.description": "When you hit this enemy, gain Block.",
-  "QUEENMOD2-TALK_TO_HAND_POWER.smartDescription": "When you hit this enemy, gain [blue]{Amount}[/blue] Block."
+  "QUEENMOD2-TALK_TO_HAND_POWER.smartDescription": "When you hit this enemy, gain [blue]{Amount}[/blue] Block.",
+  "QUEENMOD2-ROYAL_JELLY_POWER.title": "Royal Jelly",
+  "QUEENMOD2-ROYAL_JELLY_POWER.description": "When Pollinated is removed, gain Strength.",
+  "QUEENMOD2-ROYAL_JELLY_POWER.smartDescription": "When [gold]Pollinated[/gold] is removed, gain [blue]{Amount}[/blue] [gold]Strength.[/gold]"
 }

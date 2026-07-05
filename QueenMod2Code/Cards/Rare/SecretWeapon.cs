@@ -48,7 +48,7 @@ public class SecretWeapon() : QueenMod2Card(0,
         CardPlay play)
     {
         SecretWeapon weapon = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(weapon.DynamicVars.CalculatedDamage).WithHitCount(weapon.ResolveEnergyXValue()).FromCard((CardModel) weapon).TargetingAllOpponents(weapon.CombatState).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
+        AttackCommand attackCommand = await DamageCmd.Attack(weapon.DynamicVars.CalculatedDamage).WithHitCount(weapon.ResolveEnergyXValue()).FromCard((CardModel) weapon, play).TargetingAllOpponents(weapon.CombatState).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
     }
     
     protected override void OnUpgrade()

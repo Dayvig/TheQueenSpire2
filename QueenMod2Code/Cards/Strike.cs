@@ -28,7 +28,7 @@ public class Strike() : QueenMod2Card(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.IntValue).FromCard(this).Targeting(play.Target)
+        AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.IntValue).FromCard(this, play).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 

@@ -29,7 +29,7 @@ public class PheremoneSwap() : QueenMod2Card(0,
         CardPlay play)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
-        AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.IntValue).FromCard(this).
+        AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.IntValue).FromCard(this, play).
             Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         int DefenseToApply = 0;
         int OffenseToApply = 0;

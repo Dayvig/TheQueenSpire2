@@ -33,7 +33,7 @@ public class Slap() : QueenMod2Card(0,
         CardPlay play)
     {
         Slap slap = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(slap.DynamicVars.Damage.IntValue).FromCard(slap).Targeting(play.Target)
+        AttackCommand attackCommand = await DamageCmd.Attack(slap.DynamicVars.Damage.IntValue).FromCard(slap, play).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         SlapPower setupStrikePower = await PowerCmd.Apply<SlapPower>(choiceContext, slap.Owner.Creature, slap.DynamicVars["TemporaryStrength"].BaseValue, slap.Owner.Creature, (CardModel) slap);
     }

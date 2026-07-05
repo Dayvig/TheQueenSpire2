@@ -38,7 +38,7 @@ public class CommandAssault() : QueenMod2Card(2,
         ArgumentNullException.ThrowIfNull((object) play.Target, "play.Target");
         for (int i = 0; i < DynamicVars["Hits"].IntValue; i++)
         {
-            AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+            AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         }
         await PowerCmd.Apply<Pheremone>(choiceContext, play.Target,
             DynamicVars["Pheremones"].IntValue,

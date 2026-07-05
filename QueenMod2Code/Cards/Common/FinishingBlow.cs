@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -21,12 +22,15 @@ public class FinishingBlow() : QueenMod2Card(1,
     CardType.Attack, CardRarity.Common,
     TargetType.AnyEnemy)
 {
-    public static Decimal hitsThisTurn = 0;
+    private static Decimal _hitsThisTurn = 0;
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CalculationBaseVar(7M),
         new ExtraDamageVar(3M),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(((Func<CardModel, Creature, Decimal>) ((card, _) => hitsThisTurn))!)
+       new CalculatedDamageVar(ValueProp.Move).
+           WithMultiplier(((Func<CardModel, Creature, Decimal>) 
+               ((card, _) => (Decimal) CombatManager.Instance.History.Entries.OfType<CreatureAttackedEntry>().Count
+                   <CreatureAttackedEntry>((Func<CreatureAttackedEntry, bool>)(e => e.HappenedThisTurn(card.CombatState) && e.Actor == card.Owner.Creature))))!)
     ];
     
     public override Task AfterDamageGiven(
@@ -39,7 +43,8 @@ public class FinishingBlow() : QueenMod2Card(1,
     {
         if (dealer != null && dealer.Equals(Owner.Creature) && !props.Equals(ValueProp.Unblockable) && target.CombatState.CurrentSide == CombatSide.Player)
         {
-            hitsThisTurn++;
+            MainFile.Logger.Info("Finishing Blow Call");
+            _hitsThisTurn++;
         }
         return Task.CompletedTask;
     }
@@ -51,7 +56,7 @@ public class FinishingBlow() : QueenMod2Card(1,
     {
         if (side == CombatSide.Player)
         {
-            hitsThisTurn = 0;
+            _hitsThisTurn = 0;
         }
     }
     
@@ -60,7 +65,7 @@ public class FinishingBlow() : QueenMod2Card(1,
         CardPlay play)
     {
         FinishingBlow blow = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(blow.DynamicVars.CalculatedDamage).FromCard((CardModel) blow).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
+        AttackCommand attackCommand = await DamageCmd.Attack(blow.DynamicVars.CalculatedDamage).FromCard((CardModel) blow, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
     }
     protected override void OnUpgrade()
     {

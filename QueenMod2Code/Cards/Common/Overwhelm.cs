@@ -25,7 +25,7 @@ public class Overwhelm() : QueenMod2Card(2,
         CardPlay play)
     {
         Overwhelm blow = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(blow.DynamicVars.CalculatedDamage).FromCard((CardModel) blow).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
+        AttackCommand attackCommand = await DamageCmd.Attack(blow.DynamicVars.CalculatedDamage).FromCard((CardModel) blow, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
     }
     protected override void OnUpgrade()
     {

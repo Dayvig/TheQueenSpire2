@@ -25,7 +25,7 @@ public class Flanking() : QueenMod2Card(0,
         CardPlay play)
     {
         Flanking blow = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(blow.DynamicVars.Damage.BaseValue).FromCard((CardModel) blow).TargetingAllOpponents(blow.CombatState).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
+        AttackCommand attackCommand = await DamageCmd.Attack(blow.DynamicVars.Damage.BaseValue).FromCard((CardModel) blow, play).TargetingAllOpponents(blow.CombatState).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
         if (CardPile.GetCards(blow.Owner, PileType.Hand).Count() >= 8)
         {
             IReadOnlyList<VulnerablePower> vulnerablePowerList = await PowerCmd.Apply<VulnerablePower>(choiceContext, (IEnumerable<Creature>) blow.CombatState.HittableEnemies, blow.DynamicVars["VulnerablePower"].BaseValue, blow.Owner.Creature, (CardModel) blow);

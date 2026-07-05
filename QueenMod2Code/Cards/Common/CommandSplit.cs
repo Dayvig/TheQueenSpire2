@@ -35,7 +35,7 @@ public class CommandSplit() : QueenMod2Card(1,
     {
         CommandSplit order = this;
         ArgumentNullException.ThrowIfNull((object) play.Target, "play.Target");
-            AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+            AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
             
         await PowerCmd.Apply<Pheremone>(choiceContext, play.Target,
             DynamicVars["Pheremones"].IntValue,

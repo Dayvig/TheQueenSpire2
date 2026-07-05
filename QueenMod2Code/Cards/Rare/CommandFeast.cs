@@ -31,14 +31,14 @@ public class CommandFeast() : QueenMod2Card(1,
         if (IsUpgraded)
         {
             AttackCommand attackCommand = await DamageCmd
-                .Attack(order.DynamicVars.CalculatedDamage.Calculate(null)).FromCard(order)
+                .Attack(order.DynamicVars.CalculatedDamage.Calculate(null)).FromCard(order, play)
                 .TargetingAllOpponents(play.Card.CombatState)
                 .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         }
         else
         {
             AttackCommand attackCommand = await DamageCmd
-                .Attack(order.DynamicVars.CalculatedDamage.Calculate(play.Target)).FromCard(order)
+                .Attack(order.DynamicVars.CalculatedDamage.Calculate(play.Target)).FromCard(order, play)
                 .Targeting(play.Target)
                 .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         }

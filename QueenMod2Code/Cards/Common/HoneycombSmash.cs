@@ -40,7 +40,7 @@ public class HoneycombSmash() : QueenMod2Card(1,
             }
         }
         ArgumentNullException.ThrowIfNull((object) play.Target, "play.Target");
-        AttackCommand attackCommand = await DamageCmd.Attack(smash.DynamicVars.Damage.BaseValue).FromCard((CardModel) smash).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        AttackCommand attackCommand = await DamageCmd.Attack(smash.DynamicVars.Damage.BaseValue).FromCard((CardModel) smash, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
 
         await PowerCmd.Apply<WeakPower>(choiceContext, play.Target,
             weakApp,

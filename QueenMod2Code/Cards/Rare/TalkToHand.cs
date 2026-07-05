@@ -25,7 +25,7 @@ public class TalkToHand() : QueenMod2Card(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.IntValue).FromCard(this).Targeting(play.Target)
+        AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.IntValue).FromCard(this, play).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         await PowerCmd.Apply<TalkToHandPower>(choiceContext, play.Target, DynamicVars["TalkToHandPower"].BaseValue,
             Owner.Creature, this, false);

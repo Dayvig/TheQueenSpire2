@@ -11,12 +11,13 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using QueenMod2.QueenMod2Code.Cards.Generated;
 
 namespace QueenMod2.QueenMod2Code.Powers;
 
-public class SharpStingersPower : QueenMod2Power
+public class RoyalJellyPower : QueenMod2Power
 {
     //Loads from QueenMod2/images/powers/your_power.png
     public override string CustomPackedIconPath
@@ -41,14 +42,16 @@ public class SharpStingersPower : QueenMod2Power
     public override PowerStackType StackType => PowerStackType.Counter;
     public override Color AmountLabelColor => _normalAmountLabelColor;
     
-    public override Decimal ModifyDamageAdditive(
-        Creature? target,
-        Decimal amount,
-        ValueProp props,
-        Creature? dealer,
-        CardModel? card,
-        CardPlay? cardPlay)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier,
+        CardModel? cardSource)
     {
-        return this.Owner != dealer || !props.IsPoweredAttack() || card == null || !card.Id.Equals(ModelDb.Card<Hornet>().Id) ? 0M : (Decimal) this.Amount;
+        MainFile.Logger.Info("REch" + power.Amount);
+
+        if (power.Id.Equals(ModelDb.Power<Pollinated>().Id) && power.Amount >= 5M)
+        {
+            MainFile.Logger.Info("Triggering" + power.Amount);
+            return PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner, amount, Owner, null);
+        }
+        return Task.CompletedTask;
     }
 }

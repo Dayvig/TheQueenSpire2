@@ -28,7 +28,8 @@ public class KillerBee() : QueenMod2Card(1,
     public static int timesTriggered = 0;
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        QueenMod2Keywords.Hivebound
+        QueenMod2Keywords.Hivebound,
+        CardKeyword.Exhaust
     ];
     
     protected override async Task OnPlay(
@@ -36,7 +37,7 @@ public class KillerBee() : QueenMod2Card(1,
         CardPlay play)
     {
         KillerBee killer = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(killer.DynamicVars.CalculatedDamage).FromCard(killer).Targeting(play.Target)
+        AttackCommand attackCommand = await DamageCmd.Attack(killer.DynamicVars.CalculatedDamage).FromCard(killer, play).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
     

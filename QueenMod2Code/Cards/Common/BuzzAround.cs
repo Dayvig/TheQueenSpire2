@@ -32,7 +32,7 @@ public class BuzzAround() : QueenMod2Card(1,
         for (int i = 0; i < DynamicVars["Hits"].IntValue; i++)
         {
             ArgumentNullException.ThrowIfNull((object) play.Target, "play.Target");
-            AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+            AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         }
     }
     protected override void OnUpgrade()
