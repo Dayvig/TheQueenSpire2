@@ -80,6 +80,8 @@ public class BattleDance() : QueenMod2Card(-2,
                 }                
                 break;
         }
+        HasCustomGlowColor = true;
+        customGlowColor = dance.DanceColors[dance.stepToColor(dance.danceSteps[dance.place])];
 
         return Task.CompletedTask;
     }

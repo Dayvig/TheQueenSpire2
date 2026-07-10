@@ -4,6 +4,9 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Cards;
+using MegaCrit.Sts2.Core.Models.Events;
+using MegaCrit.Sts2.Core.Models.Monsters;
 using MegaCrit.Sts2.Core.ValueProps;
 using QueenMod2.QueenMod2Code.Formatters;
 using QueenMod2.QueenMod2Code.Powers;
@@ -14,6 +17,8 @@ public class WarRoom() : QueenMod2Card(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
+    
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(6M, ValueProp.Move),
         new ("StrategizeValue", 2),
@@ -46,6 +51,21 @@ public class WarRoom() : QueenMod2Card(1,
 
         }
     }
+    
+    public override Task AfterCardDrawn(
+        PlayerChoiceContext choiceContext,
+        CardModel card,
+        bool fromHandDraw)
+    {
+        if (card.Equals(this))
+        {
+            MainFile.Logger.Info("Resetting Strat Value");
+            StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+            strat.place = 0;
+        }
+        return Task.CompletedTask;
+    }
+
 
     private bool MeetsCriteria(CardModel card, StrategizeVar? var)
     {
@@ -58,9 +78,7 @@ public class WarRoom() : QueenMod2Card(1,
             case MainFile.StrategizeType.ATTACK:
                 return card.Type.Equals(CardType.Attack);
             case MainFile.StrategizeType.BLOCKSKILL:
-                return card.Type.Equals(CardType.Skill) && card.GainsBlock;
-            case MainFile.StrategizeType.UTILITYSKILL:
-                return card.Type.Equals(CardType.Skill) && !card.GainsBlock;
+                return card.Type.Equals(CardType.Skill);
             case MainFile.StrategizeType.POWER:
                 return card.Type.Equals(CardType.Power);
         }
@@ -73,12 +91,16 @@ public class WarRoom() : QueenMod2Card(1,
         if (!cardPlay.Card.Owner.Equals(Owner))
             return Task.CompletedTask;
        
+        MainFile.Logger.Info("Increasing Strat Value");
         StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
         strat.place++;
         if (strat.place >= strat.TypeList.Count)
         {
             strat.place = 0;
         }
+
+        HasCustomGlowColor = true;
+        customGlowColor = strat.StrategizeColors[strat.place];
         return Task.CompletedTask;
     }
     

@@ -22,8 +22,8 @@ public class HexGuard() : QueenMod2Card(2,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CalculationBaseVar(10M),
-        new CalculationExtraVar(3M),
+        new CalculationBaseVar(12M),
+        new CalculationExtraVar(4M),
         new CalculatedBlockVar(ValueProp.Move).WithMultiplier(((Func<CardModel, Creature, Decimal>)((card, _) =>
         {
             List<CardModel> combs = new List<CardModel>();

@@ -186,6 +186,8 @@
   "QUEENMOD2-CROSS_POLLINATION.description": "Deal {Damage:diff()} damage. \n Apply {Pollinated:diff()} [gold]Pollinated[/gold]. \n When [gold]Pollinated[/gold] is removed, put this into your hand.",
   "QUEENMOD2-CROSS_POLLINATION.title": "Cross Pollination",
   "QUEENMOD2-ROYAL_JELLY.description": "Apply {Pollinated:diff()} [gold]Pollinated[/gold]. \n When [gold]Pollinated[/gold] is removed, gain {RoyalJellyPower:diff()} [gold]Strength[/gold].",
-  "QUEENMOD2-ROYAL_JELLY.title": "Royal Jelly"
+  "QUEENMOD2-ROYAL_JELLY.title": "Royal Jelly",
+  "QUEENMOD2-DEPLOYMENT.description": "Give all [gold]Hive[/gold] cards in hand to an ally. {IfUpgraded:show:\n Draw {Cards:diff()} card{Cards:plural:|s} for each given.}",
+  "QUEENMOD2-DEPLOYMENT.title": "Deployment"
 
 }

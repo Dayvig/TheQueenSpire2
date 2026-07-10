@@ -1,3 +1,4 @@
+using Godot;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace QueenMod2.QueenMod2Code.Formatters;
@@ -11,9 +12,16 @@ public class StrategizeVar : DynamicVar
     {
         MainFile.StrategizeType.ATTACK,
         MainFile.StrategizeType.BLOCKSKILL,
-        MainFile.StrategizeType.UTILITYSKILL,
         MainFile.StrategizeType.POWER
     };
+
+    public List<Color> StrategizeColors = new List<Color>()
+    {
+        new Color(1f, 0.0f, 0f, 0.98f),
+        new Color(0f, 0.85f, 0f, 0.98f),
+        new Color(0.125f, 0.9f, 1f, 0.98f)
+    };
+    
     public int place = 0;
     
     public StrategizeVar(int place, bool plural)

@@ -69,6 +69,8 @@
 
     <ItemGroup>
         <Publicize Include="sts2:MegaCrit.Sts2.Core.Runs.RunManager.State"/>
+	<Publicize Include="sts2:MegaCrit.Sts2.Core.Commands"/>
+	<Publicize Include="sts2:MegaCrit.Sts2.Core.Commands.CardPileCmd.NCard.CreateCardNodeAndUpdateVisuals"/>
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">

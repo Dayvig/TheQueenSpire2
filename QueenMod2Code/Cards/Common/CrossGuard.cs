@@ -22,7 +22,7 @@ public class CrossGuard() : QueenMod2Card(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CalculationBaseVar(3M),
+        new CalculationBaseVar(4M),
         new CalculationExtraVar(2M),
         new CalculatedBlockVar(ValueProp.Move).WithMultiplier(((Func<CardModel, Creature, Decimal>)((card, _) =>
         {
@@ -48,6 +48,7 @@ public class CrossGuard() : QueenMod2Card(1,
     }
     protected override void OnUpgrade()
     {
+        DynamicVars.CalculationBase.UpgradeValueBy(2M);
         DynamicVars.CalculationExtra.UpgradeValueBy(1M);
     }
 }

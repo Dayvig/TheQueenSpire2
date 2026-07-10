@@ -44,11 +44,8 @@ public class CrossPollination() : QueenMod2Card(1,
     public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier,
         CardModel? cardSource)
     {       
-        MainFile.Logger.Info("REch" + power.Amount);
-
         if (power.Id.Equals(ModelDb.Power<Pollinated>().Id) && power.Amount >= 5M)
         {
-            MainFile.Logger.Info("Triggering" + amount);
             return CardPileCmd.Add((CardModel) this, PileType.Hand);
         }
         return Task.CompletedTask;

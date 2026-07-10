@@ -40,6 +40,22 @@ public class QuickThinking() : QueenMod2Card(0,
         eligableCards.Remove(eligableCards[nextRng]);
         await CardPileCmd.Draw(choiceContext, 1, thinking.Owner);
     }
+
+    private bool justDrawn = false;
+    
+    public override Task AfterCardDrawn(
+        PlayerChoiceContext choiceContext,
+        CardModel card,
+        bool fromHandDraw)
+    {
+        if (card.Equals(this))
+        {
+            justDrawn = true;
+        }
+        return Task.CompletedTask;
+    }
+
+    
     private bool MeetsCriteria(CardModel card, StrategizeVar? var)
     {
         if (var == null)
@@ -51,9 +67,7 @@ public class QuickThinking() : QueenMod2Card(0,
             case MainFile.StrategizeType.ATTACK:
                 return card.Type.Equals(CardType.Attack);
             case MainFile.StrategizeType.BLOCKSKILL:
-                return card.Type.Equals(CardType.Skill) && card.GainsBlock;
-            case MainFile.StrategizeType.UTILITYSKILL:
-                return card.Type.Equals(CardType.Skill) && !card.GainsBlock;
+                return card.Type.Equals(CardType.Skill);
             case MainFile.StrategizeType.POWER:
                 return card.Type.Equals(CardType.Power);
         }
@@ -67,11 +81,14 @@ public class QuickThinking() : QueenMod2Card(0,
             return Task.CompletedTask;
        
         StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
-        strat.place++;
+        strat.place = justDrawn ? 0 : strat.place + 1;
+        justDrawn = false;
         if (strat.place >= strat.TypeList.Count)
         {
             strat.place = 0;
         }
+        HasCustomGlowColor = true;
+        customGlowColor = strat.StrategizeColors[strat.place];
         return Task.CompletedTask;
     }
     

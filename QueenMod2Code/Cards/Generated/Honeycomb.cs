@@ -25,7 +25,9 @@ public class Honeycomb() : QueenMod2Card(0,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await PlayerCmd.GainEnergy(DynamicVars["EnergyGain"].BaseValue, this.Owner);
+        CalculatedVar EnergyG = (CalculatedVar)DynamicVars["EnergyGain"];
+        Decimal val = EnergyG.Calculate(play.Target);
+        await PlayerCmd.GainEnergy(val, this.Owner);
     }
 
     protected override void OnUpgrade()

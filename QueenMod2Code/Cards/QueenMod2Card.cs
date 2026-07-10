@@ -1,6 +1,7 @@
 ﻿using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using QueenMod2.QueenMod2Code.Character;
 using QueenMod2.QueenMod2Code.Extensions;
@@ -14,6 +15,9 @@ namespace QueenMod2.QueenMod2Code.Cards;
 public abstract class QueenMod2Card(int cost, CardType type, CardRarity rarity, TargetType target) :
     CustomCardModel(cost, type, rarity, target)
 {
+    public Color customGlowColor;
+    public bool HasCustomGlowColor = false;
+    
     //Image size:
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
     //Full art: 606x852

@@ -39,7 +39,7 @@ public class SwarmTacticsPower : QueenMod2Power
         Creature? dealer,
         CardModel? cardSource)
     {
-        if (dealer != null && dealer.Equals(Applier))
+        if (dealer != null && dealer.Equals(Applier) && target != dealer)
         {
             await PowerCmd.Apply<Swarm>(choiceContext, target, (Decimal)Amount, dealer, (CardModel)null, true);
         }

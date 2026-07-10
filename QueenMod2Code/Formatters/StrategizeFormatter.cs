@@ -37,16 +37,16 @@ public class StrategizeFormatter : IFormatter
                 returnString += plural ? "s[/red]" : "[/red]";
                 break;
             case MainFile.StrategizeType.BLOCKSKILL:
-                returnString += "[blue]Block Skill";
-                returnString += plural ? "s[/blue]" : "[/blue]";
+                returnString += "[green]Skill";
+                returnString += plural ? "s[/green]" : "[/green]";
                 break;
             case MainFile.StrategizeType.UTILITYSKILL:
                 returnString += "[blue]Utility Skill";
                 returnString += plural ? "s[/blue]" : "[/blue]";
                 break;
             case MainFile.StrategizeType.POWER:
-                returnString += "[lightblue]Power";
-                returnString += plural ? "s[/lightblue]" : "[/lightblue]";
+                returnString += "[aqua]Power";
+                returnString += plural ? "s[/aqua]" : "[/aqua]";
                 break;
         }
         return returnString;

@@ -43,7 +43,7 @@
   "QUEENMOD2-FORMATION_POWER.smartDescription": "Shuffle the next {Amount:plural:card| {Amount} cards} you play into your Draw Pile.",
   "QUEENMOD2-EXTRA_CHAMBER_POWER.title": "Extra Chamber",
   "QUEENMOD2-EXTRA_CHAMBER_POWER.description": "Honeycombs provide additional Energy when played.",
-  "QUEENMOD2-EXTRA_CHAMBER_POWER.smartDescription": "[gold]Honeycombs[/gold] provide an additional {energyPrefix:energyIcons({Amount}})} when played.",
+  "QUEENMOD2-EXTRA_CHAMBER_POWER.smartDescription": "[gold]Honeycombs[/gold] provide an additional {Amount:energyIcons(1)} when played.",
   "QUEENMOD2-TALK_TO_HAND_POWER.title": "Talk To The Hand",
   "QUEENMOD2-TALK_TO_HAND_POWER.description": "When you hit this enemy, gain Block.",
   "QUEENMOD2-TALK_TO_HAND_POWER.smartDescription": "When you hit this enemy, gain [blue]{Amount}[/blue] Block.",
