@@ -8,10 +8,11 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 using QueenMod2.QueenMod2Code.Cards.Generated;
+using QueenMod2.QueenMod2Code.Character;
 
-namespace QueenMod2.QueenMod2Code.Cards.Uncommon;
+namespace QueenMod2.QueenMod2Code.Cards.Rare;
 
-public class Assault() : QueenMod2Card(2,
+public class Assault() : QueenMod2Card(3,
     CardType.Attack, CardRarity.Rare,
     TargetType.AllEnemies)
 { 
@@ -23,15 +24,7 @@ public class Assault() : QueenMod2Card(2,
         (DynamicVar) new CalculationExtraVar(1M),
         (DynamicVar) new CalculatedVar("CalculatedHits").WithMultiplier(((Func<CardModel, Creature, Decimal>) ((card, _) =>
         {
-            hitsThisTurn = 0;
-            foreach (CardModel model in PileType.Hand.GetPile(card.Owner).Cards)
-            {
-                if (!model.Equals(card))
-                {
-                    hitsThisTurn++;
-                }
-            }
-            return (Decimal)(1 + hitsThisTurn);
+            return SwarmController.TotalSwarmAmount;
         }))!)
     ];
     

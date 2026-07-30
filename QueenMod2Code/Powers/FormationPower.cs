@@ -30,25 +30,24 @@ public class FormationPower : QueenMod2Power
         }
     }
 
-    public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(
+    public override CardLocation ModifyCardPlayResultLocation(
         CardModel card,
         bool isAutoPlay,
         ResourceInfo resources,
-        PileType pileType,
-        CardPilePosition position)
+        CardLocation cardLocation)
     {
         if (card.Owner.Creature != this.Owner)
-            return (pileType, position);
-        return pileType != PileType.Discard ? (pileType, position) : (PileType.Draw, CardPilePosition.Random);
+            return cardLocation;
+        if (cardLocation.pileType == PileType.Discard)
+        {
+            Dec();
+        }
+        return cardLocation.pileType != PileType.Discard
+            ? cardLocation
+            : new CardLocation(this.Owner.Player, PileType.Draw, CardPilePosition.Random);
     }
 
-    public override async Task AfterModifyingCardPlayResultPileOrPosition(
-        CardModel card,
-        PileType pileType,
-        CardPilePosition position)
-    {
-        if (card.Owner.Creature != Owner)
-            return;
+    private async Task Dec(){
         Flash();
         await PowerCmd.Decrement((PowerModel) this);
     }

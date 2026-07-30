@@ -13,11 +13,10 @@ using QueenMod2.QueenMod2Code.Cards.Generated;
 
 namespace QueenMod2.QueenMod2Code.Cards.Rare;
 
-public class SecretWeapon() : QueenMod2Card(0,
+public class CannonXL() : QueenMod2Card(0,
     CardType.Attack, CardRarity.Rare,
     TargetType.AllEnemies)
-{
-    public static Decimal hitsThisTurn = 0;
+{ 
     protected override bool HasEnergyCostX => true;
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -27,32 +26,19 @@ public class SecretWeapon() : QueenMod2Card(0,
     ];  
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CalculationBaseVar(6M),
-        new ExtraDamageVar(3M),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(((Func<CardModel, Creature, Decimal>)((card, _) =>
-        {
-            List<CardModel> combs = new List<CardModel>();
-            foreach (CardModel model in PileType.Exhaust.GetPile(card.Owner).Cards)
-            {
-                if (model.Id.Equals(ModelDb.Card<Honeycomb>().Id))
-                {
-                    combs.Add(model);
-                }
-            }
-            return (Decimal)combs.Count;
-        }))!)    
+        new DamageVar(8M, ValueProp.Move)    
     ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        SecretWeapon weapon = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(weapon.DynamicVars.CalculatedDamage).WithHitCount(weapon.ResolveEnergyXValue()).FromCard((CardModel) weapon, play).TargetingAllOpponents(weapon.CombatState).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
+        CannonXL weapon = this;
+        AttackCommand attackCommand = await DamageCmd.Attack(weapon.DynamicVars.Damage.BaseValue).WithHitCount(weapon.ResolveEnergyXValue()).FromCard((CardModel) weapon, play).TargetingAllOpponents(weapon.CombatState).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
     }
     
     protected override void OnUpgrade()
     {
-        DynamicVars.ExtraDamage.UpgradeValueBy(2M);
+        DynamicVars.Damage.UpgradeValueBy(4M);
     }
 }

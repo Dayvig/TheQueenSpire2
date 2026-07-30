@@ -22,7 +22,7 @@ public class Workerbee() : QueenMod2Card(0,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromKeyword(QueenMod2Keywords.Honeycomb)
+        HoverTipFactory.FromCard<Honeycomb>(IsUpgraded)
     ];
 
     protected override async Task OnPlay(
@@ -30,11 +30,16 @@ public class Workerbee() : QueenMod2Card(0,
         CardPlay play)
     {
         Workerbee worker = this;
-        await CardPileCmd.AddGeneratedCardToCombat((CardModel) worker.CombatState.CreateCard<Honeycomb>(worker.Owner), PileType.Hand, play.Card.Owner);
+        Honeycomb comb = worker.CombatState.CreateCard<Honeycomb>(worker.Owner);
+        if (IsUpgraded)
+        {
+            CardCmd.Upgrade(comb);
+        }
+        await CardPileCmd.AddGeneratedCardToCombat(comb, PileType.Hand, worker.Owner);
     }
 
     protected override void OnUpgrade()
     {
-
+        
     }
 }

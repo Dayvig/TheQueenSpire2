@@ -34,7 +34,7 @@ public class HexGuard() : QueenMod2Card(2,
                     combs.Add(model);
                 }
             }
-
+            
             return (Decimal)combs.Count;
         }))!)
     ];
