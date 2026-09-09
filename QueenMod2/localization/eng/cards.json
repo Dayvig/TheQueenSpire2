@@ -31,7 +31,7 @@
   "QUEENMOD2-DEFEND_ORDER.title": "Defend Order",
   "QUEENMOD2-SEARCH_ORDER.description": "Add [blue]{Generate:diff()}[/blue] [gold]Drone[/gold] to your Draw Pile. \n Draw {Cards:diff()} cards.",
   "QUEENMOD2-SEARCH_ORDER.title": "Search Order",
-  "QUEENMOD2-GATHER_ORDER.description": "Next turn, gain {Energy:diff()}. \n Add [blue]{Generate:diff()}[/blue] [gold]Honeybee[/gold] to your Draw Pile.",
+  "QUEENMOD2-GATHER_ORDER.description": "Next turn, gain {energyPrefix:energyIcons(1)}. \n Add a [gold]Honeybee[/gold] to your Draw Pile.",
   "QUEENMOD2-GATHER_ORDER.title": "Gather Order",
   "QUEENMOD2-BUZZ_AROUND.description": "Deal {Damage:diff()} damage {Hits:diff()} times.",
   "QUEENMOD2-BUZZ_AROUND.title": "Buzz Around",
@@ -187,7 +187,8 @@
   "QUEENMOD2-CROSS_POLLINATION.title": "Cross Pollination",
   "QUEENMOD2-ROYAL_JELLY.description": "Apply {Pollinated:diff()} [gold]Pollinated[/gold]. \n When [gold]Pollinated[/gold] is removed, gain {RoyalJellyPower:diff()} [gold]Strength[/gold].",
   "QUEENMOD2-ROYAL_JELLY.title": "Royal Jelly",
-  "QUEENMOD2-DEPLOYMENT.description": "Give all [gold]Hive[/gold] cards in hand to an ally. {IfUpgraded:show:\n Draw {Cards:diff()} card{Cards:plural:|s} for each given.}",
-  "QUEENMOD2-DEPLOYMENT.title": "Deployment"
-
+  "QUEENMOD2-DEPLOYMENT.description": "Send all [gold]Hive[/gold] cards in hand to the top of an ally's deck. \n That ally draws a card. {IfUpgraded:show:\n Draw {Cards:diff()} card{Cards:plural:|s} for each given.}",
+  "QUEENMOD2-DEPLOYMENT.title": "Deployment",
+  "QUEENMOD2-FRENZY.description": "Trigger your [gold]Swarm[/gold]{IfUpgraded:show: twice|}.",
+  "QUEENMOD2-FRENZY.title": "Frenzy"
 }

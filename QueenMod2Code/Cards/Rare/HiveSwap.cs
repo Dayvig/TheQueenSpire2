@@ -83,23 +83,7 @@ public class HiveSwap() : QueenMod2Card(0,
 
         foreach (CardModel model in toRemove)
         {
-            Control playContainer = NCombatRoom.Instance.Ui.PlayContainer;
-            NPlayerHand hand = NCombatRoom.Instance.Ui.Hand;
-            if (pileType == PileType.Hand)
-            {
-                NCard? onTable = NCard.FindOnTable(model);
-                if (onTable != null && !NodeUtil.IsDescendant((Node)playContainer, (Node)onTable))
-                {
-                    hand.Remove(model);
-                }
-                else
-                {
-                    Node parent = onTable.GetParent();
-                    if (parent != null)
-                        parent.RemoveChildSafely((Node)onTable);
-                }
-            }
-            model.RemoveFromCurrentPile(true);
+            await CardPileCmd.RemoveFromCombat(model);
         }
 
         foreach (CardModel newCard in toAdd)

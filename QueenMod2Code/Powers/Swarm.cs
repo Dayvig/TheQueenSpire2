@@ -80,9 +80,7 @@ public class Swarm : QueenMod2Power
             return;
         if (side == CombatSide.Player)
         {
-            swarmPower.Flash();
-            Decimal num = await CreatureCmd.GainBlock(swarmPower.Owner,
-                (Decimal)swarmPower.getTotalAmount(swarmPower.Owner), ValueProp.Unpowered, (CardPlay)null);
+            TriggerSwarm(false, false);
         }
     }
 
@@ -94,19 +92,15 @@ public class Swarm : QueenMod2Power
         Swarm power = this;
         if (side == CombatSide.Enemy && participants.Contains<Creature>(power.Owner))
         {
-            await CreatureCmd.Damage((PlayerChoiceContext)new ThrowingPlayerChoiceContext(), power.Owner,
-                (Decimal)power.getTotalAmount(power.Owner), ValueProp.Unblockable | ValueProp.Unpowered, null,
-                null);
-            if (power.Owner.IsAlive)
-                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)power, -power.DynamicVars["Decrement"].BaseValue,
-                    (Creature)null, (CardModel)null);
-            else
-                await Cmd.CustomScaledWait(0.1f, 0.25f);
+            TriggerSwarm(true, true);
         }
         if (side == CombatSide.Player)
         {
-            await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)power, -power.DynamicVars["Decrement"].BaseValue,
-                (Creature)null, (CardModel)null);
+            if (Owner.IsAlive)
+                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)this, -DynamicVars["Decrement"].BaseValue,
+                    (Creature)null, (CardModel)null);
+            else
+                await Cmd.CustomScaledWait(0.1f, 0.25f);
         }
     }
     
@@ -138,5 +132,31 @@ public class Swarm : QueenMod2Power
         power.Flash();
         MainFile.Logger.Info("Attempting to apply"+power.Amount+" Swarm to" + power.Applier.LogName);
         await PowerCmd.Apply<Swarm>(choiceContext, power.Applier, power.Amount, power.Applier, (CardModel) null);
+    }
+
+    public async void TriggerSwarm(bool isDamage, bool decrement)
+    {
+        Flash();
+        if (isDamage)
+        {
+            await CreatureCmd.Damage((PlayerChoiceContext)new ThrowingPlayerChoiceContext(), Owner,
+                (Decimal)getTotalAmount(Owner), ValueProp.Unblockable | ValueProp.Unpowered, null,
+                null);
+            if (Owner.IsAlive && decrement)
+                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)this, -DynamicVars["Decrement"].BaseValue,
+                    (Creature)null, (CardModel)null);
+            else
+                await Cmd.CustomScaledWait(0.1f, 0.25f);
+        }
+        else
+        {
+            Decimal num = await CreatureCmd.GainBlock(Owner,
+                (Decimal)getTotalAmount(Owner), ValueProp.Unpowered, (CardPlay)null);
+            if (Owner.IsAlive && decrement)
+                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)this, -DynamicVars["Decrement"].BaseValue,
+                    (Creature)null, (CardModel)null);
+            else
+                await Cmd.CustomScaledWait(0.1f, 0.25f);
+        }
     }
 }

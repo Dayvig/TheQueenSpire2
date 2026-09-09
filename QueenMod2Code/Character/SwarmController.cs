@@ -1,9 +1,11 @@
 using System.Diagnostics;
 using BaseLib.Abstracts;
+using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -63,6 +65,43 @@ public class SwarmControllerMethods
             }
         }
     }
+
+    public void TriggerAllSwarm(Player sourcePlayer)
+    {
+        List<Swarm> SwarmList = new List<Swarm>();
+        
+        foreach (Creature c in sourcePlayer.Creature.CombatState.Allies)
+        {
+            if (c.HasPower<Swarm>())
+            {
+                Swarm tmp = c.GetPower<Swarm>();
+                SwarmList.Add(tmp);
+            }
+        }
+
+        foreach (Swarm swarm in SwarmList)
+        {
+            swarm.TriggerSwarm(false, true);
+        }
+
+        SwarmList.Clear();
+        
+        foreach (Creature c in sourcePlayer.Creature.CombatState.Enemies)
+        {
+            if (c.HasPower<Swarm>())
+            {
+                Swarm tmp = c.GetPower<Swarm>();
+                SwarmList.Add(tmp);
+            }
+        }
+        
+        foreach (Swarm swarm in SwarmList)
+        {
+            swarm.TriggerSwarm(true, true);
+        }
+
+    }
+    
     public async Task DistributeSwarm(PlayerChoiceContext choiceContext, CardModel source, bool differentSwarmAmount)
     {
         MainFile.Logger.Info("Distributing Swarm");

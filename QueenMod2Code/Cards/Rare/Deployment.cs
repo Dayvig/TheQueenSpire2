@@ -1,8 +1,10 @@
+using System.Runtime.Serialization;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
@@ -45,15 +47,21 @@ public class Deployment() : QueenMod2Card(0,
         }
         foreach (CardModel model in Hive)
         {
-            //model.ModifyCardPlayResultPileTypeAndPosition(model, false play.Target.Player, PileType.Hand)
-            await Deployment.GiveToAnotherPlayer(model, play.Target.Player, PileType.Hand);
-            CardPileAddResult cardPileAddResult = await CardPileCmd.Add(model, PileType.Draw, CardPilePosition.Random);
-            //await RemoveAndReplaceHiveCard(model);
+            MainFile.Logger.Info(model.Id.ToString());
+
+            if (model is QueenMod2Card qCard && play.Target.Player != null)
+            {
+                //CardPileAddResult cardPileAddResult = await CardPileCmd.Add(model, CardPile.Get(PileType.Discard, Owner)!);
+                await CardPileCmd.GiveToAnotherPlayer(model.CreateClone(), play.Target.Player, PileType.Draw, CardPilePosition.Top);
+                await CardPileCmd.RemoveFromCombat(model);
+            }
             if (IsUpgraded)
             {
                 await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, this.Owner);
             }
         }
+
+        await CardPileCmd.Draw(choiceContext, 1M, play.Target.Player, false);
     }
 
     public async Task RemoveAndReplaceHiveCard(CardModel m)
@@ -71,7 +79,7 @@ public class Deployment() : QueenMod2Card(0,
             if (parent != null)
                 parent.RemoveChildSafely((Node)onTable);
         }
-        m.RemoveFromCurrentPile(true);
+        m.RemoveFromState();
     }
 
     public static async Task<IEnumerable<CardModel>> CreateInHand(

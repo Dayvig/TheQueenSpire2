@@ -25,7 +25,6 @@ public class Slap() : QueenMod2Card(0,
     ];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        QueenMod2Keywords.Hivebound
     ];
     
     protected override async Task OnPlay(
