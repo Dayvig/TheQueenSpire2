@@ -39,6 +39,13 @@ public class BattleDance() : QueenMod2Card(-2,
         CardKeyword.Unplayable
     ];
     
+    public void setCustomGlow()
+    {
+        DanceVar dance =  (DanceVar)DynamicVars["Dance"];
+        HasCustomGlowColor = true;
+        customGlowColor = dance.DanceColors[dance.stepToColor(dance.danceSteps[dance.place])];
+    }
+    
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay play)
     {
         if (!play.Card.Owner.Equals(Owner) || !CardPile.GetCards(Owner, PileType.Hand).Contains(this))
@@ -80,9 +87,7 @@ public class BattleDance() : QueenMod2Card(-2,
                 }                
                 break;
         }
-        HasCustomGlowColor = true;
-        customGlowColor = dance.DanceColors[dance.stepToColor(dance.danceSteps[dance.place])];
-
+        setCustomGlow();
         return Task.CompletedTask;
     }
 
@@ -91,11 +96,13 @@ public class BattleDance() : QueenMod2Card(-2,
         BattleDance dance = this;
         AttackCommand attackCommand = await DamageCmd.Attack(dance.DynamicVars.Damage.IntValue).FromCard(dance, null).TargetingAllOpponents(dance.CombatState)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        setCustomGlow();
     }
     
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(4M);
+        setCustomGlow();
     }
     
     public override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
@@ -105,6 +112,7 @@ public class BattleDance() : QueenMod2Card(-2,
             DanceVar dance =  (DanceVar)DynamicVars["Dance"];
             dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
             dance.place = 0;
+            setCustomGlow();
         }
         return base.AfterCardDrawn(choiceContext, card, fromHandDraw);
     }
@@ -115,6 +123,7 @@ public class BattleDance() : QueenMod2Card(-2,
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
         dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
         dance.place = 0;
+        setCustomGlow();
     }
     
     protected override void AddExtraArgsToDescription(LocString description)

@@ -38,7 +38,15 @@ public class MatingDance() : QueenMod2Card(-2,
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
         CardKeyword.Unplayable
     ];
-    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay play)
+    
+    public void setCustomGlow()
+    {
+        DanceVar dance =  (DanceVar)DynamicVars["Dance"];
+        HasCustomGlowColor = true;
+        customGlowColor = dance.DanceColors[dance.stepToColor(dance.danceSteps[dance.place])];
+    }
+
+    public override Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay play)
     {
         if (!play.Card.Owner.Equals(Owner) || !CardPile.GetCards(Owner, PileType.Hand).Contains(this))
             return Task.CompletedTask;
@@ -79,19 +87,21 @@ public class MatingDance() : QueenMod2Card(-2,
                 }                
                 break;
         }
-        HasCustomGlowColor = true;
-        customGlowColor = dance.DanceColors[dance.stepToColor(dance.danceSteps[dance.place])];
+        setCustomGlow();
         return Task.CompletedTask;
     }
 
     public async Task triggerEffect(PlayerChoiceContext choiceContext)
     {
         await PowerCmd.Apply<Swarm>(choiceContext, Owner.Creature, DynamicVars["Swarm"].BaseValue, Owner.Creature, this, false);
+        setCustomGlow();
+
     }
     
     protected override void OnUpgrade()
     {
         DynamicVars["Swarm"].UpgradeValueBy(2M);
+        setCustomGlow();
     }
     
     public override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
@@ -101,6 +111,7 @@ public class MatingDance() : QueenMod2Card(-2,
             DanceVar dance =  (DanceVar)DynamicVars["Dance"];
             dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
             dance.place = 0;
+            setCustomGlow();
         }
         return base.AfterCardDrawn(choiceContext, card, fromHandDraw);
     }
@@ -111,6 +122,7 @@ public class MatingDance() : QueenMod2Card(-2,
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
         dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
         dance.place = 0;
+        setCustomGlow();
     }
     
     protected override void AddExtraArgsToDescription(LocString description)

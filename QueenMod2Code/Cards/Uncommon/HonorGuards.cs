@@ -19,7 +19,7 @@ public class HonorGuards() : QueenMod2Card(0,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromCard(ModelDb.Card<Bumblebee>())
+        HoverTipFactory.FromCard<Bumblebee>(this.IsUpgraded)
     ];
     
     protected override async Task OnPlay(

@@ -24,6 +24,13 @@ public class QuickThinking() : QueenMod2Card(0,
         HoverTipFactory.FromKeyword(QueenMod2Keywords.Strategize)
     ];
     
+    public void setCustomGlow()
+    {
+        StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+        HasCustomGlowColor = true;
+        customGlowColor = strat.StrategizeColors[strat.place];
+    }
+    
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
@@ -51,11 +58,19 @@ public class QuickThinking() : QueenMod2Card(0,
         if (card.Equals(this))
         {
             justDrawn = true;
+            setCustomGlow();
         }
         return Task.CompletedTask;
     }
 
-    
+    public override void AfterCreated()
+    {
+        base.AfterCreated();
+        StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+        strat.place = 0;
+        setCustomGlow();
+    }
+
     private bool MeetsCriteria(CardModel card, StrategizeVar? var)
     {
         if (var == null)
@@ -87,8 +102,7 @@ public class QuickThinking() : QueenMod2Card(0,
         {
             strat.place = 0;
         }
-        HasCustomGlowColor = true;
-        customGlowColor = strat.StrategizeColors[strat.place];
+        setCustomGlow();
         return Task.CompletedTask;
     }
     

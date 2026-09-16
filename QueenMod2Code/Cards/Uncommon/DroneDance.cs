@@ -81,15 +81,22 @@ public class DroneDance() : QueenMod2Card(-2,
                 }                
                 break;
         }
+        setCustomGlow();
+        return Task.CompletedTask;
+    }
+
+    public void setCustomGlow()
+    {
+        DanceVar dance =  (DanceVar)DynamicVars["Dance"];
         HasCustomGlowColor = true;
         customGlowColor = dance.DanceColors[dance.stepToColor(dance.danceSteps[dance.place])];
-        return Task.CompletedTask;
     }
 
     public async Task triggerEffect(PlayerChoiceContext choiceContext)
     {
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat((CardModel)CombatState.CreateCard<Drone>(Owner),
             PileType.Draw, Owner), 0.4f);
+        setCustomGlow();
     }
     
     protected override void OnUpgrade()
@@ -98,6 +105,7 @@ public class DroneDance() : QueenMod2Card(-2,
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
         dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
         dance.place = 0;
+        setCustomGlow();
     }
     
     public override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
@@ -107,6 +115,7 @@ public class DroneDance() : QueenMod2Card(-2,
             DanceVar dance =  (DanceVar)DynamicVars["Dance"];
             dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
             dance.place = 0;
+            setCustomGlow();
         }
         return base.AfterCardDrawn(choiceContext, card, fromHandDraw);
     }
@@ -117,6 +126,7 @@ public class DroneDance() : QueenMod2Card(-2,
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
         dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
         dance.place = 0;
+        setCustomGlow();
     }
     
     protected override void AddExtraArgsToDescription(LocString description)

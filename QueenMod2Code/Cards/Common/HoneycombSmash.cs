@@ -23,7 +23,14 @@ public class HoneycombSmash() : QueenMod2Card(1,
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(8M, ValueProp.Move),
-        new ("Weak", 1)
+        new CalculationBaseVar(1M),
+        new CalculationExtraVar(1M),
+        new CalculatedVar("StrDown").WithMultiplier(((Func<CardModel, Creature, Decimal>)
+            ((card, _) =>
+            {
+                return CardPile.GetCards(card.Owner, PileType.Hand)
+                    .Where((model => model.Id.Equals(ModelDb.Card<Honeycomb>().Id))).Count();
+            }))!)
     ];
     
     protected override async Task OnPlay(
@@ -32,19 +39,11 @@ public class HoneycombSmash() : QueenMod2Card(1,
     {
         HoneycombSmash smash = this;
         int weakApp = 1;
-        foreach (CardModel model in PileType.Hand.GetPile(smash.Owner).Cards)
-        {
-            if (model.Id.Equals(ModelDb.Card<Honeycomb>().Id))
-            {
-                weakApp++;
-            }
-        }
+
         ArgumentNullException.ThrowIfNull((object) play.Target, "play.Target");
         AttackCommand attackCommand = await DamageCmd.Attack(smash.DynamicVars.Damage.BaseValue).FromCard((CardModel) smash, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
 
-        await PowerCmd.Apply<WeakPower>(choiceContext, play.Target,
-            weakApp,
-            smash.Owner.Creature, (CardModel)this);
+        SmashPower? smashed = await PowerCmd.Apply<SmashPower>(choiceContext, play.Target, -((CalculatedVar)DynamicVars["StrDown"]).Calculate(play.Target), Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()

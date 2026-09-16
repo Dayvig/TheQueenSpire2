@@ -17,8 +17,6 @@ public class WarRoom() : QueenMod2Card(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
-    
-    
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(6M, ValueProp.Move),
         new ("StrategizeValue", 2),
@@ -29,6 +27,13 @@ public class WarRoom() : QueenMod2Card(1,
     [
         HoverTipFactory.FromKeyword(QueenMod2Keywords.Strategize)
     ];
+    
+    public void setCustomGlow()
+    {
+        StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+        HasCustomGlowColor = true;
+        customGlowColor = strat.StrategizeColors[strat.place];
+    }
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -52,6 +57,22 @@ public class WarRoom() : QueenMod2Card(1,
         }
     }
     
+    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (!cardPlay.Card.Owner.Equals(Owner))
+            return Task.CompletedTask;
+       
+        StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+        strat.place++;
+        if (strat.place >= strat.TypeList.Count)
+        {
+            strat.place = 0;
+        }
+        return Task.CompletedTask;
+    }    
+    
+    private bool justDrawn = false;
+
     public override Task AfterCardDrawn(
         PlayerChoiceContext choiceContext,
         CardModel card,
@@ -59,11 +80,18 @@ public class WarRoom() : QueenMod2Card(1,
     {
         if (card.Equals(this))
         {
-            MainFile.Logger.Info("Resetting Strat Value");
-            StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
-            strat.place = 0;
+            justDrawn = true;
+            setCustomGlow();
         }
         return Task.CompletedTask;
+    }
+
+    public override void AfterCreated()
+    {
+        base.AfterCreated();
+        StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+        strat.place = 0;
+        setCustomGlow();
     }
 
 
@@ -84,24 +112,6 @@ public class WarRoom() : QueenMod2Card(1,
         }
 
         return false;
-    }
-    
-    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-    {
-        if (!cardPlay.Card.Owner.Equals(Owner))
-            return Task.CompletedTask;
-       
-        MainFile.Logger.Info("Increasing Strat Value");
-        StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
-        strat.place++;
-        if (strat.place >= strat.TypeList.Count)
-        {
-            strat.place = 0;
-        }
-
-        HasCustomGlowColor = true;
-        customGlowColor = strat.StrategizeColors[strat.place];
-        return Task.CompletedTask;
     }
     
     protected override void OnUpgrade()

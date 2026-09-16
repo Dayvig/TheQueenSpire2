@@ -25,6 +25,13 @@ public class Scramble() : QueenMod2Card(2,
         HoverTipFactory.FromPower<Swarm>()
     ];
     
+    public void setCustomGlow()
+    {
+        StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+        HasCustomGlowColor = true;
+        customGlowColor = strat.StrategizeColors[strat.place];
+    }
+    
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
@@ -82,6 +89,29 @@ public class Scramble() : QueenMod2Card(2,
             strat.place = 0;
         }
         return Task.CompletedTask;
+    }    
+    
+    private bool justDrawn = false;
+
+    public override Task AfterCardDrawn(
+        PlayerChoiceContext choiceContext,
+        CardModel card,
+        bool fromHandDraw)
+    {
+        if (card.Equals(this))
+        {
+            justDrawn = true;
+            setCustomGlow();
+        }
+        return Task.CompletedTask;
+    }
+
+    public override void AfterCreated()
+    {
+        base.AfterCreated();
+        StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+        strat.place = 0;
+        setCustomGlow();
     }
     
     protected override void OnUpgrade()

@@ -63,6 +63,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="QueenMod2Code\Methods\" />
         <Folder Include="QueenMod2\images\powers\big\"/>
         <Folder Include="QueenMod2\images\relics\big\"/>
     </ItemGroup>
