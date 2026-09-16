@@ -85,7 +85,7 @@
   "QUEENMOD2-HIVE_SWAP.title": "Hive Swap",
   "QUEENMOD2-ASSIMILATE.description": "Exhaust all [gold]Hive[/gold] cards in your hand. Gain {Swarm:diff()} [gold]Swarm[/gold] for each.",
   "QUEENMOD2-ASSIMILATE.title": "Assimilate",
-  "QUEENMOD2-BEEKEEPING.description": "Exhaust 1 card. Add a{IfUpgraded:show:n upgraded|} [gold]Bumblebee[/gold] to your hand.",
+  "QUEENMOD2-BEEKEEPING.description": "Exhaust 1 card. Add a {IfUpgraded:show:[gold]Bumblebee+[/gold]|[gold]Bumblebee[/gold]} to your hand.",
   "QUEENMOD2-BEEKEEPING.title": "Beekeeping",
   "QUEENMOD2-BUSY_BEES.description": "When you add a card to your draw pile, add an additional copy.",
   "QUEENMOD2-BUSY_BEES.title": "Busy Bees",
