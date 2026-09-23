@@ -43,7 +43,6 @@ public class SupplyLines() : QueenMod2Card(1,
     {
         if (CardPile.GetCards(this.Owner, PileType.Draw).Contains(this))
         {
-            MainFile.Logger.Info("Triggering");
             return triggerHiveBoundEffect(choiceContext);
         }
         return Task.CompletedTask;

@@ -27,13 +27,13 @@ public class Retinue() : QueenMod2Card(1,
     {
         Retinue guards = this;
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat((CardModel)guards.CombatState.CreateCard<Bumblebee>(guards.Owner),
-            PileType.Draw, play.Card.Owner), 0.4f);
+            PileType.Draw, play.Card.Owner, CardPilePosition.Random), 0.4f);
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat((CardModel)guards.CombatState.CreateCard<Hornet>(guards.Owner),
-            PileType.Draw, play.Card.Owner), 0.4f);
+            PileType.Draw, play.Card.Owner, CardPilePosition.Random), 0.4f);
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat((CardModel)guards.CombatState.CreateCard<Workerbee>(guards.Owner),
-            PileType.Draw, play.Card.Owner), 0.4f);
+            PileType.Draw, play.Card.Owner, CardPilePosition.Random), 0.4f);
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat((CardModel)guards.CombatState.CreateCard<Drone>(guards.Owner),
-            PileType.Draw, play.Card.Owner), 0.4f);
+            PileType.Draw, play.Card.Owner, CardPilePosition.Random), 0.4f);
     }
     
     protected override void OnUpgrade()

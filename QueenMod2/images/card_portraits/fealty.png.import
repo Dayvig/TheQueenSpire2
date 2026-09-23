@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccrn3cbvnwqc0"
-path="res://.godot/imported/armorers.png-84f0178ab36cd21aa35244fb37e5bf54.ctex"
+uid="uid://dse1p3rxpj0x7"
+path="res://.godot/imported/fealty.png-f3c6bdd9581649da16785a7c1390c8e8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://QueenMod2/images/card_portraits/big/armorers.png"
-dest_files=["res://.godot/imported/armorers.png-84f0178ab36cd21aa35244fb37e5bf54.ctex"]
+source_file="res://QueenMod2/images/card_portraits/fealty.png"
+dest_files=["res://.godot/imported/fealty.png-f3c6bdd9581649da16785a7c1390c8e8.ctex"]
 
 [params]
 

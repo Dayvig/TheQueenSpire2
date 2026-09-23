@@ -36,7 +36,7 @@ public class AttackOrder() : QueenMod2Card(1,
         for (int i = 0; i < DynamicVars["Generate"].IntValue; i++)
         {
             CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat((CardModel)order.CombatState.CreateCard<Hornet>(order.Owner),
-                PileType.Draw, play.Card.Owner), 0.4f);
+                PileType.Draw, play.Card.Owner, CardPilePosition.Random), 0.4f);
         }
         ArgumentNullException.ThrowIfNull((object) play.Target, "play.Target");
         AttackCommand attackCommand = await DamageCmd.Attack(order.DynamicVars.Damage.BaseValue).FromCard((CardModel) order, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);

@@ -88,7 +88,7 @@ public class HiveSwap() : QueenMod2Card(0,
 
         foreach (CardModel newCard in toAdd)
         {
-            await CardPileCmd.AddGeneratedCardToCombat(newCard, pileType, this.Owner);
+            await CardPileCmd.AddGeneratedCardToCombat(newCard, pileType, this.Owner, CardPilePosition.Random);
         }
     }
         

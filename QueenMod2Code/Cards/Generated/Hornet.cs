@@ -15,7 +15,7 @@ public class Hornet() : QueenMod2Card(1,
     TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-    new DamageVar(10M, ValueProp.Move)
+    new DamageVar(12M, ValueProp.Move)
     ];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [

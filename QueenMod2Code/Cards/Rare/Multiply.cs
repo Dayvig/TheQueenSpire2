@@ -38,12 +38,11 @@ public class Multiply() : QueenMod2Card(1,
             CardModel card = item.CreateClone();
             if (count < 50)
             {
-                CardCmd.PreviewCardPileAdd(await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Random, this, true),1f, CardPreviewStyle.MessyLayout);
+                CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Draw, card.Owner), 2.2f);
             }
             else
             {
-                await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Random, this, true);
-                CardPile.Get(PileType.Draw, mult.Owner).InvokeCardAddFinished();
+                await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Draw, card.Owner);
             }
         }
     }

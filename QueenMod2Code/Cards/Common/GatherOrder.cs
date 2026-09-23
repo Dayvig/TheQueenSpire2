@@ -37,7 +37,7 @@ public class GatherOrder() : QueenMod2Card(1,
         for (int i = 0; i < DynamicVars["Generate"].IntValue; i++)
         {
             CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat((CardModel)order.CombatState.CreateCard<Workerbee>(order.Owner),
-                PileType.Draw, play.Card.Owner), 0.4f);
+                PileType.Draw, play.Card.Owner, CardPilePosition.Random), 0.4f);
         }
         EnergyNextTurnPower energyNextTurnPower = await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, order.Owner.Creature, order.DynamicVars.Energy.BaseValue, order.Owner.Creature, (CardModel) order);
     }

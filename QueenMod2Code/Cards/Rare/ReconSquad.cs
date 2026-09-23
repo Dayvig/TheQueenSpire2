@@ -32,11 +32,11 @@ public class ReconSquad() : QueenMod2Card(0,
         CardPlay play)
     {
         ReconSquad squad = this;
-        await CardPileCmd.AddGeneratedCardToCombat((CardModel) squad.CombatState.CreateCard<Drone>(squad.Owner), PileType.Hand, play.Card.Owner);
+        await CardPileCmd.AddGeneratedCardToCombat((CardModel) squad.CombatState.CreateCard<Drone>(squad.Owner), PileType.Hand, play.Card.Owner, CardPilePosition.Random);
 
         for (int i = 0; i < DynamicVars["DronesToAdd"].BaseValue; i++)
         {
-            await CardPileCmd.AddGeneratedCardToCombat((CardModel) squad.CombatState.CreateCard<Drone>(squad.Owner), PileType.Draw, play.Card.Owner);
+            await CardPileCmd.AddGeneratedCardToCombat((CardModel) squad.CombatState.CreateCard<Drone>(squad.Owner), PileType.Draw, play.Card.Owner, CardPilePosition.Random);
         }
     }
     

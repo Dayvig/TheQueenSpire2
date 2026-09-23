@@ -46,7 +46,6 @@ public abstract class QueenMod2Card(int cost, CardType type, CardRarity rarity, 
     
     public void SetResultLocationForCardPlay(QueenMod2Card card, Player targetPlayer, PileType targetPile, CardPilePosition targetPosition)
     {
-        MainFile.Logger.Info("setting result location for card play");
         card.CardPlayLocationToSend = new CardLocation(targetPlayer, targetPile, targetPosition);
         card.SendToNewLocation = true;
     }
@@ -57,7 +56,6 @@ public abstract class QueenMod2Card(int cost, CardType type, CardRarity rarity, 
         ResourceInfo resources,
         CardLocation cardLocation)
     {
-        MainFile.Logger.Info("triggering");
         if (card is QueenMod2Card qCard && qCard.SendToNewLocation)
         {
             return CardPlayLocationToSend;
@@ -67,7 +65,7 @@ public abstract class QueenMod2Card(int cost, CardType type, CardRarity rarity, 
 
     public async Task createCopies()
     {
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(this.CreateClone(), PileType.Draw, this.Owner), 1f);
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(this.CreateClone(), PileType.Draw, this.Owner), 1f);
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(this.CreateClone(), PileType.Draw, this.Owner, CardPilePosition.Random), 1f);
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(this.CreateClone(), PileType.Draw, this.Owner, CardPilePosition.Random), 1f);
     }
 }

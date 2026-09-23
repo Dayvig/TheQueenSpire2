@@ -63,7 +63,7 @@
   "QUEENMOD2-OVERWHELM.title": "Overwhelming Force",
   "QUEENMOD2-FORCED_MARCH.description": "At the start of your turn, shuffle your Discard Pile into your Draw Pile and draw a card.",
   "QUEENMOD2-FORCED_MARCH.title": "Forced March",
-  "QUEENMOD2-OFFICERS.description": "Upgrade all [gold]Hive[/gold] cards in your {IfUpgraded:show:Hand and|} Draw Pile.",
+  "QUEENMOD2-OFFICERS.description": "Upgrade all [gold]Hive[/gold] cards in your [gold]Draw Pile.[/gold] \n Put {IfUpgraded:show:2|a} random [gold]Hive[/gold] card{IfUpgraded:show:s|} from your Draw Pile into your Hand.",
   "QUEENMOD2-OFFICERS.title": "Hive Officers",
   "QUEENMOD2-HORNET_SWARM.description": "Play {IfUpgraded:show:| and Exhaust} all [gold]Hornets[/gold] in your Hand and Draw Pile on the enemy. \n ({CalculatedHornets:diff()} [gold]Hornets.[/gold])",
   "QUEENMOD2-HORNET_SWARM.title": "Hornet Swarm",
@@ -87,7 +87,7 @@
   "QUEENMOD2-ASSIMILATE.title": "Assimilate",
   "QUEENMOD2-BEEKEEPING.description": "Exhaust 1 card. Add a {IfUpgraded:show:[gold]Bumblebee+[/gold]|[gold]Bumblebee[/gold]} to your hand.",
   "QUEENMOD2-BEEKEEPING.title": "Beekeeping",
-  "QUEENMOD2-BUSY_BEES.description": "When you add a card to your draw pile, add an additional copy.",
+  "QUEENMOD2-BUSY_BEES.description": "When you add a card to your Draw or Discard pile, add an additional copy.",
   "QUEENMOD2-BUSY_BEES.title": "Busy Bees",
   "QUEENMOD2-SLAP.description": "Deal {Damage:diff()} Damage. \n Gain {TemporaryStrength:diff()} Strength this turn.",
   "QUEENMOD2-SLAP.title": "Dignified Slap",
@@ -97,7 +97,7 @@
   "QUEENMOD2-GARRISON.title": "Garrison",
   "QUEENMOD2-FULL_RETREAT.description": "Gain {Block:diff()} Block. \n Shuffle any number of cards in Hand into your Draw Pile.",
   "QUEENMOD2-FULL_RETREAT.title": "Retreat!",
-  "QUEENMOD2-BREEDING_CELLS.description": "Shuffle 2 copies of this card into your Draw Pile. \n [gold]Hivebound[/gold]: Gain {Swarm:diff()} [gold]Swarm[/gold].",
+  "QUEENMOD2-BREEDING_CELLS.description": " Gain {Swarm:diff()} [gold]Swarm[/gold]. \n Add a copy of this card into your [gold]Discard Pile.[/gold]",
   "QUEENMOD2-BREEDING_CELLS.title": "Breeding Cells",
   "QUEENMOD2-HONEYBLASTER.description": "Deal {Damage:diff()} damage {CalculatedHits:diff()} times. Hits once more for each [gold]Honeycomb[/gold] in hand.",
   "QUEENMOD2-HONEYBLASTER.title": "Honey Blaster",
@@ -166,7 +166,7 @@
   "QUEENMOD2-PHEREMONE_SWAP.description": "Deal {Damage:diff()} damage. \n Gain {Block:diff()} Block. \n Swap [gold]Pheremones[/gold] with target enemy.",
   "QUEENMOD2-PHEREMONE_SWAP.title": "Pheremone Swap",
   "QUEENMOD2-ATTACK_FORMATION.description": "Deal {Damage:diff()} damage. \n Shuffle the next {ShuffleVar:plural:card|2 cards} you play into your Draw Pile.",
-  "QUEENMOD2-ATTACK_FORMATION.title": "Attack Formation",
+  "QUEENMOD2-ATTACK_FORMATION.title": "Attack Pattern: Delta",
   "QUEENMOD2-EXTRA_CHAMBER.description": "[gold]Honeycombs[/gold] gain 1 additional {energyPrefix:energyIcons(1)}. \n Add a [gold]Honeybee[/gold] to your Draw Pile.",
   "QUEENMOD2-EXTRA_CHAMBER.title": "Extra Chamber",
   "QUEENMOD2-BARRACKS.description": "Add {Hornets:diff()} [gold]Hornets[/gold] to your hand. \n [gold]Hivebound[/gold]: Gain 1 [gold]Strength[/gold] this turn.",
@@ -190,5 +190,8 @@
   "QUEENMOD2-DEPLOYMENT.description": "Send all [gold]Hive[/gold] cards in hand to the top of an ally's deck. \n That ally draws a card. {IfUpgraded:show:\n Draw {Cards:diff()} card{Cards:plural:|s} for each given.}",
   "QUEENMOD2-DEPLOYMENT.title": "Deployment",
   "QUEENMOD2-FRENZY.description": "Trigger your [gold]Swarm[/gold]{IfUpgraded:show: twice|}.",
-  "QUEENMOD2-FRENZY.title": "Frenzy"
+  "QUEENMOD2-FRENZY.title": "Frenzy",
+  "QUEENMOD2-FEALTY.description": "At the end of the turn, gain 1 [gold]Strength[/gold] for each of your ally's unspent {energyPrefix:energyIcons(1)}.",
+  "QUEENMOD2-FEALTY.title": "Fealty"
+
 }
