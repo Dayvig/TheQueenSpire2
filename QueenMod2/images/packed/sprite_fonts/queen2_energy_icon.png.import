@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx3rap408gov6"
-path="res://.godot/imported/text_energy.png-d4657f201521cfffd468c00fe254545d.ctex"
+uid="uid://bnruv3u2p0s60"
+path="res://.godot/imported/queen2_energy_icon.png-e452946281e6374bb2d34427332618b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://QueenMod2/images/charui/text_energy.png"
-dest_files=["res://.godot/imported/text_energy.png-d4657f201521cfffd468c00fe254545d.ctex"]
+source_file="res://QueenMod2/images/packed/sprite_fonts/queen2_energy_icon.png"
+dest_files=["res://.godot/imported/queen2_energy_icon.png-e452946281e6374bb2d34427332618b8.ctex"]
 
 [params]
 

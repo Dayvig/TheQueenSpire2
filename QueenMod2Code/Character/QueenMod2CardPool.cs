@@ -29,6 +29,8 @@ public class QueenMod2CardPool : CustomCardPoolModel
 
     //Color of small card icons
     public override Color DeckEntryCardColor => new("ffffff");
+    
+    //public override string EnergyColorName => "queen2";
 
     public override bool IsColorless => false;
 }
