@@ -19,6 +19,7 @@ public class StrengthInNumbers() : QueenMod2Card(1,
         (DynamicVar) new RepeatVar(1),
         new("TemporaryStrength", 1M)
     ];
+    protected override bool ShouldGlowGoldInternal => (CardPile.Get(PileType.Hand, Owner)!.Cards.Count >= 8);
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
@@ -30,7 +31,7 @@ public class StrengthInNumbers() : QueenMod2Card(1,
     {
         StrengthInNumbers str = this;
         int repeat = 1;
-        if (CardPile.GetCards(this.Owner, PileType.Hand).Count() >= 8)
+        if (CardPile.GetCards(this.Owner, PileType.Hand).Count() >= 7)
             repeat += str.DynamicVars.Repeat.IntValue;
         for (int i = 0; i < repeat; ++i)
         {

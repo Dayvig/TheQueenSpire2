@@ -3,6 +3,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -21,15 +22,16 @@ public class Strategic() : QueenMod2Card(1,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<StrategicGeniusPower>(1M)
+        new CalculationBaseVar(0M),
+        new CalculationExtraVar(1M),
+        new CalculatedVar("TemporaryStrength").WithMultiplier((Func<CardModel, Creature, Decimal>) ((card, _) => CardPile.Get(PileType.Hand, card.Owner).Cards.Count))
     ];
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        Strategic strat = this;
-        await PowerCmd.Apply<StrategicGeniusPower>(choiceContext, strat.Owner.Creature, DynamicVars["StrategicGeniusPower"].IntValue, strat.Owner.Creature, (CardModel) strat);
+        await PowerCmd.Apply<StrategicGeniusPower>(choiceContext, Owner.Creature, ((CalculatedVar) DynamicVars["TemporaryStrength"]).Calculate(Owner.Creature), Owner.Creature, (CardModel) this);
     }
 
     protected override void OnUpgrade()

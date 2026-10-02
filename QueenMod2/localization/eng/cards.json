@@ -75,7 +75,7 @@
   "QUEENMOD2-STINGER_LAUNCHERS.title": "Stinger Launchers",
   "QUEENMOD2-SWARM_TACTICS.description": "When you deal damage to an enemy, apply 1 [gold]Swarm[/gold] to it.",
   "QUEENMOD2-SWARM_TACTICS.title": "Swarm Tactics",
-  "QUEENMOD2-WASPS.description": "Deal {Damage:diff()} damage. \n Draw {Cards:diff()} card{Cards:plural:|s}.",
+  "QUEENMOD2-WASPS.description": "Deal {Damage:diff()} damage. \n Draw {Cards:diff()} {Cards:plural:cards|card}.",
   "QUEENMOD2-WASPS.title": "Wasps",
   "QUEENMOD2-PHEREMONE_BLADE.description": "Deal {Damage:diff()} damage. \n Double the enemy's [gold]Pheromones[/gold].",
   "QUEENMOD2-PHEREMONE_BLADE.title": "Pheromone Blade",
@@ -98,7 +98,7 @@
   "QUEENMOD2-FULL_RETREAT.description": "Gain {Block:diff()} Block. \n Shuffle any number of cards in Hand into your Draw Pile.",
   "QUEENMOD2-FULL_RETREAT.title": "Retreat!",
   "QUEENMOD2-BREEDING_CELLS.description": " Gain {Swarm:diff()} [gold]Swarm[/gold]. \n Add a copy of this card into your [gold]Discard Pile.[/gold]",
-  "QUEENMOD2-BREEDING_CELLS.title": "Breeding Cells",
+  "QUEENMOD2-BREEDING_CELLS.title": "Propagate",
   "QUEENMOD2-HONEYBLASTER.description": "Deal {Damage:diff()} damage {CalculatedHits:diff()} times. Hits once more for each [gold]Honeycomb[/gold] in hand.",
   "QUEENMOD2-HONEYBLASTER.title": "Honey Blaster",
   "QUEENMOD2-RETINUE.description": "Add a [gold]Hornet[/gold], [gold]Bumblebee[/gold], [gold]Honeybee[/gold] and [gold]Drone[/gold] to your Draw Pile.",
@@ -125,8 +125,8 @@
   "QUEENMOD2-REINFORCEMENTS.title": "Reinforcements",
   "QUEENMOD2-STRENGTH_IN_NUMBERS.description": "Gain {Block:diff()} Block and {TemporaryStrength:diff()} [gold]Strength[/gold] this turn. \n If you have 8 or more cards in hand, repeat.",
   "QUEENMOD2-STRENGTH_IN_NUMBERS.title": "Strength In Numbers",
-  "QUEENMOD2-STRATEGIC.description": "When you draw a card this turn, gain 1 Strength this turn.",
-  "QUEENMOD2-STRATEGIC.title": "Strategic Genius",
+  "QUEENMOD2-STRATEGIC.description": "Gain 1 [gold]Strength[/gold] this turn for each card in your hand.",
+  "QUEENMOD2-STRATEGIC.title": "Killer Queen",
   "QUEENMOD2-SHARPER_STINGERS.description": "Add 2 [gold]Hornets[/gold] to your Draw Pile. \n Hornets deal {Sharpness:diff()} more damage.",
   "QUEENMOD2-SHARPER_STINGERS.title": "Sharper Stingers",
   "QUEENMOD2-ASSAULT.description": "Deal {Damage:diff()} damage to a random enemy a number of times equal to your total [gold]Swarm[/gold]. \n ({CalculatedHits:diff()} hits.)",
@@ -147,7 +147,7 @@
   "QUEENMOD2-MULTIPLY.title": "Multiply",
   "QUEENMOD2-CRAFTERS.description": "Add [blue]1[/blue] [gold]Honeybee[/gold] into your Draw Pile. \n When you [gold]Exhaust[/gold] a [gold]Honeycomb[/gold], gain {ShieldBlock:diff()} Block.",
   "QUEENMOD2-CRAFTERS.title": "Wax Crafters",
-  "QUEENMOD2-FLANKING.description": "Deal {Damage:diff()} to all enemies. \n If you 8 or more cards in Hand, apply {VulnerablePower:diff()} [gold]Vulnerable[/gold] to all enemies.",
+  "QUEENMOD2-FLANKING.description": "Deal {Damage:diff()} to all enemies. \n If you have 8 or more cards in Hand, apply {VulnerablePower:diff()} [gold]Vulnerable[/gold] to all enemies.",
   "QUEENMOD2-FLANKING.title": "Flanking",
   "QUEENMOD2-BLINDING_SWARM.description": "Apply {Swarm:diff()} [gold]Swarm[/gold] and {WeakPower:diff()} [gold]Weak[/gold] to all enemies.",
   "QUEENMOD2-BLINDING_SWARM.title": "Blinding Swarm",
@@ -192,6 +192,8 @@
   "QUEENMOD2-FRENZY.description": "Trigger your [gold]Swarm[/gold]{IfUpgraded:show: twice|}.",
   "QUEENMOD2-FRENZY.title": "Frenzy",
   "QUEENMOD2-FEALTY.description": "At the end of the turn, gain 1 [gold]Strength[/gold] for each of your ally's unspent {energyPrefix:energyIcons(1)}.",
-  "QUEENMOD2-FEALTY.title": "Fealty"
+  "QUEENMOD2-FEALTY.title": "Fealty",
+  "QUEENMOD2-COUP_DE_MAIN.description": "Deal {Damage:diff()} damage to ALL enemies twice. \n If you have 8 or more cards in hand, gain {energyPrefix:energyIcons(1)}{energyPrefix:energyIcons(1)}.",
+  "QUEENMOD2-COUP_DE_MAIN.title": "Coup De Main"
 
 }

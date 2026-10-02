@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jph4jk2uob7g"
-path="res://.godot/imported/big_energy.png-6005ed1cfa574326af1c33ce47d97365.ctex"
+uid="uid://d1l8lwu5gd1da"
+path="res://.godot/imported/coup_de_main.png-67e1c72e9b40e2b6f8b8377cf59e5a5b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://QueenMod2/images/charui/big_energy.png"
-dest_files=["res://.godot/imported/big_energy.png-6005ed1cfa574326af1c33ce47d97365.ctex"]
+source_file="res://QueenMod2/images/card_portraits/big/coup_de_main.png"
+dest_files=["res://.godot/imported/coup_de_main.png-67e1c72e9b40e2b6f8b8377cf59e5a5b.ctex"]
 
 [params]
 

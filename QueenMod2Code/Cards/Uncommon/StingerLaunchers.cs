@@ -19,7 +19,7 @@ public class StingerLaunchers() : QueenMod2Card(2,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(3M, ValueProp.Move),
-        new RepeatVar(3)
+        new RepeatVar(4)
     ];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [

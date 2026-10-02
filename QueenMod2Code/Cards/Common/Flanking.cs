@@ -20,17 +20,20 @@ public class Flanking() : QueenMod2Card(0,
         new PowerVar<VulnerablePower>(2M)
     ];
     
+    protected override bool ShouldGlowGoldInternal => (CardPile.Get(PileType.Hand, Owner)!.Cards.Count >= 8);
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         Flanking blow = this;
         AttackCommand attackCommand = await DamageCmd.Attack(blow.DynamicVars.Damage.BaseValue).FromCard((CardModel) blow, play).TargetingAllOpponents(blow.CombatState).WithHitFx("vfx/vfx_attack_slash", tmpSfx: "heavy_attack.mp3").Execute(choiceContext);
-        if (CardPile.GetCards(blow.Owner, PileType.Hand).Count() >= 8)
+        if (CardPile.GetCards(blow.Owner, PileType.Hand).Count() >= 7)
         {
             IReadOnlyList<VulnerablePower> vulnerablePowerList = await PowerCmd.Apply<VulnerablePower>(choiceContext, (IEnumerable<Creature>) blow.CombatState.HittableEnemies, blow.DynamicVars["VulnerablePower"].BaseValue, blow.Owner.Creature, (CardModel) blow);
         }
     }
+    
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(2M);
