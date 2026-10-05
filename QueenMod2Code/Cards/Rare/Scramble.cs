@@ -98,9 +98,11 @@ public class Scramble() : QueenMod2Card(2,
         CardModel card,
         bool fromHandDraw)
     {
+        base.AfterCardDrawn(choiceContext, card, fromHandDraw);
         if (card.Equals(this))
         {
-            justDrawn = true;
+            StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+            strat.place = 0;
             setCustomGlow();
         }
         return Task.CompletedTask;

@@ -80,7 +80,8 @@ public class WarRoom() : QueenMod2Card(1,
     {
         if (card.Equals(this))
         {
-            justDrawn = true;
+            StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+            strat.place = 0;
             setCustomGlow();
         }
         return Task.CompletedTask;

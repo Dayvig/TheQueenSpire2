@@ -55,9 +55,12 @@ public class QuickThinking() : QueenMod2Card(0,
         CardModel card,
         bool fromHandDraw)
     {
+        base.AfterCardDrawn(choiceContext, card, fromHandDraw);
         if (card.Equals(this))
         {
             justDrawn = true;
+            StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
+            strat.place = 0;
             setCustomGlow();
         }
         return Task.CompletedTask;
@@ -96,8 +99,7 @@ public class QuickThinking() : QueenMod2Card(0,
             return Task.CompletedTask;
        
         StrategizeVar strat = (StrategizeVar)DynamicVars["Strategize"];
-        strat.place = justDrawn ? 0 : strat.place + 1;
-        justDrawn = false;
+        strat.place++;
         if (strat.place >= strat.TypeList.Count)
         {
             strat.place = 0;
