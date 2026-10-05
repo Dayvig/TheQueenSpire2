@@ -23,7 +23,7 @@ public class Honeycomb() : QueenMod2Card(0,
             {
                 if (model.Id.Equals(ModelDb.Card<CannonXL>().Id))
                 {
-                    weapons.Add(model);
+                    //weapons.Add(model);
                 }
             }
             return (weapons.Count + card.Owner.Creature.GetPowerAmount<ExtraChamberPower>());
