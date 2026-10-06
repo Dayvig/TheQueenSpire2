@@ -109,7 +109,7 @@ public class MatingDance() : QueenMod2Card(-2,
         if (card.Equals(this))
         {
             DanceVar dance =  (DanceVar)DynamicVars["Dance"];
-            dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
+            dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState, 3);
             dance.place = 0;
             setCustomGlow();
         }
@@ -120,7 +120,7 @@ public class MatingDance() : QueenMod2Card(-2,
     {
         base.AfterCreated();
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
-        dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
+        dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState, 3);
         dance.place = 0;
         setCustomGlow();
     }

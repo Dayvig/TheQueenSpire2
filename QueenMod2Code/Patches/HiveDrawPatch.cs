@@ -16,9 +16,14 @@ class HiveDrawPatch
         CardModel card,
         bool fromHandDraw, ref Task __result)
     {
-        if (card.Keywords.Contains(QueenMod2Keywords.Hive))
+        if (card.Keywords.Contains(QueenMod2Keywords.Hive) && CardPile.Get(PileType.Hand, card.Owner).Cards.Count < CardPile.MaxCardsInHand)
         {
-            __result = CardPileCmd.Draw(choiceContext, 1, card.Owner);
+            __result = hiveDraw(choiceContext, card);
         }
+    }
+
+    public static async Task hiveDraw(PlayerChoiceContext choiceContext, CardModel card)
+    {
+       await CardPileCmd.Draw(choiceContext, 1, card.Owner);
     }
 }

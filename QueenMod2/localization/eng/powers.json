@@ -52,6 +52,9 @@
   "QUEENMOD2-ROYAL_JELLY_POWER.smartDescription": "When [gold]Pollinated[/gold] is removed, gain [blue]{Amount}[/blue] [gold]Strength.[/gold]",
   "QUEENMOD2-FEALTY_POWER.title": "Fealty",
   "QUEENMOD2-FEALTY_POWER.description": "At the end of the turn, gain Strength for each ally's unspent Energy.",
-  "QUEENMOD2-FEALTY_POWER.smartDescription": "At the end of the turn, gain [blue]{Amount}[/blue] [gold]Strength[/gold] for each ally's unspent {energyPrefix:energyIcons(1)}."
+  "QUEENMOD2-FEALTY_POWER.smartDescription": "At the end of the turn, gain [blue]{Amount}[/blue] [gold]Strength[/gold] for each ally's unspent {energyPrefix:energyIcons(1)}.",
+  "QUEENMOD2-GUARDING_POWER.title": "Guarding The Queen",
+  "QUEENMOD2-GUARDING_POWER.description": "Take 25% more damage from enemies this turn.",
+  "QUEENMOD2-GUARDING_POWER.smartDescription": "Take [blue]25%[/blue] more damage from enemies this turn."
 
 }

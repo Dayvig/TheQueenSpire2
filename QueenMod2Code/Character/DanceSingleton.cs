@@ -11,7 +11,7 @@ public class DanceSingleton() : CustomSingletonModel(true, true)
     private const float duplicateRerollChance = 0.25f;
     private const float duplicatePowerChance = 0.025f; 
     
-    public static List<MainFile.DanceStep> createNewSteps(List<MainFile.DanceStep> steps, IRunState runState)
+    public static List<MainFile.DanceStep> createNewSteps(List<MainFile.DanceStep> steps, IRunState runState, int numSteps)
     {
         steps.Clear();
         List<MainFile.DanceStep> newSteps = new List<MainFile.DanceStep>();
@@ -81,6 +81,7 @@ public class DanceSingleton() : CustomSingletonModel(true, true)
                 }
                 break;
         }
+        if (numSteps < 3){ return newSteps; }
         nextRng = runState.Rng.Niche.NextFloat(0, 1F);
         //Third step: 45% Skill, 45% Attack, 10% Power. If a power already exists, power chance reduced to 2.5%, with skill and attack boosted accordingly.
         //Additionally, if the previous two steps are the same as the third, 75% chance for the third to be the reverse of attack/skill. If two powers are previous, 0% chance for third to be a power as well.

@@ -177,7 +177,7 @@
   "QUEENMOD2-TALK_TO_HAND.title": "Talk to the Hand",
   "QUEENMOD2-MASS_PRODUCTION.description": "Add X{IfUpgraded:show:+1} [gold]Honeybees[/gold] to your Draw Pile.",
   "QUEENMOD2-MASS_PRODUCTION.title": "Mass Production",
-  "QUEENMOD2-DRONE_DANCE.description": "[gold]Dance[/gold]: Add a [gold]Drone[/gold] to your Draw Pile. {Dance:steps:}",
+  "QUEENMOD2-DRONE_DANCE.description": "[gold]Dance[/gold]: Add a [gold]Drone[/gold] to your Draw Pile {IfUpgraded:show:and gain {Block:diff()} Block|}. {Dance:steps:}",
   "QUEENMOD2-DRONE_DANCE.title": "Mating Dance",
   "QUEENMOD2-SWARM_STRIKE.description": "Deal {Damage:diff()} damage. \n Apply [gold]Swarm[/gold] equal to damage dealt.",
   "QUEENMOD2-SWARM_STRIKE.title": "Swarming Strike",
@@ -194,6 +194,8 @@
   "QUEENMOD2-FEALTY.description": "At the end of the turn, gain 1 [gold]Strength[/gold] for each of your ally's unspent {energyPrefix:energyIcons(1)}.",
   "QUEENMOD2-FEALTY.title": "Fealty",
   "QUEENMOD2-COUP_DE_MAIN.description": "Deal {Damage:diff()} damage to ALL enemies twice. \n If you have 8 or more cards in hand, gain {energyPrefix:energyIcons(1)}{energyPrefix:energyIcons(1)}.",
-  "QUEENMOD2-COUP_DE_MAIN.title": "Coup De Main"
+  "QUEENMOD2-COUP_DE_MAIN.title": "Coup De Main",
+  "QUEENMOD2-GUARD_ME.description": "Gain {Block:diff()} Block. Allies take 25% more damage from attacks this turn.",
+  "QUEENMOD2-GUARD_ME.title": "Guard Me!"
 
 }

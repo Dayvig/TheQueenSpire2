@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 using QueenMod2.QueenMod2Code.Cards.Generated;
 using QueenMod2.QueenMod2Code.Character;
 using QueenMod2.QueenMod2Code.Formatters;
@@ -19,15 +20,15 @@ public class DroneDance() : QueenMod2Card(-2,
     public List<MainFile.DanceStep> steps = new List<MainFile.DanceStep>
     {
         MainFile.DanceStep.SKILL,
-        MainFile.DanceStep.POWER,
-        MainFile.DanceStep.ATTACK,
+        MainFile.DanceStep.ATTACK
     };
     
     public int currentStepCount = 0;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new ("Steps", 3),
+        new ("Steps", 2),
         new DanceVar(steps, currentStepCount),
+        new BlockVar(0M, ValueProp.Move),
     ];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -96,16 +97,16 @@ public class DroneDance() : QueenMod2Card(-2,
     {
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat((CardModel)CombatState.CreateCard<Drone>(Owner),
             PileType.Draw, Owner), 0.4f);
+        if (IsUpgraded)
+        {
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, null, false);
+        }
         setCustomGlow();
     }
     
     protected override void OnUpgrade()
     {
-        DynamicVars["Steps"].UpgradeValueBy(-1);
-        DanceVar dance =  (DanceVar)DynamicVars["Dance"];
-        dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
-        dance.place = 0;
-        setCustomGlow();
+        DynamicVars.Block.UpgradeValueBy(3M);
     }
     
     public override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
@@ -113,7 +114,7 @@ public class DroneDance() : QueenMod2Card(-2,
         if (card.Equals(this))
         {
             DanceVar dance =  (DanceVar)DynamicVars["Dance"];
-            dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
+            dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState, DynamicVars["Steps"].IntValue);
             dance.place = 0;
             setCustomGlow();
         }
@@ -124,7 +125,7 @@ public class DroneDance() : QueenMod2Card(-2,
     {
         base.AfterCreated();
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
-        dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
+        dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState, DynamicVars["Steps"].IntValue);
         dance.place = 0;
         setCustomGlow();
     }
@@ -134,7 +135,7 @@ public class DroneDance() : QueenMod2Card(-2,
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
         if (dance.danceSteps.Count != DynamicVars["Steps"].BaseValue)
         {
-            dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState);
+            dance.danceSteps = DanceSingleton.createNewSteps(dance.danceSteps, RunState, DynamicVars["Steps"].IntValue);
             dance.place = 0;
             MainFile.Logger.Info("Resetting After improper blank dance "+ nameof(DroneDance));
         }
