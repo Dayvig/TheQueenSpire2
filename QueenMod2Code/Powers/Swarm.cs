@@ -54,7 +54,6 @@ public class Swarm : QueenMod2Power
         {
             modifiedAmount += owner.GetPower<Pheremone>().Amount;
         }
-        
         return modifiedAmount;
     }
 

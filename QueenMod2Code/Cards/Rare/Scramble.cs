@@ -88,6 +88,7 @@ public class Scramble() : QueenMod2Card(2,
         {
             strat.place = 0;
         }
+        setCustomGlow();
         return Task.CompletedTask;
     }    
     

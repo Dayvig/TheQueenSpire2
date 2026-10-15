@@ -23,15 +23,57 @@ public class SwarmController() : CustomSingletonModel(true, true)
     
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        int prevAmount = TotalSwarmAmount;
-        Instance.CalculateSwarm(play.Card);
-        if (prevAmount != TotalSwarmAmount)
-        {
-            lastTargets.Clear();
-        }
-        return Task.CompletedTask;
+        return Instance.DistributeSwarm(choiceContext, play.Card);
     }
 
+    public static List<Creature> correctSwarmTargets(CardModel source)
+    {
+        List<Creature> totalTargets = new List<Creature>();
+        foreach (Creature c in source.CombatState.HittableEnemies.Concat(source.CombatState.PlayerCreatures))
+        {
+            if (c.HasPower(ModelDb.Power<Pheremone>().Id))
+            {
+                totalTargets.Add(c);
+            }
+        }
+
+        if (totalTargets.Count < 1)
+        {
+            if (source.GainsBlock)
+            {
+                totalTargets.Add(source.Owner.Creature);
+            }
+
+            switch (source.TargetType)
+            {
+                case TargetType.AllAllies:
+                    totalTargets.AddRange(source.CombatState.Allies);
+                    break;
+                case TargetType.AllEnemies:
+                    totalTargets.AddRange(source.CombatState.HittableEnemies);
+                    break;
+                case TargetType.AnyEnemy:
+                    if (source.CurrentTarget != null)
+                    {
+                        totalTargets.Add(source.CurrentTarget);
+                    }
+                    break;
+                case TargetType.AnyAlly:
+                    if (source.CurrentTarget != null)
+                    {
+                        totalTargets.Add(source.CurrentTarget);
+                    }
+                    break;
+                case TargetType.AnyPlayer:
+                    if (source.CurrentTarget != null)
+                    {
+                        totalTargets.Add(source.CurrentTarget);
+                    }
+                    break;
+            }
+        }
+        return totalTargets;
+    }
 }
 
 public class SwarmControllerMethods
@@ -51,6 +93,35 @@ public class SwarmControllerMethods
             SwarmController.TotalSwarmAmount += amount;
         }
     }
+
+    public async Task ApplySwarm(PlayerChoiceContext choiceContext, List<Creature> targets, Decimal amount, Creature applier,
+        CardModel applyingModel)
+    {
+        List<Creature> correctTargets = SwarmController.correctSwarmTargets(applyingModel);
+        MainFile.Logger.Info(targets.Count + "|" + correctTargets.Count);
+        if (correctTargets.Count == 0 || new HashSet<Creature>(targets).SetEquals(correctTargets))
+        {
+            await PowerCmd.Apply<Swarm>(choiceContext, targets, amount, applier, applyingModel);
+        }
+        else
+        {
+            int remainder = (int)amount % correctTargets.Count;
+            int toDistribute = (int)amount - remainder;
+            foreach (Creature swarmTarget in correctTargets)
+            {
+                int extraAmount = remainder > 0 ? 1 : 0;
+                if (toDistribute <= 0)
+                {
+                    extraAmount = toDistribute;
+                }
+                Creature newSwarmTarget = swarmTarget;
+                Swarm swarmPower = await PowerCmd.Apply<Swarm>(choiceContext, newSwarmTarget, (toDistribute / correctTargets.Count()) + extraAmount , applier, applyingModel, true);
+                remainder -= extraAmount;
+            }
+        }
+        SwarmController.lastTargets = correctTargets;
+    }
+    
     public async Task RemoveAllSwarm(CardModel source)
     {
         List<Creature> totalTargets = new List<Creature>(source.CombatState.PlayerCreatures);
@@ -102,67 +173,21 @@ public class SwarmControllerMethods
 
     }
     
-    public async Task DistributeSwarm(PlayerChoiceContext choiceContext, CardModel source, bool differentSwarmAmount)
+    public async Task DistributeSwarm(PlayerChoiceContext choiceContext, CardModel source)
     {
+        CalculateSwarm(source);
         MainFile.Logger.Info("Distributing Swarm");
-        if (SwarmController.TotalSwarmAmount <= 0)
-        {
-            return;
-        }
-        List<Creature> totalTargets = new List<Creature>();
-        foreach (Creature c in source.CombatState.HittableEnemies.Concat(source.CombatState.PlayerCreatures))
-        {
-            if (c.HasPower(ModelDb.Power<Pheremone>().Id))
-            {
-                totalTargets.Add(c);
-            }
-        }
+        List<Creature> correctTargets = SwarmController.correctSwarmTargets(source);
+        MainFile.Logger.Info("Last Targets:"+SwarmController.lastTargets.Count + "| correct Targets:" + correctTargets.Count + new HashSet<Creature>(SwarmController.lastTargets).SetEquals(correctTargets));
 
-        if (totalTargets.Count < 1)
-        {
-            if (source.GainsBlock)
-            {
-                totalTargets.Add(source.Owner.Creature);
-            }
-
-            switch (source.TargetType)
-            {
-                case TargetType.AllAllies:
-                    totalTargets.AddRange(source.CombatState.Allies);
-                    break;
-                case TargetType.AllEnemies:
-                    totalTargets.AddRange(source.CombatState.HittableEnemies);
-                    break;
-                case TargetType.AnyEnemy:
-                    if (source.CurrentTarget != null)
-                    {
-                        totalTargets.Add(source.CurrentTarget);
-                    }
-                    break;
-                case TargetType.AnyAlly:
-                    if (source.CurrentTarget != null)
-                    {
-                        totalTargets.Add(source.CurrentTarget);
-                    }
-                    break;
-                case TargetType.AnyPlayer:
-                    if (source.CurrentTarget != null)
-                    {
-                        totalTargets.Add(source.CurrentTarget);
-                    }
-                    break;
-            }
-        }
-            
-        MainFile.Logger.Info("Targets same" + totalTargets.SequenceEqual(SwarmController.lastTargets).ToString());
-        if (totalTargets.Count < 1 || (totalTargets.SequenceEqual(SwarmController.lastTargets) && !differentSwarmAmount))
+        if (SwarmController.TotalSwarmAmount <= 0 || correctTargets.Count < 1 || new HashSet<Creature>(SwarmController.lastTargets).SetEquals(correctTargets))
         {
             return;
         }
         else
         {
             bool alive = false;
-            foreach (Creature c in totalTargets)
+            foreach (Creature c in correctTargets)
             {
                 if (c.IsAlive && c.IsHittable)
                 {
@@ -173,17 +198,20 @@ public class SwarmControllerMethods
             if (!alive) { return; }
             
             await RemoveAllSwarm(source);
-            int remainder = SwarmController.TotalSwarmAmount % totalTargets.Count;
+            int remainder = SwarmController.TotalSwarmAmount % correctTargets.Count;
             int toDistribute = SwarmController.TotalSwarmAmount - remainder;
-            foreach (Creature swarmTarget in totalTargets)
+            foreach (Creature swarmTarget in correctTargets)
             {
                 int extraAmount = remainder > 0 ? 1 : 0;
+                if (toDistribute <= 0)
+                {
+                    extraAmount = toDistribute;
+                }
                 Creature newSwarmTarget = swarmTarget;
-                Swarm swarmPower = await PowerCmd.Apply<Swarm>(choiceContext, newSwarmTarget, (toDistribute / totalTargets.Count()) + extraAmount , source.Owner.Creature, source, true);
+                Swarm swarmPower = await PowerCmd.Apply<Swarm>(choiceContext, newSwarmTarget, (toDistribute / correctTargets.Count()) + extraAmount , source.Owner.Creature, source, true);
                 remainder -= extraAmount;
             }
-            
-            SwarmController.lastTargets = totalTargets;
+            SwarmController.lastTargets = correctTargets;
         }
     }
 }

@@ -68,6 +68,7 @@ public class WarRoom() : QueenMod2Card(1,
         {
             strat.place = 0;
         }
+        setCustomGlow();
         return Task.CompletedTask;
     }    
     

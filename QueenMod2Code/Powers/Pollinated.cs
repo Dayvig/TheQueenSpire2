@@ -45,7 +45,7 @@ public class Pollinated : QueenMod2Power
         Creature? dealer,
         CardModel? cardSource)
     {
-        if (dealer != null && dealer.Equals(Applier) && target.Equals(Owner))
+        if (dealer != null && dealer.Equals(Applier) && target.Equals(Owner) && props.Equals(ValueProp.Move))
         {
             await PowerCmd.ModifyAmount(choiceContext, this, 1M, this.Owner, null, true);
         }

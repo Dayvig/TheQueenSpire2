@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://doxpohjgi3tay"
-path="res://.godot/imported/command_feast.png-b4468e69bede17902b872b16fca02d5d.ctex"
+path="res://.godot/imported/duelist_form.png-e491bb6434812820d820140effa1b575.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://QueenMod2/images/card_portraits/command_feast.png"
-dest_files=["res://.godot/imported/command_feast.png-b4468e69bede17902b872b16fca02d5d.ctex"]
+source_file="res://QueenMod2/images/card_portraits/duelist_form.png"
+dest_files=["res://.godot/imported/duelist_form.png-e491bb6434812820d820140effa1b575.ctex"]
 
 [params]
 

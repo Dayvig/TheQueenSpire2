@@ -1,4 +1,4 @@
-using HarmonyLib;
+/*using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -19,9 +19,7 @@ class SwarmDistributionPatch
     {
         MainFile.Logger.Info("Executing SwarmDistributionPatch.Postfix");
         CardModel card = cardPlay.Card;
-        int prevSwarmAmount = SwarmController.TotalSwarmAmount;
         SwarmController.Instance.CalculateSwarm(card);
-        MainFile.Logger.Info("Different Swarm Amount" + (prevSwarmAmount != SwarmController.TotalSwarmAmount).ToString());
-        __result = SwarmController.Instance.DistributeSwarm(choiceContext, card, prevSwarmAmount != SwarmController.TotalSwarmAmount);
+        __result = SwarmController.Instance.DistributeSwarm(choiceContext, card);
     }
-}
+}*/
