@@ -58,6 +58,6 @@
   "QUEENMOD2-GUARDING_POWER.smartDescription": "Take [blue]25%[/blue] more damage from enemies this turn.",
   "QUEENMOD2-DUELIST_FORM_POWER.title": "Duelist Form",
   "QUEENMOD2-DUELIST_FORM_POWER.description": "At the start of your turn, add Flash of Steel and Finesse to your hand.",
-  "QUEENMOD2-DUELIST_FORM_POWER.smartDescription": "At the start of your turn, add {Amount:plural:{Amount}|} [gold]Flash of Steel[/gold] and [gold]Finesse[/gold] to your hand."
+  "QUEENMOD2-DUELIST_FORM_POWER.smartDescription": "At the start of your turn, add [gold]Flash of Steel{Amount:plural:+|}[/gold] and [gold]Finesse{Amount:plural:+|}[/gold] to your hand."
 
 }

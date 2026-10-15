@@ -26,8 +26,8 @@ public class DuelistForm() : QueenMod2Card(3,
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromCard(ModelDb.Card<FlashOfSteel>()),
-        HoverTipFactory.FromCard(ModelDb.Card<Finesse>())
+        HoverTipFactory.FromCard(ModelDb.Card<FlashOfSteel>(), IsUpgraded),
+        HoverTipFactory.FromCard(ModelDb.Card<Finesse>(), IsUpgraded)
     ];
 
 
@@ -36,12 +36,12 @@ public class DuelistForm() : QueenMod2Card(3,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        PowerCmd.Apply<DuelistFormPower>(choiceContext, Owner.Creature, 1,
+        await PowerCmd.Apply<DuelistFormPower>(choiceContext, Owner.Creature, IsUpgraded ? 2 : 1,
             Owner.Creature, this, false);
     }
     
     protected override void OnUpgrade()
     {
+        
     }
-
 }

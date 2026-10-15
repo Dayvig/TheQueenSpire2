@@ -37,15 +37,25 @@ public class DuelistFormPower : QueenMod2Power
     {
         if (side != Owner.Side)
             return;
-        await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<FlashOfSteel>(Owner.Player), PileType.Hand, Owner.Player, CardPilePosition.Top);
-        await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<Finesse>(Owner.Player), PileType.Hand, Owner.Player, CardPilePosition.Top);
-        await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<FlashOfSteel>(Owner.Player), PileType.Draw, Owner.Player, CardPilePosition.Random);
-        await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<Finesse>(Owner.Player), PileType.Draw, Owner.Player, CardPilePosition.Random);
+        CardModel flash = (CardModel) CombatState.CreateCard<FlashOfSteel>(Owner.Player);
+        if (Amount == 2)
+            CardCmd.Upgrade(flash);
+        CardModel finesse = (CardModel) CombatState.CreateCard<Finesse>(Owner.Player);
+        if (Amount == 2)
+            CardCmd.Upgrade(finesse);
+        
+        await CardPileCmd.AddGeneratedCardToCombat(flash.CreateCloneForPlayer(Owner.Player), PileType.Hand, Owner.Player, CardPilePosition.Top);
+        await CardPileCmd.AddGeneratedCardToCombat(finesse.CreateCloneForPlayer(Owner.Player), PileType.Hand, Owner.Player, CardPilePosition.Top);
+        await CardPileCmd.AddGeneratedCardToCombat(flash.CreateCloneForPlayer(Owner.Player), PileType.Draw, Owner.Player, CardPilePosition.Random);
+        await CardPileCmd.AddGeneratedCardToCombat(finesse.CreateCloneForPlayer(Owner.Player), PileType.Draw, Owner.Player, CardPilePosition.Random);
 
     }
     
     public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Counter;
+    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
     public override Color AmountLabelColor => _normalAmountLabelColor;
-    
+
+    public bool upgraded = false;
+
 }

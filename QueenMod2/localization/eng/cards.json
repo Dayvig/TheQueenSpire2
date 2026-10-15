@@ -181,7 +181,7 @@
   "QUEENMOD2-DRONE_DANCE.title": "Mating Dance",
   "QUEENMOD2-SWARM_STRIKE.description": "Deal {Damage:diff()} damage. \n Apply [gold]Swarm[/gold] equal to damage dealt.",
   "QUEENMOD2-SWARM_STRIKE.title": "Swarming Strike",
-  "QUEENMOD2-DUELIST_FORM.description": "At the start of your turn, add [gold]Flash of Steel[/gold] and [gold]Finesse[/gold] to your hand and draw pile.",
+  "QUEENMOD2-DUELIST_FORM.description": "At the start of your turn, add {IfUpgraded:show:[gold]Flash of Steel+[/gold]|[gold]Flash of Steel[/gold]} and {IfUpgraded:show:[gold]Finesse+[/gold]|[gold]Finesse[/gold]} to your hand and draw pile.",
   "QUEENMOD2-DUELIST_FORM.title": "Duelist Form",
   "QUEENMOD2-CROSS_POLLINATION.description": "Deal {Damage:diff()} damage. \n Apply {Pollinated:diff()} [gold]Pollinated[/gold]. \n When [gold]Pollinated[/gold] is removed, put this into your hand.",
   "QUEENMOD2-CROSS_POLLINATION.title": "Cross Pollination",
