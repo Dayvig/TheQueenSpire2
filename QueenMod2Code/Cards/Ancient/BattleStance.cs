@@ -5,12 +5,13 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using BaseLib.Abstracts;
 
 namespace QueenMod2.QueenMod2Code.Cards.Ancient;
 
 public class BattleStance() : QueenMod2Card(1,
     CardType.Skill, CardRarity.Ancient,
-    TargetType.Self)
+    TargetType.Self), ITomeCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(12M, ValueProp.Move),

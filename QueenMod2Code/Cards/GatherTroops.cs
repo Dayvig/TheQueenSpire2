@@ -1,3 +1,4 @@
+using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -5,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using QueenMod2.QueenMod2Code.Cards.Ancient;
 using QueenMod2.QueenMod2Code.Character;
 using QueenMod2.QueenMod2Code.Powers;
 
@@ -12,7 +14,7 @@ namespace QueenMod2.QueenMod2Code.Cards;
 
 public class GatherTroops() : QueenMod2Card(1,
     CardType.Skill, CardRarity.Basic,
-    TargetType.Self)
+    TargetType.Self), ITranscendenceCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<Swarm>(5M)
@@ -37,4 +39,6 @@ public class GatherTroops() : QueenMod2Card(1,
     {
         DynamicVars["Swarm"].UpgradeValueBy(2M);
     }
+    
+    public CardModel GetTranscendenceTransformedCard() => ModelDb.Card<RaiseArmy>();
 }

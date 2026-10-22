@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
@@ -12,6 +13,7 @@ public class QueensBanner : QueenMod2Relic
     public override RelicRarity Rarity => RelicRarity.Starter;
 
     private bool _used = false;
+    public override RelicModel? GetUpgradeReplacement() => ModelDb.Relic<WarBanner>();
 
     public override bool TryModifyRewards(Player player, List<Reward> rewards, AbstractRoom? room)
     {

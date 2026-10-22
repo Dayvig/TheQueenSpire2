@@ -14,7 +14,7 @@ namespace QueenMod2.QueenMod2Code.Cards;
 [Pool(typeof(QueenMod2CardPool))]
 public class Poise() : QueenMod2Card(1,
     CardType.Skill, CardRarity.Basic,
-    TargetType.Self), ITranscendenceCard
+    TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -39,7 +39,4 @@ public class Poise() : QueenMod2Card(1,
     {
         DynamicVars.Block.UpgradeValueBy(3M);
     }
-
-    public CardModel GetTranscendenceTransformedCard() => ModelDb.Card<BattleStance>();
-    
 }

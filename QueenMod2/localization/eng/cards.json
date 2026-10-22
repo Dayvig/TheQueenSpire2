@@ -196,6 +196,8 @@
   "QUEENMOD2-COUP_DE_MAIN.description": "Deal {Damage:diff()} damage to ALL enemies twice. \n If you have 8 or more cards in hand, gain {energyPrefix:energyIcons(1)}{energyPrefix:energyIcons(1)}.",
   "QUEENMOD2-COUP_DE_MAIN.title": "Coup De Main",
   "QUEENMOD2-GUARD_ME.description": "Gain {Block:diff()} Block. Allies take 25% more damage from attacks this turn.",
-  "QUEENMOD2-GUARD_ME.title": "Guard Me!"
+  "QUEENMOD2-GUARD_ME.title": "Guard Me!",
+  "QUEENMOD2-RAISE_ARMY.description": "Gain {Swarm:diff()} [gold]Swarm[/gold]. \n Add a [gold]Hornet[/gold] and [gold]Bumblebee[/gold] to your Draw Pile.",
+  "QUEENMOD2-RAISE_ARMY.title": "Raise an Army"
 
 }
