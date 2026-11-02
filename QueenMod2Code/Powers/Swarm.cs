@@ -67,6 +67,7 @@ public class Swarm : QueenMod2Power
 
     public override PowerType Type => conditionalTypeSet ? conditionalType : PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
+    public override PowerInstanceType InstanceType => PowerInstanceType.InstancedPerApplier;
     public override Color AmountLabelColor => _normalAmountLabelColor;
     
     public override async Task BeforeSideTurnEndEarly(
@@ -77,29 +78,19 @@ public class Swarm : QueenMod2Power
         Swarm swarmPower = this;
         if (side != swarmPower.Owner.Side)
             return;
-        if (side == CombatSide.Player)
+        if (side == CombatSide.Player && participants.Contains<Creature>(Owner))
         {
-            TriggerSwarm(false, false);
+            await this.TriggerSwarm(false, true);
         }
     }
-
     public override async Task AfterSideTurnStart(
         CombatSide side,
         IReadOnlyList<Creature> participants,
         ICombatState combatState)
     {
-        Swarm power = this;
-        if (side == CombatSide.Enemy && participants.Contains<Creature>(power.Owner))
+        if (side == CombatSide.Enemy && participants.Contains<Creature>(Owner))
         {
-            TriggerSwarm(true, true);
-        }
-        if (side == CombatSide.Player)
-        {
-            if (Owner.IsAlive)
-                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)this, -DynamicVars["Decrement"].BaseValue,
-                    (Creature)null, (CardModel)null);
-            else
-                await Cmd.CustomScaledWait(0.1f, 0.25f);
+            await this.TriggerSwarm(true, true);
         }
     }
     
@@ -133,7 +124,7 @@ public class Swarm : QueenMod2Power
         await PowerCmd.Apply<Swarm>(choiceContext, power.Applier, power.Amount, power.Applier, (CardModel) null);
     }
 
-    public async void TriggerSwarm(bool isDamage, bool decrement)
+    public async Task TriggerSwarm(bool isDamage, bool decrement)
     {
         Flash();
         if (isDamage)
@@ -142,8 +133,7 @@ public class Swarm : QueenMod2Power
                 (Decimal)getTotalAmount(Owner), ValueProp.Unblockable | ValueProp.Unpowered, null,
                 null);
             if (Owner.IsAlive && decrement)
-                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)this, -DynamicVars["Decrement"].BaseValue,
-                    (Creature)null, (CardModel)null);
+                await PowerCmd.Decrement(this);
             else
                 await Cmd.CustomScaledWait(0.1f, 0.25f);
         }
@@ -152,8 +142,7 @@ public class Swarm : QueenMod2Power
             Decimal num = await CreatureCmd.GainBlock(Owner,
                 (Decimal)getTotalAmount(Owner), ValueProp.Unpowered, (CardPlay)null);
             if (Owner.IsAlive && decrement)
-                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)this, -DynamicVars["Decrement"].BaseValue,
-                    (Creature)null, (CardModel)null);
+                await PowerCmd.Decrement(this);
             else
                 await Cmd.CustomScaledWait(0.1f, 0.25f);
         }

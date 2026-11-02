@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 
@@ -31,9 +32,8 @@ public class DuelistFormPower : QueenMod2Power
             return ResourceLoader.Exists(path) ? path : "power.png".BigPowerImagePath();
         }
     }
-    
-    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants,
-        ICombatState combatState)
+
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (side != Owner.Side)
             return;
@@ -44,13 +44,9 @@ public class DuelistFormPower : QueenMod2Power
         if (Amount == 2)
             CardCmd.Upgrade(finesse);
         
-        await CardPileCmd.AddGeneratedCardToCombat(flash.CreateCloneForPlayer(Owner.Player), PileType.Hand, Owner.Player, CardPilePosition.Top);
-        await CardPileCmd.AddGeneratedCardToCombat(finesse.CreateCloneForPlayer(Owner.Player), PileType.Hand, Owner.Player, CardPilePosition.Top);
-        await CardPileCmd.AddGeneratedCardToCombat(flash.CreateCloneForPlayer(Owner.Player), PileType.Draw, Owner.Player, CardPilePosition.Random);
-        await CardPileCmd.AddGeneratedCardToCombat(finesse.CreateCloneForPlayer(Owner.Player), PileType.Draw, Owner.Player, CardPilePosition.Random);
-
+        await CardPileCmd.AddGeneratedCardToCombat(flash.CreateCloneForPlayer(Owner.Player), PileType.Draw, Owner.Player, CardPilePosition.Top);
+        await CardPileCmd.AddGeneratedCardToCombat(finesse.CreateCloneForPlayer(Owner.Player), PileType.Draw, Owner.Player, CardPilePosition.Top);
     }
-    
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
     public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;

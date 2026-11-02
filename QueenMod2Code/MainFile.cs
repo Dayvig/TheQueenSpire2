@@ -1,6 +1,8 @@
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
+using QueenMod2.QueenMod2Code.Extensions;
+using QueenUI = QueenMod2.QueenMod2Code.Nodes.QueenUI;
 
 namespace QueenMod2.QueenMod2Code;
 
@@ -13,6 +15,8 @@ public partial class MainFile : Node
     public static MegaCrit.Sts2.Core.Logging.Logger Logger { get; } =
         new(ModId, MegaCrit.Sts2.Core.Logging.LogType.Generic);
 
+    public QueenUI QueenUI { get; private set; }
+    
     public static void Initialize()
     {
         Harmony harmony = new(ModId);

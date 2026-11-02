@@ -42,8 +42,11 @@ public class MatingDance() : QueenMod2Card(-2,
     public void setCustomGlow()
     {
         DanceVar dance =  (DanceVar)DynamicVars["Dance"];
-        HasCustomGlowColor = true;
-        customGlowColor = dance.DanceColors[dance.stepToColor(dance.danceSteps[dance.place])];
+        if (dance != null && this.CombatState != null)
+        {
+            HasCustomGlowColor = true;
+            customGlowColor = dance.DanceColors[dance.stepToColor(dance.danceSteps[dance.place])];
+        }
     }
 
     public override Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay play)

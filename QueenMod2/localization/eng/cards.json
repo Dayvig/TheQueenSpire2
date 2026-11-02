@@ -67,7 +67,7 @@
   "QUEENMOD2-OFFICERS.title": "Hive Officers",
   "QUEENMOD2-HORNET_SWARM.description": "Play {IfUpgraded:show:| and Exhaust} all [gold]Hornets[/gold] in your Hand and Draw Pile on the enemy. \n ({CalculatedHornets:diff()} [gold]Hornets.[/gold])",
   "QUEENMOD2-HORNET_SWARM.title": "Hornet Swarm",
-  "QUEENMOD2-I_AM_SWARM.description": "Gain {Swarm:diff()} [gold]Swarm[/gold] for each card in your Draw pile. \n Exhaust your Draw Pile.",
+  "QUEENMOD2-I_AM_SWARM.description": "Exhaust your Draw Pile and Gain {Swarm:diff()} [gold]Swarm[/gold] for each card in it. \n At the start of your turn, add 1 of 3 [gold]Command[/gold] cards to your hand.",
   "QUEENMOD2-I_AM_SWARM.title": "I Am The Swarm",
   "QUEENMOD2-KILLER_BEE.description": "Deal {CalculatedDamage:diff()} damage. \n [gold]Hivebound[/gold]: Increase this card's damage by {SharpenAmount:diff()}.",
   "QUEENMOD2-KILLER_BEE.title": "Killer Bee",
@@ -198,6 +198,8 @@
   "QUEENMOD2-GUARD_ME.description": "Gain {Block:diff()} Block. Allies take 25% more damage from attacks this turn.",
   "QUEENMOD2-GUARD_ME.title": "Guard Me!",
   "QUEENMOD2-RAISE_ARMY.description": "Gain {Swarm:diff()} [gold]Swarm[/gold]. \n Add a [gold]Hornet[/gold] and [gold]Bumblebee[/gold] to your Draw Pile.",
-  "QUEENMOD2-RAISE_ARMY.title": "Raise an Army"
+  "QUEENMOD2-RAISE_ARMY.title": "Raise an Army",
+  "QUEENMOD2-ROYAL_BANQUET.description": "Gain {Block:diff()} Block. Your [gold]Hive[/gold] cards [gold]Retain[/gold] this turn. \n [gold]Hivebound[/gold]: Add a random [gold]Hive[/gold] card to your Draw Pile.",
+  "QUEENMOD2-ROYAL_BANQUET.title": "Royal Banquet"
 
 }

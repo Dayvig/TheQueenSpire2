@@ -45,12 +45,9 @@ public class RoyalJellyPower : QueenMod2Power
     public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier,
         CardModel? cardSource)
     {
-        MainFile.Logger.Info("REch" + power.Amount);
-
         if (power.Id.Equals(ModelDb.Power<Pollinated>().Id) && power.Amount >= 5M)
         {
-            MainFile.Logger.Info("Triggering" + power.Amount);
-            return PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner, amount, Owner, null);
+            return PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner, Amount, Owner, null);
         }
         return Task.CompletedTask;
     }

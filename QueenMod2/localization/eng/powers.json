@@ -57,7 +57,10 @@
   "QUEENMOD2-GUARDING_POWER.description": "Take 25% more damage from enemies this turn.",
   "QUEENMOD2-GUARDING_POWER.smartDescription": "Take [blue]25%[/blue] more damage from enemies this turn.",
   "QUEENMOD2-DUELIST_FORM_POWER.title": "Duelist Form",
-  "QUEENMOD2-DUELIST_FORM_POWER.description": "At the start of your turn, add Flash of Steel and Finesse to your hand.",
-  "QUEENMOD2-DUELIST_FORM_POWER.smartDescription": "At the start of your turn, add [gold]Flash of Steel{Amount:plural:+|}[/gold] and [gold]Finesse{Amount:plural:+|}[/gold] to your hand."
+  "QUEENMOD2-DUELIST_FORM_POWER.description": "At the end of your turn, add Flash of Steel and Finesse to the top of your Draw Pile.",
+  "QUEENMOD2-DUELIST_FORM_POWER.smartDescription": "At the end of your turn, add [gold]Flash of Steel{Amount:plural:+|}[/gold] and [gold]Finesse{Amount:plural:+|}[/gold] to the top of your Draw Pile.",
+  "QUEENMOD2-BANQUET_POWER.title": "Royal Banquet",
+  "QUEENMOD2-BANQUET_POWER.description": "Your Hive cards Retain this turn.",
+  "QUEENMOD2-BANQUET_POWER.smartDescription": "Your [gold]Hive[/gold] cards [gold]Retain[/gold] this turn."
 
 }
