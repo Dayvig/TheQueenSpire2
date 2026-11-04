@@ -78,7 +78,8 @@ public class StingerLaunchers() : QueenMod2Card(2,
         }
         if (LocalContext.IsMine(this))
         {
-            Control previewContainer = QueenUI.Instance.HiveBoundPreviewContainer;
+            //Control previewContainer = QueenUI.Instance.HiveBoundPreviewContainer;
+            Control previewContainer = NRun.Instance.GlobalUi.GridCardPreviewContainer;
             NCard cardNode = NCard.Create(this);
             if (previewContainer != null)
                 previewContainer.AddChildSafely((Node) NCardUpgradeVfx.Create(this));

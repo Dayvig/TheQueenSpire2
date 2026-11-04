@@ -40,7 +40,7 @@ public class Pheremone : QueenMod2Power
     }
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new("Decrement", 2)
+        new("Decrement", 1)
     ];
     
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)

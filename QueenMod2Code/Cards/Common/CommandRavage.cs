@@ -22,7 +22,7 @@ public class CommandRavage() : QueenMod2Card(2,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(10M, ValueProp.Move),
-        new ("Pheremones", 3)
+        new ("Pheremones", 2M)
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
@@ -42,6 +42,6 @@ public class CommandRavage() : QueenMod2Card(2,
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(3M);
-        DynamicVars["Pheremones"].UpgradeValueBy(1);
+        DynamicVars["Pheremones"].UpgradeValueBy(1M);
     }
 }

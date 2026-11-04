@@ -24,7 +24,7 @@ public class CommandSpread() : QueenMod2Card(2,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new ("Swarm", 4M),
-        new ("Pheremones", 4M),
+        new ("Pheromones", 1M),
     ];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -46,6 +46,6 @@ public class CommandSpread() : QueenMod2Card(2,
     protected override void OnUpgrade()
     {
         DynamicVars["Swarm"].UpgradeValueBy(1M);
-        DynamicVars["Pheremones"].UpgradeValueBy(1M);
+        DynamicVars["Pheromones"].UpgradeValueBy(1M);
     }
 }

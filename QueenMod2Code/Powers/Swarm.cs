@@ -12,11 +12,12 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Multiplayer;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace QueenMod2.QueenMod2Code.Powers;
 
-public class Swarm : QueenMod2Power
+public class Swarm : QueenMod2Power, IHasSecondAmount
 {
     public override void setConditionalType(Creature target)
     {
@@ -44,16 +45,19 @@ public class Swarm : QueenMod2Power
     }
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new("Decrement", 1)
+        new("Decrement", 1),
+        new("TrueAmount", 0M)
     ];
+    
 
     public Decimal getTotalAmount(Creature owner)
     {
         Decimal modifiedAmount = this.Amount;
         if (owner.HasPower(ModelDb.Power<Pheremone>().Id))
         {
-            modifiedAmount += owner.GetPower<Pheremone>().Amount;
+            modifiedAmount *= owner.HasPower<Pheremone>() ? 1.5M :  1M;
         }
+        DynamicVars["TrueAmount"].BaseValue = modifiedAmount;
         return modifiedAmount;
     }
 
@@ -97,12 +101,17 @@ public class Swarm : QueenMod2Power
     public override IEnumerable<HealthBarForecastSegment> GetHealthBarForecastSegments(
         HealthBarForecastContext context)
     {
-        int pheromoneAmnt = Owner.HasPower<Pheremone>() ? Owner.GetPowerAmount<Pheremone>() : 0;
+        Decimal modifiedAmount = this.Amount;
+        if (Owner.HasPower(ModelDb.Power<Pheremone>().Id))
+        {
+            modifiedAmount *= Owner.HasPower<Pheremone>() ? 1.5M :  1M;
+        }
+        DynamicVars["TrueAmount"].BaseValue = modifiedAmount;
         if (Type.Equals(PowerType.Debuff))
         {
             return
             [
-                new HealthBarForecastSegment(Amount + pheromoneAmnt, new Color(0.9f, 0.85f, 0f), HealthBarForecastDirection.FromRight, 10,
+                new HealthBarForecastSegment((int)modifiedAmount, new Color(0.9f, 0.85f, 0f), HealthBarForecastDirection.FromRight, 10,
                     null, null)
             ];
         }
@@ -146,5 +155,22 @@ public class Swarm : QueenMod2Power
             else
                 await Cmd.CustomScaledWait(0.1f, 0.25f);
         }
+    }
+
+    public string GetSecondAmount()
+    {
+        bool hasPheromone = false;
+        Decimal modifiedAmount = this.Amount;
+        if (Owner.HasPower(ModelDb.Power<Pheremone>().Id))
+        {
+            hasPheromone = true;
+            modifiedAmount *= Owner.HasPower<Pheremone>() ? 1.5M :  1M;
+        }
+        DynamicVars["TrueAmount"].BaseValue = modifiedAmount;
+        if (hasPheromone)
+        {
+            return ((int)(Amount * 1.5M)).ToString();
+        }
+        return null;
     }
 }

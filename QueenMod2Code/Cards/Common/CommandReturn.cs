@@ -22,7 +22,7 @@ public class CommandReturn() : QueenMod2Card(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(6M, ValueProp.Move),
-        new ("Pheremones", 2)
+        new ("Pheremones", 1)
     ];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>

@@ -1,11 +1,17 @@
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 using QueenMod2.QueenMod2Code.Cards;
 using QueenMod2.QueenMod2Code.Cards.Generated;
@@ -56,6 +62,14 @@ public class Garrison() : QueenMod2Card(2,
     {
         Garrison gar = this;
         BlockVar hiveBlock = (BlockVar) DynamicVars["HiveBound"];
+        if (LocalContext.IsMine(this))
+        {
+            //Control previewContainer = QueenUI.Instance.HiveBoundPreviewContainer;
+            Control previewContainer = NRun.Instance.GlobalUi.GridCardPreviewContainer;
+            NCard cardNode = NCard.Create(this);
+            if (previewContainer != null)
+                previewContainer.AddChildSafely((Node) NCardUpgradeVfx.Create(this));
+        }
         //CardCmd.Preview(stingers, 0.4f, CardPreviewStyle.GridLayout);
         await CreatureCmd.GainBlock(gar.Owner.Creature, hiveBlock, null);
     }

@@ -105,7 +105,7 @@
   "QUEENMOD2-RETINUE.title": "Royal Retinue",
   "QUEENMOD2-HONOR_GUARDS.description": "Add 2 {IfUpgraded:show:[gold]Bumblebees+[/gold]|[gold]Bumblebees[/gold]} to your Hand.",
   "QUEENMOD2-HONOR_GUARDS.title": "Honor Guards",
-  "QUEENMOD2-COMMAND_SPREAD.description": "Apply {Swarm:diff()} [gold]Swarm[/gold] and [gold]Pheromones[/gold] to yourself and all enemies.",
+  "QUEENMOD2-COMMAND_SPREAD.description": "Apply {Swarm:diff()} [gold]Swarm[/gold] and {Pheromones:diff()} [gold]Pheromones[/gold] to yourself and all enemies.",
   "QUEENMOD2-COMMAND_SPREAD.title": "Command: Spread",
   "QUEENMOD2-INSPIRING_STRIKE.description": "Deal {Damage:diff()} damage. \n Upgrade {Cards:diff()} cards in your draw pile.",
   "QUEENMOD2-INSPIRING_STRIKE.title": "Inspiring Strike",

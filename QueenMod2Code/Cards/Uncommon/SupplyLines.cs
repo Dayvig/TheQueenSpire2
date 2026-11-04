@@ -1,11 +1,17 @@
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
 using QueenMod2.QueenMod2Code.Powers;
 
@@ -55,6 +61,14 @@ public class SupplyLines() : QueenMod2Card(1,
 
     public async Task triggerHiveBoundEffect(PlayerChoiceContext choiceContext)
     {
+        if (LocalContext.IsMine(this))
+        {
+            //Control previewContainer = QueenUI.Instance.HiveBoundPreviewContainer;
+            Control previewContainer = NRun.Instance.GlobalUi.GridCardPreviewContainer;
+            NCard cardNode = NCard.Create(this);
+            if (previewContainer != null)
+                previewContainer.AddChildSafely((Node) NCardUpgradeVfx.Create(this));
+        }
         DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

@@ -23,7 +23,7 @@ public class CommandAssault() : QueenMod2Card(2,
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(5M, ValueProp.Move),
         new ("Hits", 3),
-        new ("Pheremones", 3)
+        new ("Pheremones", 2M)
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
@@ -47,6 +47,6 @@ public class CommandAssault() : QueenMod2Card(2,
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(2M);
-        DynamicVars["Pheremones"].UpgradeValueBy(2M);
+        DynamicVars["Pheremones"].UpgradeValueBy(1M);
     }
 }

@@ -1,14 +1,20 @@
+using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using QueenMod2.QueenMod2Code.Cards.Generated;
 using QueenMod2.QueenMod2Code.Powers;
 
@@ -60,6 +66,14 @@ public class Barracks() : QueenMod2Card(1,
 
     public async Task triggerHiveBoundEffect(PlayerChoiceContext choiceContext)
     {
+        if (LocalContext.IsMine(this))
+        {
+            //Control previewContainer = QueenUI.Instance.HiveBoundPreviewContainer;
+            Control previewContainer = NRun.Instance.GlobalUi.GridCardPreviewContainer;
+            NCard cardNode = NCard.Create(this);
+            if (previewContainer != null)
+                previewContainer.AddChildSafely((Node) NCardUpgradeVfx.Create(this));
+        }
         CardModel model = (CardModel)this;
         //CardCmd.Preview(model, 0.4f, CardPreviewStyle.GridLayout);
         await PowerCmd.Apply<BarracksPower>(choiceContext, Owner.Creature, 1M, Owner.Creature, model, false);

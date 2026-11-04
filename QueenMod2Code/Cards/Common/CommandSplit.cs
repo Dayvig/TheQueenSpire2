@@ -22,7 +22,7 @@ public class CommandSplit() : QueenMod2Card(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(8M, ValueProp.Move),
-        new ("Pheremones", 2)
+        new ("Pheremones", 1)
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
@@ -49,6 +49,5 @@ public class CommandSplit() : QueenMod2Card(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(3M);
-        DynamicVars["Pheremones"].UpgradeValueBy(1);
     }
 }
