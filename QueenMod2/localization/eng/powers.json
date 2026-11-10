@@ -61,6 +61,8 @@
   "QUEENMOD2-DUELIST_FORM_POWER.smartDescription": "At the end of your turn, add [gold]Flash of Steel{Amount:plural:+|}[/gold] and [gold]Finesse{Amount:plural:+|}[/gold] to the top of your Draw Pile.",
   "QUEENMOD2-BANQUET_POWER.title": "Royal Banquet",
   "QUEENMOD2-BANQUET_POWER.description": "Your Hive cards Retain this turn.",
-  "QUEENMOD2-BANQUET_POWER.smartDescription": "Your [gold]Hive[/gold] cards [gold]Retain[/gold] this turn."
-
+  "QUEENMOD2-BANQUET_POWER.smartDescription": "Your [gold]Hive[/gold] cards [gold]Retain[/gold] this turn.",
+  "QUEENMOD2-CHAMBERS_POWER.title": "Royal Chambers",
+  "QUEENMOD2-CHAMBERS_POWER.description": "Your Drones Retain. At the end of the turn, reduce the cost of each Drone in hand by 1 until played.",
+  "QUEENMOD2-CHAMBERS_POWER.smartDescription": "Your [gold]Drones Retain[/gold]. At the end of the turn, reduce the cost of each [gold]Drone[/gold] in hand by 1 until played."
 }

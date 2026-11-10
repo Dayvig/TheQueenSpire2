@@ -10,8 +10,8 @@ using BaseLib.Abstracts;
 namespace QueenMod2.QueenMod2Code.Cards.Ancient;
 
 public class BattleStance() : QueenMod2Card(1,
-    CardType.Skill, CardRarity.Ancient,
-    TargetType.Self), ITomeCard
+    CardType.Skill, CardRarity.None,
+    TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(12M, ValueProp.Move),

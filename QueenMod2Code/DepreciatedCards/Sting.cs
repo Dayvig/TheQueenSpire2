@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace QueenMod2.QueenMod2Code.Cards.Uncommon;
 
 public class Sting() : QueenMod2Card(0,
-    CardType.Attack, CardRarity.Uncommon,
+    CardType.Attack, CardRarity.None,
     TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [

@@ -10,34 +10,30 @@ using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Cards.Rare;
 
-public class ReconSquad() : QueenMod2Card(0,
-    CardType.Skill, CardRarity.Rare,
+public class RoyalChambers() : QueenMod2Card(2,
+    CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new ("DronesToAdd", 2M)
     ];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        CardKeyword.Exhaust
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromCard(ModelDb.Card<Drone>())
     ];
     
-    public override bool CanBeGeneratedInCombat => false;
-
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        ReconSquad squad = this;
-        await CardPileCmd.AddGeneratedCardToCombat((CardModel) squad.CombatState.CreateCard<Drone>(squad.Owner), PileType.Hand, play.Card.Owner, CardPilePosition.Random);
-
         for (int i = 0; i < DynamicVars["DronesToAdd"].BaseValue; i++)
         {
-            await CardPileCmd.AddGeneratedCardToCombat((CardModel) squad.CombatState.CreateCard<Drone>(squad.Owner), PileType.Draw, play.Card.Owner, CardPilePosition.Random);
+            await CardPileCmd.AddGeneratedCardToCombat((CardModel) CombatState.CreateCard<Drone>(Owner), PileType.Draw, play.Card.Owner, CardPilePosition.Random);
         }
+        PowerCmd.Apply<ChambersPower>(choiceContext, Owner.Creature, 1,
+            Owner.Creature, this, false);
     }
     
     protected override void OnUpgrade()

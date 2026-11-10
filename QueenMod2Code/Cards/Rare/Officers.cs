@@ -1,3 +1,4 @@
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Extensions;
@@ -11,14 +12,15 @@ using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Cards.Rare;
 
-public class Officers() : QueenMod2Card(1,
+public class Officers() : QueenMod2Card(0,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new ("Pulls", 1M)
+        new ("Pulls", 2M)
     ];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
+        CardKeyword.Exhaust
     ];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -32,7 +34,8 @@ public class Officers() : QueenMod2Card(1,
     {
         Officers officers = this;
         List<CardModel> Hive = new List<CardModel>();
-        foreach (CardModel card2 in PileType.Draw.GetPile(officers.Owner).Cards.Where<CardModel>((Func<CardModel, bool>) (c => c.IsUpgradable && c.Keywords.Contains(QueenMod2Keywords.Hive))))
+        foreach (CardModel card2 in PileType.Draw.GetPile(officers.Owner).Cards.Concat(PileType.Hand.GetPile(officers.Owner).Cards).Concat(PileType.Discard.GetPile(officers.Owner).Cards).
+                     Where<CardModel>((Func<CardModel, bool>) (c => c.IsUpgradable && c.Keywords.Contains(QueenMod2Keywords.Hive))))
         {
             CardCmd.Upgrade(card2);
             CardCmd.Preview(card2);
@@ -49,6 +52,6 @@ public class Officers() : QueenMod2Card(1,
     
     protected override void OnUpgrade()
     {
-        DynamicVars["Pulls"].UpgradeValueBy(1M);
+        this.AddKeyword(CardKeyword.Retain);
     }
 }

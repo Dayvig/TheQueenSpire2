@@ -12,7 +12,7 @@ using QueenMod2.QueenMod2Code.Character;
 
 namespace QueenMod2.QueenMod2Code.Cards.Rare;
 
-public class Assault() : QueenMod2Card(3,
+public class Assault() : QueenMod2Card(2,
     CardType.Attack, CardRarity.Rare,
     TargetType.AllEnemies)
 { 
@@ -20,12 +20,7 @@ public class Assault() : QueenMod2Card(3,
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(2M, ValueProp.Move),
-        (DynamicVar) new CalculationBaseVar(0M),
-        (DynamicVar) new CalculationExtraVar(1M),
-        (DynamicVar) new CalculatedVar("CalculatedHits").WithMultiplier(((Func<CardModel, Creature, Decimal>) ((card, _) =>
-        {
-            return SwarmController.TotalSwarmAmount;
-        }))!)
+        (DynamicVar) new RepeatVar(12)
     ];
     
     protected override async Task OnPlay(
@@ -33,12 +28,12 @@ public class Assault() : QueenMod2Card(3,
         CardPlay play)
     {
         Assault assault = this;
-        AttackCommand attackCommand = await DamageCmd.Attack(assault.DynamicVars.Damage.IntValue).FromCard(assault, play).WithHitCount((int)((CalculatedVar) assault.DynamicVars["CalculatedHits"]).Calculate(null)).TargetingRandomOpponents(assault.CombatState)
+        AttackCommand attackCommand = await DamageCmd.Attack(assault.DynamicVars.Damage.IntValue).FromCard(assault, play).WithHitCount(assault.DynamicVars.Repeat.IntValue).TargetingRandomOpponents(assault.CombatState)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(1M);
+        DynamicVars.Repeat.UpgradeValueBy(4);
     }
 }

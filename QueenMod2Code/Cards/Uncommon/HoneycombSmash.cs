@@ -17,7 +17,7 @@ using QueenMod2.QueenMod2Code.Powers;
 namespace QueenMod2.QueenMod2Code.Cards.Common;
 
 public class HoneycombSmash() : QueenMod2Card(1,
-    CardType.Attack, CardRarity.Common,
+    CardType.Attack, CardRarity.Uncommon,
     TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

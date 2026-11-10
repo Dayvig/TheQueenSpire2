@@ -19,7 +19,7 @@ using QueenMod2.QueenMod2Code.Powers;
 namespace QueenMod2.QueenMod2Code.Cards.Common;
 
 public class FinishingBlow() : QueenMod2Card(1,
-    CardType.Attack, CardRarity.Common,
+    CardType.Attack, CardRarity.Uncommon,
     TargetType.AnyEnemy)
 {
     private static Decimal _hitsThisTurn = 0;

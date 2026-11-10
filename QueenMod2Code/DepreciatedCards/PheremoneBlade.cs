@@ -18,7 +18,7 @@ using QueenMod2.QueenMod2Code.Powers;
 namespace QueenMod2.QueenMod2Code.Cards.Uncommon;
 
 public class PheremoneBlade() : QueenMod2Card(1,
-    CardType.Attack, CardRarity.Uncommon,
+    CardType.Attack, CardRarity.None,
     TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [

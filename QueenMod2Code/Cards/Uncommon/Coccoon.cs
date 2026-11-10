@@ -13,8 +13,8 @@ public class Coccoon() : QueenMod2Card(3,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<Swarm>(10M),
-        new PowerVar<Pheremone>(5M)
+        new PowerVar<Swarm>(8M),
+        new PowerVar<Pheremone>(2M)
     ];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -34,7 +34,7 @@ public class Coccoon() : QueenMod2Card(3,
     
     protected override void OnUpgrade()
     {
-        DynamicVars["Swarm"].UpgradeValueBy(4M);
+        DynamicVars["Swarm"].UpgradeValueBy(3M);
         DynamicVars["Pheremone"].UpgradeValueBy(1M);
     }
 }
