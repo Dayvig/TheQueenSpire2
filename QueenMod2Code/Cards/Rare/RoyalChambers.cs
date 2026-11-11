@@ -38,6 +38,6 @@ public class RoyalChambers() : QueenMod2Card(2,
     
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        this.EnergyCost.UpgradeBy(-1);
     }
 }

@@ -15,7 +15,7 @@ namespace QueenMod2.QueenMod2Code.Cards.Ancient;
 
 public class RaiseArmy() : QueenMod2Card(1,
     CardType.Skill, CardRarity.Ancient,
-    TargetType.Self), ITomeCard
+    TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<Swarm>(10M)

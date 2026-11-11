@@ -1,10 +1,9 @@
+using BaseLib.Abstracts;
 using Godot;
 using MegaCrit.Sts2.Core.Audio.Debug;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -13,17 +12,14 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
-using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Nodes.Vfx.Cards;
-using MegaCrit.Sts2.Core.ValueProps;
-using QueenMod2.QueenMod2Code.Cards.Generated;
 using QueenMod2.QueenMod2Code.Powers;
 
-namespace QueenMod2.QueenMod2Code.Cards.Rare;
+namespace QueenMod2.QueenMod2Code.Cards.Ancient;
 
 public class IAmSwarm() : QueenMod2Card(2,
     CardType.Power, CardRarity.Ancient,
-    TargetType.Self)
+    TargetType.Self), ITomeCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new ("Swarm", 2M)
