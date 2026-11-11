@@ -23,7 +23,13 @@ public class SwarmController() : CustomSingletonModel(true, true)
     
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        return Instance.DistributeSwarm(choiceContext, play.Card);
+        SwarmController.Instance.CalculateSwarm(play.Card);
+        if (TotalSwarmAmount > 0)
+        {
+            return Instance.DistributeSwarm(choiceContext, play.Card.CombatState, play.Card.Owner.Creature, play.Card);
+        }
+
+        return Task.CompletedTask;
     }
 
     public static List<Creature> correctSwarmTargets(CardModel source)
@@ -74,25 +80,52 @@ public class SwarmController() : CustomSingletonModel(true, true)
         }
         return totalTargets;
     }
+
+    public static List<Creature> correctSwarmTargets(ICombatState state)
+    {
+        List<Creature> totalTargets = new List<Creature>();
+        foreach (Creature c in state.HittableEnemies.Concat(state.PlayerCreatures))
+        {
+            if (c.HasPower(ModelDb.Power<Pheremone>().Id))
+            {
+                totalTargets.Add(c);
+            }
+        }
+        return totalTargets;
+    }
 }
 
 public class SwarmControllerMethods
 {
     public void CalculateSwarm(CardModel source)
     {
+        if (source != null)
+        {
+            CalculateSwarm(source.CombatState, source.Owner.Creature);
+        }
+    }
+
+    public void CalculateSwarm(ICombatState state, Creature swarmOwner)
+    {
         MainFile.Logger.Info("Checking Swarm");     
 
         SwarmController.TotalSwarmAmount = 0;
 
-        List<Creature> totalTargets = new List<Creature>(source.CombatState.PlayerCreatures);
-        totalTargets.AddRange(source.CombatState.HittableEnemies);
+        List<Creature> totalTargets = new List<Creature>(state.PlayerCreatures);
+        totalTargets.AddRange(state.HittableEnemies);
         foreach (Creature swarmTarget in totalTargets)
         {
-            Swarm? powerInst = swarmTarget.GetPower<Swarm>();
-            int amount = powerInst != null ? powerInst.Amount : 0;
-            SwarmController.TotalSwarmAmount += amount;
+            foreach (PowerModel power in swarmTarget.Powers)
+            {
+                if (!(power is Swarm) || power.Applier != swarmOwner)
+                {
+                    continue;
+                }
+                SwarmController.TotalSwarmAmount += power.Amount;
+            }
         }
     }
+
 
     public async Task ApplySwarm(PlayerChoiceContext choiceContext, List<Creature> targets, Decimal amount, Creature applier,
         CardModel applyingModel)
@@ -120,20 +153,40 @@ public class SwarmControllerMethods
             }
         }
         SwarmController.lastTargets = correctTargets;
+        CalculateSwarm(applyingModel);
     }
     
     public async Task RemoveAllSwarm(CardModel source)
     {
-        List<Creature> totalTargets = new List<Creature>(source.CombatState.PlayerCreatures);
-        totalTargets.AddRange(source.CombatState.Enemies);
+        if (source != null)
+        {
+            RemoveAllSwarm(source.CombatState, source.Owner.Creature);
+        }
+    }
+    
+    public async Task RemoveAllSwarm(ICombatState state, Creature swarmOwner)
+    {
+        List<Creature> totalTargets = new List<Creature>(state.PlayerCreatures);
+        totalTargets.AddRange(state.Enemies);
+        List<PowerModel> toRemove = new List<PowerModel>();
         foreach (Creature swarmTarget in totalTargets)
         {
-            Swarm? powerInst = swarmTarget.GetPower<Swarm>();
-            int amount = powerInst != null ? powerInst.Amount : 0;
-            if (powerInst != null && powerInst.Amount > 0)
+            foreach (PowerModel power in swarmTarget.Powers)
             {
-                int num = await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), powerInst, -amount, (Creature) null, (CardModel) null, true);
+                if (power == null || !(power is Swarm) || power.Applier != swarmOwner)
+                {
+                    continue;
+                }
+                if (power != null && power.Amount > 0)
+                {
+                    toRemove.Add(power);
+                }
             }
+        }
+
+        foreach (PowerModel model in toRemove)
+        {
+            int num = await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), model, -model.Amount, (Creature) null, (CardModel) null, true);
         }
     }
 
@@ -152,7 +205,10 @@ public class SwarmControllerMethods
 
         foreach (Swarm swarm in SwarmList)
         {
-            swarm.TriggerSwarm(false, true);
+            if (swarm.Owner.Player == sourcePlayer)
+            {
+                swarm.TriggerSwarm(false, true);
+            }
         }
 
         SwarmList.Clear();
@@ -168,16 +224,19 @@ public class SwarmControllerMethods
         
         foreach (Swarm swarm in SwarmList)
         {
-            swarm.TriggerSwarm(true, true);
+            if (swarm.Owner.Player == sourcePlayer)
+            {
+                swarm.TriggerSwarm(true, true);
+            }
         }
 
     }
-    
-    public async Task DistributeSwarm(PlayerChoiceContext choiceContext, CardModel source)
+
+    public async Task DistributeSwarm(PlayerChoiceContext choiceContext, ICombatState state, Creature swarmOwner, CardModel? source)
     {
-        CalculateSwarm(source);
+        CalculateSwarm(state, swarmOwner);
         MainFile.Logger.Info("Distributing Swarm");
-        List<Creature> correctTargets = SwarmController.correctSwarmTargets(source);
+        List<Creature> correctTargets = source == null ? SwarmController.correctSwarmTargets(state) : SwarmController.correctSwarmTargets(source);
         MainFile.Logger.Info("Last Targets:"+SwarmController.lastTargets.Count + "| correct Targets:" + correctTargets.Count + new HashSet<Creature>(SwarmController.lastTargets).SetEquals(correctTargets));
 
         if (SwarmController.TotalSwarmAmount <= 0 || correctTargets.Count < 1 || new HashSet<Creature>(SwarmController.lastTargets).SetEquals(correctTargets))
@@ -197,7 +256,7 @@ public class SwarmControllerMethods
 
             if (!alive) { return; }
             
-            await RemoveAllSwarm(source);
+            await RemoveAllSwarm(state, swarmOwner);
             int remainder = SwarmController.TotalSwarmAmount % correctTargets.Count;
             int toDistribute = SwarmController.TotalSwarmAmount - remainder;
             foreach (Creature swarmTarget in correctTargets)
@@ -208,7 +267,7 @@ public class SwarmControllerMethods
                     extraAmount = toDistribute;
                 }
                 Creature newSwarmTarget = swarmTarget;
-                Swarm swarmPower = await PowerCmd.Apply<Swarm>(choiceContext, newSwarmTarget, (toDistribute / correctTargets.Count()) + extraAmount , source.Owner.Creature, source, true);
+                Swarm swarmPower = await PowerCmd.Apply<Swarm>(choiceContext, newSwarmTarget, (toDistribute / correctTargets.Count()) + extraAmount , swarmOwner, null, true);
                 remainder -= extraAmount;
             }
             SwarmController.lastTargets = correctTargets;
