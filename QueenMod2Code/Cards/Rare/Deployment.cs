@@ -60,8 +60,6 @@ public class Deployment() : QueenMod2Card(0,
                 await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, this.Owner);
             }
         }
-
-        await CardPileCmd.Draw(choiceContext, 1M, play.Target.Player, false);
     }
 
     public async Task RemoveAndReplaceHiveCard(CardModel m)

@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Models;
@@ -17,9 +18,28 @@ public class QueensBanner : QueenMod2Relic
 
     public override bool TryModifyRewards(Player player, List<Reward> rewards, AbstractRoom? room)
     {
-        if (QUEENMOD2_IsUsed || player != this.Owner || (room != null ? (room.RoomType != RoomType.Monster ? 1 : 0) : 1) != 0)
+        if (QUEENMOD2_IsUsed || player != this.Owner)
             return false;
-        rewards.Add((Reward) new CardReward(CardCreationOptions.ForRoom(player, RoomType.Monster), 3, player));
+        RoomType correctType;
+        if (room == null)
+        {
+            rewards.Add((Reward) new CardReward(CardCreationOptions.ForNonCombatWithUniformOdds([player.Character.CardPool]), 3, player));
+        }
+        else 
+        {
+            switch (room.RoomType)
+            {
+                case RoomType.Monster:
+                case RoomType.Elite:
+                case RoomType.Boss:
+                case RoomType.Shop:
+                    rewards.Add((Reward) new CardReward(CardCreationOptions.ForRoom(player, room.RoomType), 3, player));
+                    break;
+                default:
+                    rewards.Add((Reward) new CardReward(CardCreationOptions.ForNonCombatWithUniformOdds([player.Character.CardPool]), 3, player));
+                    break;
+            }
+        }
         if (this.QUEENMOD2_IsUsed)
         {
             MainFile.Logger.Info("Incorrect trigger when already used up.");

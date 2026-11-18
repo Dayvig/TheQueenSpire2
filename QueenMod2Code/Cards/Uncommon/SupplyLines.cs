@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.ValueProps;
+using QueenMod2.QueenMod2Code.Character;
 using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Cards.Uncommon;
@@ -39,7 +40,8 @@ public class SupplyLines() : QueenMod2Card(1,
         CardPlay play)
     {
         SupplyLines lines = this;
-        await PowerCmd.Apply<Swarm>(choiceContext, Owner.Creature, DynamicVars["Swarm"].BaseValue, Owner.Creature, this, false);
+        await SwarmController.Instance.ApplySwarm(choiceContext, [Owner.Creature], DynamicVars["Swarm"].IntValue,
+            Owner.Creature, this);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, lines.Owner);
     }
     

@@ -3,6 +3,7 @@ using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -12,14 +13,50 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Models.Powers;
 using QueenMod2.QueenMod2Code.Powers;
+using MegaCrit.Sts2.Core.Hooks;
 
 namespace QueenMod2.QueenMod2Code.Character;
 
-public class SwarmController() : CustomSingletonModel(true, true)
+public class SwarmController() : CustomSingletonModel(HookType.Combat)
 {
     public static int TotalSwarmAmount = 0;
     public static SwarmControllerMethods Instance = new SwarmControllerMethods();
     public static List<Creature> lastTargets = new List<Creature>();
+
+    public async override Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+    {
+        MainFile.Logger.Info("Executing Pheremone decrement");
+        MainFile.Logger.Info(""+(side == CombatSide.Player));
+
+        Creature PheromoneOwner = LocalContext.GetMe(participants);
+        if (!side.Equals(CombatSide.Player) || PheromoneOwner == null)
+            return;
+        List<Pheremone> totalPheromones = new List<Pheremone>();
+        foreach (Creature c in combatState.HittableEnemies.Concat(combatState.PlayerCreatures))
+        {
+            if (c.HasPower(ModelDb.Power<Pheremone>().Id))
+            { 
+               Pheremone pheromone = c.GetPower<Pheremone>();
+               if (pheromone.Applier.Equals(PheromoneOwner))
+               {
+                   MainFile.Logger.Info("Adding Pheremone to list");
+                   totalPheromones.Add(c.GetPower<Pheremone>());
+               }
+            }
+        }
+
+        foreach (Pheremone p in totalPheromones)
+        {
+            if (p.Owner.IsAlive)
+                await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), (PowerModel)p, -1,
+                    (Creature)null, (CardModel)null);
+            else
+                await Cmd.CustomScaledWait(0.1f, 0.25f);
+        }
+
+        await SwarmController.Instance.DistributeSwarm(new ThrowingPlayerChoiceContext(), combatState, PheromoneOwner,
+            null);
+    }
     
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay play)
     {
@@ -124,6 +161,7 @@ public class SwarmControllerMethods
                 SwarmController.TotalSwarmAmount += power.Amount;
             }
         }
+        MainFile.Logger.Info("Total Swarm Amount: "+SwarmController.TotalSwarmAmount);     
     }
 
 

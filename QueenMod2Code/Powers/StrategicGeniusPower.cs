@@ -5,6 +5,7 @@ using Godot;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using QueenMod2.QueenMod2Code.Cards.Uncommon;
+using QueenMod2.QueenMod2Code.DepreciatedCards;
 
 namespace QueenMod2.QueenMod2Code.Powers;
 

@@ -39,7 +39,10 @@ public class Officers() : QueenMod2Card(0,
         {
             CardCmd.Upgrade(card2);
             CardCmd.Preview(card2);
-            Hive.Add(card2);
+            if (PileType.Draw.GetPile(officers.Owner).Cards.Contains(card2))
+            {
+                Hive.Add(card2);
+            }
         }
 
         for (int i = 0; i < DynamicVars["Pulls"].BaseValue; i++)

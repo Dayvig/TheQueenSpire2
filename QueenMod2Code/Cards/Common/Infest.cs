@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using QueenMod2.QueenMod2Code.Character;
 using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Cards.Common;
@@ -30,9 +31,8 @@ public class Infest() : QueenMod2Card(0,
         int x = order.ResolveEnergyXValue();
         for (int i = 0; i < x; i++)
         {
-            await PowerCmd.Apply<Swarm>(choiceContext, order.Owner.Creature,
-                DynamicVars["Swarm"].BaseValue,
-                order.Owner.Creature, (CardModel)this);
+            await SwarmController.Instance.ApplySwarm(choiceContext, [Owner.Creature], DynamicVars["Swarm"].IntValue,
+                Owner.Creature, this);
         }
     }
     

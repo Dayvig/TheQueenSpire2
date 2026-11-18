@@ -96,9 +96,9 @@ public class MatingDance() : QueenMod2Card(-2,
 
     public async Task triggerEffect(PlayerChoiceContext choiceContext)
     {
-        await PowerCmd.Apply<Swarm>(choiceContext, Owner.Creature, DynamicVars["Swarm"].BaseValue, Owner.Creature, this, false);
+        await SwarmController.Instance.ApplySwarm(choiceContext, [Owner.Creature], DynamicVars["Swarm"].IntValue,
+            Owner.Creature, this);
         setCustomGlow();
-
     }
     
     protected override void OnUpgrade()
@@ -118,7 +118,6 @@ public class MatingDance() : QueenMod2Card(-2,
         }
         return base.AfterCardDrawn(choiceContext, card, fromHandDraw);
     }
-    
     public override void AfterCreated()
     {
         base.AfterCreated();

@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using QueenMod2.QueenMod2Code.Cards.Uncommon;
+using QueenMod2.QueenMod2Code.DepreciatedCards;
 using QueenMod2.QueenMod2Code.Extensions;
 
 namespace QueenMod2.QueenMod2Code.Powers;

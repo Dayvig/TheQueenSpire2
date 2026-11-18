@@ -200,6 +200,11 @@
   "QUEENMOD2-RAISE_ARMY.description": "Gain {Swarm:diff()} [gold]Swarm[/gold]. \n Add a [gold]Hornet[/gold] and [gold]Bumblebee[/gold] to your Draw Pile.",
   "QUEENMOD2-RAISE_ARMY.title": "Raise an Army",
   "QUEENMOD2-ROYAL_BANQUET.description": "Gain {Block:diff()} Block. Your [gold]Hive[/gold] cards [gold]Retain[/gold] this turn. \n [gold]Hivebound[/gold]: Add a random [gold]Hive[/gold] card to your Draw Pile.",
-  "QUEENMOD2-ROYAL_BANQUET.title": "Royal Banquet"
+  "QUEENMOD2-ROYAL_BANQUET.title": "Royal Banquet",
+  "QUEENMOD2-COMMAND_PROTECT.description": "Apply {Swarm:diff()} [gold]Swarm[/gold] and {Pheremone:diff()} [gold]{Pheremone:plural:Pheromones|Pheromone}[/gold] to an ally.",
+  "QUEENMOD2-COMMAND_PROTECT.title": "Command: Protect",
+  "QUEENMOD2-MUSTER.selectionScreenPrompt": "Choose a card to add {Generate:diff()} additional copies to the bottom of the draw pile.",
+  "QUEENMOD2-MUSTER.description": "Choose a Common or Uncommon card in hand, add {Generate:diff()} copies of it to the bottom of your Draw Pile.",
+  "QUEENMOD2-MUSTER.title": "Muster"
 
 }

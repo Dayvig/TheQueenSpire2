@@ -121,12 +121,13 @@ public class Swarm : QueenMod2Power, IHasSecondAmount
     
     public override async Task AfterDeath(
         PlayerChoiceContext choiceContext,
-        Creature target,
+        Creature creature,
+        CardModel? source,
         bool wasRemovalPrevented,
         float deathAnimLength)
     {
         Swarm power = this;
-        if (power.Applier.IsDead || target != power.Owner)
+        if (power.Applier.IsDead || creature != power.Owner)
             return;
         power.Flash();
         MainFile.Logger.Info("Attempting to apply"+power.Amount+" Swarm to" + power.Applier.LogName);

@@ -18,11 +18,11 @@ public class CoupDeMain() : QueenMod2Card(2,
     TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(10M, ValueProp.Move),
+        new DamageVar(8M, ValueProp.Move),
         new RepeatVar(2)
     ];
 
-    protected override bool ShouldGlowGoldInternal => (CardPile.Get(PileType.Hand, Owner)!.Cards.Count >= 8);
+    protected override bool ShouldGlowGoldInternal => (CardPile.Get(PileType.Hand, Owner)!.Cards.Count >= 7);
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
