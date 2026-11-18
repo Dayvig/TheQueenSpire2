@@ -24,7 +24,7 @@ public class CommandSpread() : QueenMod2Card(2,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new ("Swarm", 4M),
-        new ("Pheromones", 1M),
+        new ("Pheremones", 1M),
     ];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
