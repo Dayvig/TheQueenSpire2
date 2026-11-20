@@ -158,6 +158,8 @@ public class SwarmControllerMethods
                 {
                     continue;
                 }
+                Swarm swarmP = (Swarm)power;
+                Decimal setTrue = swarmP.getTotalAmount(swarmTarget);
                 SwarmController.TotalSwarmAmount += power.Amount;
             }
         }
@@ -228,7 +230,7 @@ public class SwarmControllerMethods
         }
     }
 
-    public void TriggerAllSwarm(Player sourcePlayer)
+    public async Task TriggerAllSwarm(Player sourcePlayer, bool decerement)
     {
         List<Swarm> SwarmList = new List<Swarm>();
         
@@ -245,7 +247,7 @@ public class SwarmControllerMethods
         {
             if (swarm.Owner.Player == sourcePlayer)
             {
-                swarm.TriggerSwarm(false, true);
+                await swarm.TriggerSwarm(false, decerement);
             }
         }
 
@@ -262,9 +264,9 @@ public class SwarmControllerMethods
         
         foreach (Swarm swarm in SwarmList)
         {
-            if (swarm.Owner.Player == sourcePlayer)
+            if (swarm.Applier.Player == sourcePlayer)
             {
-                swarm.TriggerSwarm(true, true);
+                await swarm.TriggerSwarm(true, decerement);
             }
         }
 

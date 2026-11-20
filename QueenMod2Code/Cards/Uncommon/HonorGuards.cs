@@ -32,7 +32,7 @@ public class HonorGuards() : QueenMod2Card(0,
         {
             newBumblebee = guards.CombatState.CreateCard<Bumblebee>(guards.Owner);
             if (IsUpgraded){CardCmd.Upgrade(newBumblebee);}
-            await CardPileCmd.AddGeneratedCardToCombat((CardModel)guards.CombatState.CreateCard<Bumblebee>(guards.Owner),
+            await CardPileCmd.AddGeneratedCardToCombat(newBumblebee,
                 PileType.Hand, play.Card.Owner);
         } 
     }

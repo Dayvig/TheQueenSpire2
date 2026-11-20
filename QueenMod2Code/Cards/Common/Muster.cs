@@ -10,7 +10,7 @@ using QueenMod2.QueenMod2Code.Cards.Generated;
 namespace QueenMod2.QueenMod2Code.Cards.Common;
 
 public class Muster() : QueenMod2Card(1,
-    CardType.Attack, CardRarity.Common,
+    CardType.Skill, CardRarity.Common,
     TargetType.None)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [

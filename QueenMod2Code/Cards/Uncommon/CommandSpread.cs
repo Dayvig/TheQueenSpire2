@@ -23,7 +23,8 @@ public class CommandSpread() : QueenMod2Card(2,
     TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new ("Swarm", 4M),
+        new DamageVar(8M, ValueProp.Move),
+        new BlockVar(8M, ValueProp.Move),
         new ("Pheremones", 1M),
     ];
     
@@ -39,13 +40,16 @@ public class CommandSpread() : QueenMod2Card(2,
         CommandSpread spread = this;
         List<Creature> targets = spread.CombatState.HittableEnemies.ToList();
         targets.Add(spread.Owner.Creature);
+        AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.IntValue).FromCard(this, play).TargetingAllOpponents(this.CombatState)
+            .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
         IReadOnlyList<Pheremone> pheremones = await PowerCmd.Apply<Pheremone>(choiceContext, targets, spread.DynamicVars["Pheremones"].BaseValue, spread.Owner.Creature, (CardModel) spread);
-        IReadOnlyList<Swarm> swarms = await PowerCmd.Apply<Swarm>(choiceContext, targets, spread.DynamicVars["Swarm"].BaseValue, spread.Owner.Creature, (CardModel) spread);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Swarm"].UpgradeValueBy(1M);
-        DynamicVars["Pheromones"].UpgradeValueBy(1M);
+        DynamicVars.Damage.UpgradeValueBy(2M);
+        DynamicVars.Block.UpgradeValueBy(2M);
+        DynamicVars["Pheremones"].UpgradeValueBy(1M);
     }
 }

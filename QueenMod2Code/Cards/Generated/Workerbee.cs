@@ -1,13 +1,16 @@
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using QueenMod2.QueenMod2Code.Cards;
 
 namespace QueenMod2.QueenMod2Code.Cards.Generated;
 
+[Pool(typeof(TokenCardPool))]
 public class Workerbee() : QueenMod2Card(0,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)

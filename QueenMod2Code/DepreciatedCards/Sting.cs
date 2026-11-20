@@ -1,13 +1,16 @@
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace QueenMod2.QueenMod2Code.Cards.Uncommon;
 
+[Pool(typeof(DeprecatedCardPool))]
 public class Sting() : QueenMod2Card(0,
     CardType.Attack, CardRarity.None,
     TargetType.AnyEnemy)

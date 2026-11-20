@@ -1,11 +1,14 @@
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace QueenMod2.QueenMod2Code.Cards.Generated;
 
+[Pool(typeof(TokenCardPool))]
 public class Drone() : QueenMod2Card(1,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)

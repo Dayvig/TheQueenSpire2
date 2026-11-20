@@ -1,14 +1,18 @@
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
-using BaseLib.Abstracts;
+using QueenMod2.QueenMod2Code.Cards;
+using QueenMod2.QueenMod2Code.Character;
 
-namespace QueenMod2.QueenMod2Code.Cards.Ancient;
+namespace QueenMod2.QueenMod2Code.DepreciatedCards;
 
+[Pool(typeof(DeprecatedCardPool))]
 public class BattleStance() : QueenMod2Card(1,
     CardType.Skill, CardRarity.None,
     TargetType.Self)

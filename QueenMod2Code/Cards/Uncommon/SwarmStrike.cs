@@ -35,9 +35,13 @@ public class SwarmStrike() : QueenMod2Card(1,
     {
         SwarmStrike strike = this;
         ArgumentNullException.ThrowIfNull((object) play.Target, "cardPlay.Target");
-        Swarm? swarm = await PowerCmd.Apply<Swarm>(choiceContext, play.Target, (Decimal) (await DamageCmd.Attack(strike.DynamicVars.Damage.BaseValue).FromCard((CardModel) strike, play).Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext)).
-            Results.SelectMany<List<DamageResult>, DamageResult>((Func<List<DamageResult>, IEnumerable<DamageResult>>)(r => (IEnumerable<DamageResult>) r)).Sum<DamageResult>((Func<DamageResult, int>) (r => r.TotalDamage)), strike.Owner.Creature, (CardModel) strike);
-        await SwarmController.Instance.DistributeSwarm(choiceContext, play.Card.CombatState, play.Card.Owner.Creature, null);
+        Decimal totalD =
+            (Decimal)(await DamageCmd.Attack(strike.DynamicVars.Damage.BaseValue).FromCard((CardModel)strike, play)
+                .Targeting(play.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext)).Results
+            .SelectMany<List<DamageResult>, DamageResult>(
+                (Func<List<DamageResult>, IEnumerable<DamageResult>>)(r => (IEnumerable<DamageResult>)r))
+            .Sum<DamageResult>((Func<DamageResult, int>)(r => r.TotalDamage));
+        await SwarmController.Instance.ApplySwarm(choiceContext, [play.Target], totalD, play.Card.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

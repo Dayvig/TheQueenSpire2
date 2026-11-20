@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Multiplayer;
@@ -58,6 +59,7 @@ public class Swarm : QueenMod2Power, IHasSecondAmount
             modifiedAmount *= owner.HasPower<Pheremone>() ? 1.5M :  1M;
         }
         DynamicVars["TrueAmount"].BaseValue = modifiedAmount;
+        InvokeDisplayAmountChanged();
         return modifiedAmount;
     }
 
@@ -107,11 +109,12 @@ public class Swarm : QueenMod2Power, IHasSecondAmount
             modifiedAmount *= Owner.HasPower<Pheremone>() ? 1.5M :  1M;
         }
         DynamicVars["TrueAmount"].BaseValue = modifiedAmount;
+        Decimal num2 = Hook.ModifyDamage(this.Owner.CombatState.RunState, this.Owner.CombatState, this.Owner, (Creature) Applier, (Decimal) (modifiedAmount), ValueProp.Unblockable | ValueProp.Unpowered, (CardModel) null, (CardPlay) null, ModifyDamageHookType.All, CardPreviewMode.None, out IEnumerable<AbstractModel> _);
         if (Type.Equals(PowerType.Debuff))
         {
             return
             [
-                new HealthBarForecastSegment((int)modifiedAmount, new Color(0.9f, 0.85f, 0f), HealthBarForecastDirection.FromRight, 10,
+                new HealthBarForecastSegment((int)num2, new Color(0.9f, 0.85f, 0f), HealthBarForecastDirection.FromRight, 10,
                     null, null)
             ];
         }

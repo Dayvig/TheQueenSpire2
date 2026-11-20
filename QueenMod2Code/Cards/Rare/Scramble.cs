@@ -67,9 +67,7 @@ public class Scramble() : QueenMod2Card(2,
             case MainFile.StrategizeType.ATTACK:
                 return card.Type.Equals(CardType.Attack);
             case MainFile.StrategizeType.BLOCKSKILL:
-                return card.Type.Equals(CardType.Skill) && card.GainsBlock;
-            case MainFile.StrategizeType.UTILITYSKILL:
-                return card.Type.Equals(CardType.Skill) && !card.GainsBlock;
+                return card.Type.Equals(CardType.Skill);
             case MainFile.StrategizeType.POWER:
                 return card.Type.Equals(CardType.Power);
         }

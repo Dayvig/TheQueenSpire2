@@ -28,7 +28,7 @@ public class Frenzy() : QueenMod2Card(1,
         for (int i = 0; i < DynamicVars["Triggers"].BaseValue; i++)
         {
             CreatureCmd.TriggerAnim(Owner.Creature, "Cast", 0.2f);
-            SwarmController.Instance.TriggerAllSwarm(play.Player);
+            await SwarmController.Instance.TriggerAllSwarm(play.Player, true);
         }
     }
 
