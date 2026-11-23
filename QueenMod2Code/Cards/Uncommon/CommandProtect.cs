@@ -28,7 +28,11 @@ public class CommandProtect() : QueenMod2Card(1,
     {
         get => CardMultiplayerConstraint.MultiplayerOnly;
     }
-    
+    protected override HashSet<CardTag> CanonicalTags
+    {
+        get => new HashSet<CardTag>() { MainFile.CommandCard };
+    }
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)

@@ -29,6 +29,12 @@ public class CommandRavage() : QueenMod2Card(2,
         HoverTipFactory.FromPower<Pheremone>()
     ];
     
+    protected override HashSet<CardTag> CanonicalTags
+    {
+        get => new HashSet<CardTag>() { MainFile.CommandCard };
+    }
+
+    
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)

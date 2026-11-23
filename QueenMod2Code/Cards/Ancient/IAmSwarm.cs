@@ -17,7 +17,7 @@ using QueenMod2.QueenMod2Code.Powers;
 
 namespace QueenMod2.QueenMod2Code.Cards.Ancient;
 
-public class IAmSwarm() : QueenMod2Card(2,
+public class IAmSwarm() : QueenMod2Card(3,
     CardType.Power, CardRarity.Ancient,
     TargetType.Self), ITomeCard
 {
@@ -47,6 +47,7 @@ public class IAmSwarm() : QueenMod2Card(2,
         {
             await CardCmd.Exhaust(choiceContext, card, false, true);
         }
+        await PowerCmd.Apply<IAmSwarmPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
     void previewMassExhaust(List<CardModel> models, CardPreviewStyle style)
@@ -78,7 +79,7 @@ public class IAmSwarm() : QueenMod2Card(2,
                 if (pile2 != null)
                 {
                     Control parent = previewContainer;
-                    NCard cardNode = NCard.Create(card);
+                    NCard cardNode = NCard.Create(card.CreateClone());
                     if (parent != null)
                         parent.AddChildSafely(cardNode);
                     NCardExhaustQuickVfx ncardExhaustQuickVfx = NCardExhaustQuickVfx.Create(cardNode);

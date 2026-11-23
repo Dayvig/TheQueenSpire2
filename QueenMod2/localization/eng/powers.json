@@ -64,5 +64,8 @@
   "QUEENMOD2-BANQUET_POWER.smartDescription": "Your [gold]Hive[/gold] cards [gold]Retain[/gold] this turn.",
   "QUEENMOD2-CHAMBERS_POWER.title": "Royal Chambers",
   "QUEENMOD2-CHAMBERS_POWER.description": "Your Drones Retain. At the end of the turn, reduce the cost of each Drone in hand by 1 until played.",
-  "QUEENMOD2-CHAMBERS_POWER.smartDescription": "Your [gold]Drones Retain[/gold]. At the end of the turn, reduce the cost of each [gold]Drone[/gold] in hand by 1 until played."
+  "QUEENMOD2-CHAMBERS_POWER.smartDescription": "Your [gold]Drones Retain[/gold]. At the end of the turn, reduce the cost of each [gold]Drone[/gold] in hand by 1 until played.",
+  "QUEENMOD2-I_AM_SWARM_POWER.title": "Queen's Command",
+  "QUEENMOD2-I_AM_SWARM_POWER.description": "At the start of your turn, add 1 of 3 Command cards to your hand.",
+  "QUEENMOD2-I_AM_SWARM_POWER.smartDescription": "At the start of your turn, add 1 of 3 [gold]Command[/gold] cards to your hand."
 }

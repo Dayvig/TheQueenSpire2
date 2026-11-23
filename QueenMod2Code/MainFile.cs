@@ -1,5 +1,7 @@
+using BaseLib.Patches.Content;
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Modding;
 using QueenMod2.QueenMod2Code.Extensions;
 using QueenUI = QueenMod2.QueenMod2Code.Nodes.QueenUI;
@@ -16,6 +18,8 @@ public partial class MainFile : Node
         new(ModId, MegaCrit.Sts2.Core.Logging.LogType.Generic);
 
     public QueenUI QueenUI { get; private set; }
+    [CustomEnum]
+    public static CardTag CommandCard;  // generates a new CardTag value
     
     public static void Initialize()
     {
